@@ -84,7 +84,11 @@ app.UseCors("AllowAll");
 
 app.UseAuthorization();
 
-app.MapControllerRoute(
+app.MapControllerRoute( //routing admin
+    name: "Admin",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+app.MapControllerRoute( //routing default
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
