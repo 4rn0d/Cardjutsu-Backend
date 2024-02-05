@@ -58,6 +58,16 @@ builder.Services.AddScoped<MatchConfigurationService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//Authentifiction par cookie
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
+    .AddEntityFrameworkStores<ApplicationDbContext>();
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.Cookie.HttpOnly = false;
+});
+//fin cookie
+
 var app = builder.Build();
 
 app.UseSwagger();
