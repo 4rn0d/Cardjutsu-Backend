@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Super_Cartes_Infinies.Data;
+using Super_Cartes_Infinies.Models;
 
 namespace Super_Cartes_Infinies.Controllers
 {
@@ -44,9 +45,9 @@ namespace Super_Cartes_Infinies.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Login(LoginDTO login)
+        public async Task<ActionResult> Login(Player login)
         {
-            var result = await SignInManager.PasswordSignInAsync(login.Username, login.Password, true, lockoutOnFailure: false);
+            var result = await SignInManager.PasswordSignInAsync(login.Name, login.Password, true, lockoutOnFailure: false);
             if (result.Succeeded)
             {
                 return Ok();
@@ -73,4 +74,4 @@ namespace Super_Cartes_Infinies.Controllers
         }
     }
 }
-}
+

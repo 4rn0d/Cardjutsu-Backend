@@ -27,25 +27,13 @@ builder.Services.AddDefaultIdentity<IdentityUser>()
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
-builder.Services.ConfigureApplicationCookie(options =>
-{
-    options.Cookie.HttpOnly = false;
-});
+
 
 builder.Services.AddSignalR();
 
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowAll", policy =>
-    {
-        policy.WithOrigins("http://localhost:4200","https://localhost:4200");
-        policy.AllowAnyHeader();
-        policy.AllowAnyMethod();
-        policy.AllowCredentials();
-    });
-});
+
 
 // Injection de dépendance
 builder.Services.AddScoped<PlayersService>();
@@ -59,8 +47,19 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 //Authentifiction par cookie
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+// builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
+  //  .AddEntityFrameworkStores<ApplicationDbContext>();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.WithOrigins("http://localhost:4200", "https://localhost:4200");
+        policy.AllowAnyHeader();
+        policy.AllowAnyMethod();
+        policy.AllowCredentials();
+    });
+});
 
 builder.Services.ConfigureApplicationCookie(options =>
 {
