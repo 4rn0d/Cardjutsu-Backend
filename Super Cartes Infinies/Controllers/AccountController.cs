@@ -7,7 +7,7 @@ using Super_Cartes_Infinies.Models;
 
 namespace Super_Cartes_Infinies.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class AccountController : ControllerBase
     {
@@ -45,9 +45,9 @@ namespace Super_Cartes_Infinies.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Login(Player login)
+        public async Task<ActionResult> Login(LoginDTO login)
         {
-            var result = await SignInManager.PasswordSignInAsync(login.Name, login.Password, true, lockoutOnFailure: false);
+            var result = await SignInManager.PasswordSignInAsync(login.Username, login.Password,true, lockoutOnFailure: false);
             if (result.Succeeded)
             {
                 return Ok();

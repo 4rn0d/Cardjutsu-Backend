@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using Super_Cartes_Infinies.Hubs;
 using Super_Cartes_Infinies.Data;
 using Super_Cartes_Infinies.Services;
@@ -23,9 +24,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 // Permet d'obtenir des erreurs de BD plus claires et même d'appliquer des migrations manquantes
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>()
-    .AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+//builder.Services.AddDefaultIdentity<IdentityUser>()
+  //  .AddRoles<IdentityRole>()
+    //.AddEntityFrameworkStores<ApplicationDbContext>();
 
 
 
@@ -47,10 +48,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 //Authentifiction par cookie
-// builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
-  //  .AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
+     .AddRoles<IdentityRole>()// jai add ca maybe not 
+    .AddEntityFrameworkStores<ApplicationDbContext>();
 
-builder.Services.AddCors(options =>
+/*builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
     {
@@ -58,6 +60,18 @@ builder.Services.AddCors(options =>
         policy.AllowAnyHeader();
         policy.AllowAnyMethod();
         policy.AllowCredentials();
+    });
+});*/
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", builder =>
+    {
+        builder.WithOrigins("https://localhost:4200") // Allow requests from Angular application
+               .AllowAnyMethod()
+               .AllowAnyHeader()
+               .AllowCredentials();
+
     });
 });
 
