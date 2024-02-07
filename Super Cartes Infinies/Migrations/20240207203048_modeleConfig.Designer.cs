@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Super_Cartes_Infinies.Data;
 
@@ -11,9 +12,11 @@ using Super_Cartes_Infinies.Data;
 namespace Super_Cartes_Infinies.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240207203048_modeleConfig")]
+    partial class modeleConfig
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -154,15 +157,15 @@ namespace Super_Cartes_Infinies.Migrations
                         {
                             Id = "11111111-1111-1111-1111-111111111111",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "968d0530-d106-4d40-9b82-e73a20da6fde",
+                            ConcurrencyStamp = "ba66d650-8d27-44e8-aa4d-52aee442babb",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEDdyl5c4caswQvEUT3/xDEJPRWjloNdCFcHojyCYEd9B3EPFxHRKaxmHKrChKt3Mnw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEARcbvH92BbSARGtcmnL0SX5PSRPs3HDTcksaSa9z4ZJmK0aZmHSlA2SqPUQn7AT4Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "b91980c0-cc44-4aca-9ff9-5f1c9b46407d",
+                            SecurityStamp = "740391d7-eaf4-4532-b8fc-2effc7c85ce2",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         });
@@ -399,14 +402,6 @@ namespace Super_Cartes_Infinies.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Config");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            ManaPerRound = 3,
-                            NbCardsStart = 4
-                        });
                 });
 
             modelBuilder.Entity("Super_Cartes_Infinies.Models.Match", b =>

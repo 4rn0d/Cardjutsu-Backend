@@ -137,6 +137,19 @@ namespace Super_Cartes_Infinies.Data
             };
             return new IdentityUserRole<string>[] { userAdmin };
         }
+
+        public static Config[] SeedConfigs()
+        {
+            return new Config[]
+            {
+                new Config
+                {
+                    Id = 1,
+                    NbCardsStart = 4,
+                    ManaPerRound = 3,
+                }
+            };
+        }
     }
 }
 

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Super_Cartes_Infinies.Data;
 
@@ -11,9 +12,11 @@ using Super_Cartes_Infinies.Data;
 namespace Super_Cartes_Infinies.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240207202654_modeleCarteDep")]
+    partial class modeleCarteDep
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -154,15 +157,15 @@ namespace Super_Cartes_Infinies.Migrations
                         {
                             Id = "11111111-1111-1111-1111-111111111111",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "968d0530-d106-4d40-9b82-e73a20da6fde",
+                            ConcurrencyStamp = "a852aaac-af24-4f90-b97f-a189699d2212",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEDdyl5c4caswQvEUT3/xDEJPRWjloNdCFcHojyCYEd9B3EPFxHRKaxmHKrChKt3Mnw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEHdehI9B9f5UPRYeQGnLbH1GMnaFlfI/Xu/eHHt7Ikc4QnD6ZQ+IlyNpI8WIziXxKQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "b91980c0-cc44-4aca-9ff9-5f1c9b46407d",
+                            SecurityStamp = "b2c6055b-e7c6-4875-a56f-774034a2ebac",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         });
@@ -379,33 +382,6 @@ namespace Super_Cartes_Infinies.Migrations
                             Health = 1,
                             ImageUrl = "https://cdn.theatlantic.com/thumbor/fOZjgqHH0RmXA1A5ek-yDz697W4=/133x0:2091x1020/1200x625/media/img/mt/2015/12/RTRD62Q/original.jpg",
                             Name = "Chat Furtif"
-                        });
-                });
-
-            modelBuilder.Entity("Super_Cartes_Infinies.Models.Config", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("ManaPerRound")
-                        .HasColumnType("int");
-
-                    b.Property<int>("NbCardsStart")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Config");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            ManaPerRound = 3,
-                            NbCardsStart = 4
                         });
                 });
 
