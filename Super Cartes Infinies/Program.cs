@@ -40,7 +40,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
     {
-        policy.WithOrigins("http://localhost:4200","https://localhost:4200");
+        policy.WithOrigins("http://localhost:4200", "https://localhost:4200");
         policy.AllowAnyHeader();
         policy.AllowAnyMethod();
         policy.AllowCredentials();
@@ -76,6 +76,8 @@ else
 }
 
 app.UseHttpsRedirection();
+
+
 app.UseStaticFiles();
 
 app.UseRouting();
@@ -91,6 +93,7 @@ app.MapControllerRoute( //routing admin
 app.MapControllerRoute( //routing default
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
 app.MapRazorPages();
 
 app.MapHub<MatchHub>("/matchHub");
