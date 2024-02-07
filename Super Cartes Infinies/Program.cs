@@ -84,12 +84,15 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 
 //fin cookie
+/*
+builder.Services.AddAntiforgery();
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer(options =>
+})
+.AddJwtBearer(options =>
 {
     options.SaveToken = true;
     options.RequireHttpsMetadata = true;
@@ -98,10 +101,15 @@ builder.Services.AddAuthentication(options =>
         ValidateAudience = true,
         ValidateIssuer = true,
         ValidAudience = "http://localhost:4200",
-        ValidIssuer = "https://locahost:7011",
+        ValidIssuer = "https://localhost:7011",
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"]!))
     };
-});
+})
+.AddCookie(options =>
+{
+    options.Cookie.Name = ".AspNetCore.Antiforgery.tK-DXvb_1jc";
+    options.Cookie.Name = ".AspNetCore.Identity.Application"; 
+});*/
 
 var app = builder.Build();
 

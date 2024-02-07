@@ -39,12 +39,22 @@ namespace Super_Cartes_Infinies.Controllers
                 UserName = register.Email,
                 Email = register.Email
             };
+        
             IdentityResult identityResult = await this.UserManager.CreateAsync(user, register.Password);
             if (!identityResult.Succeeded)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
                     new { Message = "La création de l'utilisateur a échoué." });
             }
+
+            Player player = new Player()
+            {
+            
+                Name = user.UserName,
+                IdentityUser = user
+
+            };
+
             return Ok(new { Message = "Inscription réussie ! 🥳" });
         }
 
@@ -77,27 +87,18 @@ namespace Super_Cartes_Infinies.Controllers
             return Ok();
         }
 
-      
+
         [Authorize]
-        public ActionResult<string> GetUsername()
+        public IdentityUser GetUsername()
         {
+            string Id = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            //IdentityUser? user = await UserManager.FindByIdAsync(Id);
 
-            var httpContext = _httpContextAccessor.HttpContext;
-            var cookieValue = httpContext.Request.Cookies[".AspNetCore.Identity.Application"];
+            IdentityUser? user = _context.Users.Find(Id);
 
-            if (cookieValue != null)
-            {
-                var handler = new JwtSecurityTokenHandler();
-                var token = handler.ReadJwtToken(cookieValue);
-                var usernameClaim = token.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name);
-
-                if (usernameClaim != null)
-                {
-                    return usernameClaim.Value;
-                }
-            }
-
-            return null; // Cookie not found or username claim not present
+            //IdentityUser? user = await _context.Users.FindAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            return user;
+           
         }
     }
 
