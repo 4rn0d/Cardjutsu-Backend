@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Super_Cartes_Infinies.Data;
 using Super_Cartes_Infinies.Models;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace Super_Cartes_Infinies.Controllers
 {
@@ -14,12 +16,14 @@ namespace Super_Cartes_Infinies.Controllers
         readonly UserManager<IdentityUser> UserManager;
         readonly ApplicationDbContext _context;
         readonly SignInManager<IdentityUser> SignInManager;
+        private readonly IHttpContextAccessor _httpContextAccessor; //For the cookie reader
 
-        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, ApplicationDbContext context)
+        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, ApplicationDbContext context, IHttpContextAccessor httpContextAccessor)
         {
             UserManager = userManager;
             SignInManager = signInManager;
             _context = context;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         [HttpPost]
@@ -72,6 +76,31 @@ namespace Super_Cartes_Infinies.Controllers
             await SignInManager.SignOutAsync();
             return Ok();
         }
+
+      
+        [Authorize]
+        public ActionResult<string> GetUsername()
+        {
+
+            var httpContext = _httpContextAccessor.HttpContext;
+            var cookieValue = httpContext.Request.Cookies[".AspNetCore.Identity.Application"];
+
+            if (cookieValue != null)
+            {
+                var handler = new JwtSecurityTokenHandler();
+                var token = handler.ReadJwtToken(cookieValue);
+                var usernameClaim = token.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name);
+
+                if (usernameClaim != null)
+                {
+                    return usernameClaim.Value;
+                }
+            }
+
+            return null; // Cookie not found or username claim not present
+        }
     }
-}
+
+    }
+
 
