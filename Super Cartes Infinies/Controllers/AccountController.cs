@@ -2,8 +2,10 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.Host.Mef;
 using Super_Cartes_Infinies.Data;
 using Super_Cartes_Infinies.Models;
+using Super_Cartes_Infinies.Services;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
@@ -16,14 +18,14 @@ namespace Super_Cartes_Infinies.Controllers
         readonly UserManager<IdentityUser> UserManager;
         readonly ApplicationDbContext _context;
         readonly SignInManager<IdentityUser> SignInManager;
-        private readonly IHttpContextAccessor _httpContextAccessor; //For the cookie reader
+        private readonly PlayersService _servicePlayer;
 
-        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, ApplicationDbContext context, IHttpContextAccessor httpContextAccessor)
+        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, ApplicationDbContext context, IHttpContextAccessor httpContextAccessor, PlayersService playersService)
         {
             UserManager = userManager;
             SignInManager = signInManager;
             _context = context;
-            _httpContextAccessor = httpContextAccessor;
+            _servicePlayer = playersService;
         }
 
         [HttpPost]
@@ -46,16 +48,10 @@ namespace Super_Cartes_Infinies.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError,
                     new { Message = "La création de l'utilisateur a échoué." });
             }
+            _servicePlayer.CreatePlayer(user);
+          
 
-            Player player = new Player()
-            {
-            
-                Name = user.UserName,
-                IdentityUser = user
-
-            };
-
-            return Ok(new { Message = "Inscription réussie ! 🥳" });
+            return Ok(new { Message = "Inscription réussie" });
         }
 
         [HttpPost]
@@ -91,11 +87,12 @@ namespace Super_Cartes_Infinies.Controllers
         [Authorize]
         public IdentityUser GetUsername()
         {
+            
             string Id = User.FindFirstValue(ClaimTypes.NameIdentifier);
             //IdentityUser? user = await UserManager.FindByIdAsync(Id);
 
             IdentityUser? user = _context.Users.Find(Id);
-
+            
             //IdentityUser? user = await _context.Users.FindAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
             return user;
            

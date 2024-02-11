@@ -6,10 +6,10 @@ namespace Super_Cartes_Infinies.Services
 {
 	public class PlayersService : BaseService<Player>
     {
-        public PlayersService(
-            ApplicationDbContext context
-        ) : base(context)
+        public readonly StartingCardsService _StartingCardsService;
+        public PlayersService(ApplicationDbContext context, StartingCardsService startingCardsService) : base(context)
         {
+            _StartingCardsService = startingCardsService;
         }
 
         public Player CreatePlayer(IdentityUser user)
@@ -20,8 +20,23 @@ namespace Super_Cartes_Infinies.Services
                 IdentityUserId = user.Id,
                 Name = user.Email!
             };
+            //Player player = new Player()
+            //{
+
+            //    Name = user.UserName,
+            //    IdentityUser = user
+
+            //};
 
             // TODO: Utilisez le service StartingCardsService pour obtenir les cartes de départ
+            OwnedCard ownedCard = new OwnedCard()
+            {
+                Id = 0,
+                PlayerID = p.Id,
+                ListCards = _StartingCardsService.GetStartingCards()
+
+        };
+          
             // TODO: Ajoutez ces cartes au joueur en utilisant le modèle OwnedCard que vous allez devoir ajouter
 
             p = Add(p);
