@@ -18,8 +18,10 @@ namespace Super_Cartes_Infinies.Services
             {
                 Id = 0,
                 IdentityUserId = user.Id,
+                IdentityUser = user,
                 Name = user.Email!
             };
+            p = Add(p);
             //Player player = new Player()
             //{
 
@@ -35,11 +37,11 @@ namespace Super_Cartes_Infinies.Services
                 PlayerID = p.Id,
                 ListCards = _StartingCardsService.GetStartingCards()
 
-        };
+            };
           
             // TODO: Ajoutez ces cartes au joueur en utilisant le modèle OwnedCard que vous allez devoir ajouter
 
-            p = Add(p);
+          
 
             return p;
         }

@@ -15,12 +15,15 @@ namespace Super_Cartes_Infinies.Services
     {
         private ApplicationDbContext _dbContext;
         readonly ApplicationDbContext _context;
-        private AccountController AccountController { get; set; }
+        private AccountController _AccountController;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public CardsService(ApplicationDbContext dbContext, ApplicationDbContext context) : base(dbContext)
+        public CardsService(ApplicationDbContext dbContext, ApplicationDbContext context, IHttpContextAccessor httpContextAccessor) : base(dbContext)
         {
             _dbContext = dbContext;
             _context = context;
+            _httpContextAccessor = httpContextAccessor;
+
         }
 
         public IEnumerable<Card> GetPlayersCards()
@@ -28,12 +31,19 @@ namespace Super_Cartes_Infinies.Services
             // Stub: Pour l'intant, le stub retourne simplement les 8 premières cartes
             // L'implémentation réelle devra utiliser un service et retourner les cartes qu'un joueur possède
             // L'implémentation est la responsabilité de la personne en charge de la partie [Enregistrement et connexion]
-            string Id = AccountController.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            IdentityUser user = _context.Users.Find(Id);
+            //string? Id = _AccountController.User.FindFirstValue(ClaimTypes.NameIdentifier);
+         
+            string userId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            //id Identityuser
+            IdentityUser user = _context.Users.Find(userId);
+            //trouver player avec id du usar avec IdentityUserDI
             Player player = _context.Players.FirstOrDefault(p => p.IdentityUserId == user.Id);
-            
-
-            return _context.Cards.Take(8);
+            //trouver tt les cards
+            OwnedCard ownedCard = _context.OwnedCards.FirstOrDefault(p => p.PlayerID == player.Id);
+            if (ownedCard == null) { 
+                return Enumerable.Empty<Card>();
+            }
+            return ownedCard.ListCards.ToList();
         }
     }
 }

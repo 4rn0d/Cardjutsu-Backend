@@ -11,6 +11,7 @@ using Super_Cartes_Infinies.Hubs;
 using Super_Cartes_Infinies.Data;
 using Super_Cartes_Infinies.Services;
 using Super_Cartes_Infinies.Services.Interfaces;
+using Super_Cartes_Infinies.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -81,7 +82,6 @@ builder.Services.ConfigureApplicationCookie(options =>
 {
     options.Cookie.HttpOnly = false;
 });
-
 
 //fin cookie
 /*
