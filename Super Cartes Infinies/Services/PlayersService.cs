@@ -31,13 +31,19 @@ namespace Super_Cartes_Infinies.Services
             //};
 
             // TODO: Utilisez le service StartingCardsService pour obtenir les cartes de départ
-            OwnedCard ownedCard = new OwnedCard()
-            {
-                Id = 0,
-                PlayerID = p.Id,
-                ListCards = _StartingCardsService.GetStartingCards()
+            List<Card> cards = new List<Card>();
+            cards = _StartingCardsService.GetStartingCards();
+            foreach (Card card in cards) {
 
-            };
+                OwnedCard ownedCard = new OwnedCard()
+                {
+                    Id = 0,
+                    PlayerID = p.Id,
+                    CardID =card.Id,
+
+                };
+            }
+            
           
             // TODO: Ajoutez ces cartes au joueur en utilisant le modèle OwnedCard que vous allez devoir ajouter
 

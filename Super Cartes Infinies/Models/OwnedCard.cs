@@ -8,6 +8,6 @@
 
         public int Id { get; set; }
         public int PlayerID { get; set; }
-        public virtual List<Card> ListCards { get; set; }
+        public int CardID { get; set; }
     }
 }
