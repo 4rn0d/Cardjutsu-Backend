@@ -150,6 +150,49 @@ namespace Super_Cartes_Infinies.Data
                 }
             };
         }
+
+        public static CardStart[] SeedCardStarts()
+        {
+            return new CardStart[] {
+                new CardStart
+                {
+                    Id = 1,
+                    CardId = 1,
+                }, new CardStart
+                {
+                    Id = 2,
+                    CardId = 2,
+                }, new CardStart
+                {
+                    Id = 3,
+                    CardId = 3,
+                }, new CardStart
+                {
+                    Id = 4,
+                    CardId = 1,
+                }, new CardStart
+                {
+                    Id = 5,
+                    CardId = 2,
+                }, new CardStart
+                {
+                    Id = 6,
+                    CardId = 3,
+                }, new CardStart
+                {
+                    Id = 7,
+                    CardId = 7
+                }, new CardStart
+                {
+                    Id = 8,
+                    CardId = 8,
+                }, new CardStart
+                {
+                    Id = 9,
+                    CardId = 4,
+                }
+            };
+        }
     }
 }
 
