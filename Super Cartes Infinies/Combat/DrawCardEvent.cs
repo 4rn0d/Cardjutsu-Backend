@@ -19,6 +19,7 @@ namespace Super_Cartes_Infinies.Combat
                 playerData.CardsPile.RemoveAt(lastElementIndex);
                 playerData.Hand.Add(playableCard);
             }
+
         }
     }
 }
