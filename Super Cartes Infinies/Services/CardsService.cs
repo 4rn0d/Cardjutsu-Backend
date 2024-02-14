@@ -31,7 +31,7 @@ namespace Super_Cartes_Infinies.Services
             // Stub: Pour l'intant, le stub retourne simplement les 8 premières cartes
             // L'implémentation réelle devra utiliser un service et retourner les cartes qu'un joueur possède
             // L'implémentation est la responsabilité de la personne en charge de la partie [Enregistrement et connexion]
-            //string? Id = _AccountController.User.FindFirstValue(ClaimTypes.NameIdentifier);
+     
          
             string userId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             //id Identityuser
@@ -41,6 +41,7 @@ namespace Super_Cartes_Infinies.Services
             //trouver tt les cards
 
            List<OwnedCard> ListownedCards = _context.OwnedCards.Where(p => p.PlayerID == player.Id).ToList();
+           
             if (ListownedCards.Count > 0)
             {
                 List<Card> cards = new List<Card>();

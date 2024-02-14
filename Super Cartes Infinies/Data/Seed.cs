@@ -95,6 +95,7 @@ namespace Super_Cartes_Infinies.Data
                 }
             };
         }
+       
 
         public static IdentityUser[] SeedUsers()
         {
@@ -112,6 +113,7 @@ namespace Super_Cartes_Infinies.Data
                 PasswordHash = hasher.HashPassword(null, "Passw0rd!"),
                 LockoutEnabled = true
             };
+
 
             return new IdentityUser[] { admin };
         }

@@ -7,9 +7,11 @@ namespace Super_Cartes_Infinies.Services
 	public class PlayersService : BaseService<Player>
     {
         public readonly StartingCardsService _StartingCardsService;
+        readonly ApplicationDbContext _context;
         public PlayersService(ApplicationDbContext context, StartingCardsService startingCardsService) : base(context)
         {
             _StartingCardsService = startingCardsService;
+            _context = context;
         }
 
         public Player CreatePlayer(IdentityUser user)
@@ -42,6 +44,8 @@ namespace Super_Cartes_Infinies.Services
                     CardID =card.Id,
 
                 };
+                _context.OwnedCards.Add(ownedCard);
+                _context.SaveChanges();
             }
             
           
