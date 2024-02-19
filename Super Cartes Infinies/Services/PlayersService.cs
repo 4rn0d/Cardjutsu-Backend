@@ -8,6 +8,7 @@ namespace Super_Cartes_Infinies.Services
     {
         public readonly StartingCardsService _StartingCardsService;
         readonly ApplicationDbContext _context;
+
         public PlayersService(ApplicationDbContext context, StartingCardsService startingCardsService) : base(context)
         {
             _StartingCardsService = startingCardsService;

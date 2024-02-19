@@ -39,6 +39,7 @@ builder.Services.AddControllersWithViews();
 
 // Injection de dépendance
 builder.Services.AddScoped<PlayersService>();
+builder.Services.AddScoped<AccountService>();
 builder.Services.AddScoped<CardsService>();
 builder.Services.AddSingleton<WaitingUserService>();
 builder.Services.AddScoped<MatchesService>();

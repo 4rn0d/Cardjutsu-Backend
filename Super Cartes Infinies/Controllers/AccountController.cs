@@ -19,13 +19,15 @@ namespace Super_Cartes_Infinies.Controllers
         readonly ApplicationDbContext _context;
         readonly SignInManager<IdentityUser> SignInManager;
         private readonly PlayersService _servicePlayer;
+        readonly AccountService _accountService;
 
-        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, ApplicationDbContext context, IHttpContextAccessor httpContextAccessor, PlayersService playersService)
+        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, ApplicationDbContext context, IHttpContextAccessor httpContextAccessor, PlayersService playersService, AccountService accountService)
         {
             UserManager = userManager;
             SignInManager = signInManager;
             _context = context;
             _servicePlayer = playersService;
+            _accountService = accountService;
         }
 
         [HttpPost]
@@ -36,20 +38,12 @@ namespace Super_Cartes_Infinies.Controllers
                 return StatusCode(StatusCodes.Status400BadRequest,
                     new { Message = "Les deux mots de passe spécifiés sont différents." });
             }
-            IdentityUser user = new IdentityUser()
-            {
-                UserName = register.Email,
-                Email = register.Email
-            };
-        
-            IdentityResult identityResult = await this.UserManager.CreateAsync(user, register.Password);
-            if (!identityResult.Succeeded)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    new { Message = "La création de l'utilisateur a échoué." });
-            }
-            _servicePlayer.CreatePlayer(user);
-          
+             await _accountService.Register(register);  
+            //if (!identityResult.Succeeded)
+            //{
+            //    return StatusCode(StatusCodes.Status500InternalServerError,
+            //        new { Message = "La création de l'utilisateur a échoué." });
+            //}
 
             return Ok(new { Message = "Inscription réussie" });
         }
@@ -57,7 +51,7 @@ namespace Super_Cartes_Infinies.Controllers
         [HttpPost]
         public async Task<ActionResult> Login(LoginDTO login)
         {
-            var result = await SignInManager.PasswordSignInAsync(login.Username, login.Password,true, lockoutOnFailure: false);
+            var result = await _accountService.Login(login);
             if (result.Succeeded)
             {
                 return Ok();
@@ -72,14 +66,11 @@ namespace Super_Cartes_Infinies.Controllers
             return new string[] { "figue", "banane", "noix" };
         }
 
-        public ActionResult<string[]> PublicData()
-        {
-            return new string[] { "chien", "chat", "loutre" };
-        }
+      
 
         public async Task<ActionResult> Logout()
         {
-            await SignInManager.SignOutAsync();
+            _accountService.Logout();
             return Ok();
         }
 
