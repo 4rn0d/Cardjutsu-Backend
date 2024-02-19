@@ -15,83 +15,237 @@ namespace Super_Cartes_Infinies.Data
                 new Card
                 {
                     Id = 1,
-                    Name = "Chat Dragon",
+                    Name = "Cart Surfer",
                     Attack = 3,
                     Health = 3,
                     Cost = 3,
-                    ImageUrl = "https://i.pinimg.com/originals/a8/16/49/a81649bd4b0f032ce633161c5a076b87.jpg"
+                    Colour = "Blue",
+                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/0/0b/CART_SURFER_card_image.png/revision/latest?cb=20150121025008"
                 }, new Card
                 {
                     Id = 2,
-                    Name = "Chat Awesome",
+                    Name = "Coffee Shop",
                     Attack = 2,
-                    Health = 4,
+                    Health = 3,
                     Cost = 3,
-                    ImageUrl = "https://i0.wp.com/thediscerningcat.com/wp-content/uploads/2021/02/tabby-cat-wearing-sunglasses.jpg"
+                    Colour = "Green",
+                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/b/b2/COFFEE_SHOP_card_image.png/revision/latest?cb=20150123213646"
                 }, new Card
                 {
                     Id = 3,
-                    Name = "Chatton Laser",
-                    Attack = 2,
-                    Health = 1,
-                    Cost = 1,
-                    ImageUrl = "https://cdn.wallpapersafari.com/27/53/SZ8PO9.jpg"
+                    Name = "Astro Barrier",
+                    Attack = 8,
+                    Health = 3,
+                    Cost = 3,
+                    Colour = "Green",
+                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/2/22/ASTRO_BARRIER_card_image.png/revision/latest?cb=20150123213647"
                 }, new Card
                 {
                     Id = 4,
-                    Name = "Chat Spacial",
-                    Attack = 7,
-                    Health = 6,
-                    Cost = 4,
-                    ImageUrl = "https://wallpapers.com/images/hd/epic-cat-poster-baavft05ylgta4j8.jpg"
+                    Name = "Hot Chocolate",
+                    Attack = 3,
+                    Health = 3,
+                    Cost = 3,
+                    Colour = "Orange",
+                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/3/3d/HOT_CHOCOLATE_card_image.png/revision/latest?cb=20150123213647"
                 }, new Card
                 {
                     Id = 5,
-                    Name = "Chat Guerrier",
-                    Attack = 8,
-                    Health = 8,
-                    Cost = 5,
-                    ImageUrl = "https://i.etsystatic.com/6230905/r/il/32aa5a/3474618751/il_fullxfull.3474618751_mfvf.jpg"
+                    Name = "Landing Pad",
+                    Attack = 4,
+                    Health = 3,
+                    Cost = 3,
+                    Colour = "Violet",
+                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/d/d2/LANDING_PAD_card_image.png/revision/latest?cb=20150123213647"
                 }, new Card
                 {
                     Id = 6,
-                    Name = "Chat Laser",
-                    Attack = 4,
-                    Health = 2,
+                    Name = "Pizza Chef",
+                    Attack = 6,
+                    Health = 4,
                     Cost = 3,
-                    ImageUrl = "https://store.playstation.com/store/api/chihiro/00_09_000/container/AU/en/99/EP2402-CUSA05624_00-ETH0000000002875/0/image?_version=00_09_000&platform=chihiro&bg_color=000000&opacity=100&w=720&h=720"
+                    Colour = "Violet",
+                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/5/57/PIZZA_CHEF_card_image.png/revision/latest?cb=20150123213648"
                 }, new Card
                 {
                     Id = 7,
-                    Name = "Jedi Chat",
-                    Attack = 6,
+                    Name = "Paint by Letters",
+                    Attack = 2,
                     Health = 3,
-                    Cost = 4,
-                    ImageUrl = "https://images.squarespace-cdn.com/content/51b3dc8ee4b051b96ceb10de/1394662654865-JKOZ7ZFF39247VYDTGG9/hilarious-jedi-cats-fight-video-preview.jpg?content-type=image%2Fjpeg"
+                    Cost = 3,
+                    Colour = "Red",
+                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/b/b5/PAINT_BY_LETTERS_card_image.png/revision/latest?cb=20150806164936"
                 }, new Card
                 {
                     Id = 8,
-                    Name = "Blob Chat",
-                    Attack = 1,
-                    Health = 9,
-                    Cost = 2,
-                    ImageUrl = "https://i.ytimg.com/vi/2I7pZlUhZak/maxresdefault.jpg"
+                    Name = "Mine",
+                    Attack = 7,
+                    Health = 3,
+                    Cost = 3,
+                    Colour = "Red",
+                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/3/30/MINE_card_image.png/revision/latest?cb=20150123213648"
                 }, new Card
                 {
                     Id = 9,
-                    Name = "Jedi Chatton",
-                    Attack = 4,
-                    Health = 2,
-                    Cost = 2,
-                    ImageUrl = "https://townsquare.media/site/142/files/2011/08/jedicats.jpg?w=980&q=75"
+                    Name = "Construction Worker",
+                    Attack = 2,
+                    Health = 1,
+                    Cost = 1,
+                    Colour = "Yellow",
+                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/a/a5/CONSTRUCTION_WORKER_card_image.png/revision/latest?cb=20150123220534"
                 }, new Card
                 {
                     Id = 10,
-                    Name = "Chat Furtif",
+                    Name = "Jetpack Adventure",
+                    Attack = 5,
+                    Health = 3,
+                    Cost = 3,
+                    Colour = "Yellow",
+                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/1/13/JET_PACK_ADVENTURE_card_image.png/revision/latest?cb=20150123220536"
+                }, new Card
+                {
+                    Id = 11,
+                    Name = "Gift Shop",
+                    Attack = 3,
+                    Health = 3,
+                    Cost = 3,
+                    Colour = "Blue",
+                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/f/f2/GIFT_SHOP_card_image.png/revision/latest?cb=20150123220535"
+                }, new Card
+                {
+                    Id = 12,
+                    Name = "Hiking in the Forest",
+                    Attack = 2,
+                    Health = 3,
+                    Cost = 3,
+                    Colour = "Green",
+                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/7/72/HIKING_IN_THE_FOREST_card_image.png/revision/latest?cb=20150123220536"
+                }, new Card
+                {
+                    Id = 13,
+                    Name = "Rescue Squad",
+                    Attack = 5,
+                    Health = 3,
+                    Cost = 3,
+                    Colour = "Green",
+                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/a/a6/RESCUE_SQUAD_card_image.png/revision/latest?cb=20150123220537"
+                }, new Card
+                {
+                    Id = 14,
+                    Name = "Pet Shop",
+                    Attack = 3,
+                    Health = 6,
+                    Cost = 4,
+                    Colour = "Orange",
+                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/b/b3/PET_SHOP_card_image.png/revision/latest?cb=20150123220538"
+                }, new Card
+                {
+                    Id = 15,
+                    Name = "Ski Village",
+                    Attack = 4,
+                    Health = 3,
+                    Cost = 3,
+                    Colour = "Violet",
+                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/c/c3/SKI_VILLAGE_card_image.png/revision/latest?cb=20150806165004"
+                }, new Card
+                {
+                    Id = 16,
+                    Name = "Ice Hockey",
+                    Attack = 8,
+                    Health = 3,
+                    Cost = 3,
+                    Colour = "Violet",
+                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/f/f4/ICE_HOCKEY_card_image.png/revision/latest?cb=20150123224012"
+                }, new Card
+                {
+                    Id = 17,
+                    Name = "Ski Hill",
+                    Attack = 2,
+                    Health = 8,
+                    Cost = 5,
+                    Colour = "Red",
+                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/c/c1/SKI_HILL_card_image.png/revision/latest?cb=20150123224012"
+                }, new Card
+                {
+                    Id = 18,
+                    Name = "Snowball Fight",
                     Attack = 6,
-                    Health = 1,
+                    Health = 3,
+                    Cost = 3,
+                    Colour = "Red",
+                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/f/f5/SNOWBALL_FIGHT_card_image.png/revision/latest?cb=20150123224013"
+                }, new Card
+                {
+                    Id = 19,
+                    Name = "Snow Forts",
+                    Attack = 2,
+                    Health = 3,
+                    Cost = 3,
+                    Colour = "Yellow",
+                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/1/13/SNOW_FORTS_card_image.png/revision/latest?cb=20150123224013"
+                }, new Card
+                {
+                    Id = 20,
+                    Name = "Soccer",
+                    Attack = 7,
+                    Health = 2,
+                    Cost = 3,
+                    Colour = "Yellow",
+                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/9/97/SOCCER_card_image.png/revision/latest?cb=20150123224014"
+                }, new Card
+                {
+                    Id = 21,
+                    Name = "Beach",
+                    Attack = 3,
+                    Health = 3,
+                    Cost = 3,
+                    Colour = "Blue",
+                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/7/77/BEACH_card_image.png/revision/latest?cb=20150123224014"
+                }, new Card
+                {
+                    Id = 22,
+                    Name = "Football",
+                    Attack = 5,
+                    Health = 3,
+                    Cost = 4,
+                    Colour = "Blue",
+                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/1/1a/FOOTBALL_card_image.png/revision/latest?cb=20150123224014"
+                }, new Card
+                {
+                    Id = 23,
+                    Name = "Baseball",
+                    Attack = 2,
+                    Health = 9,
                     Cost = 2,
-                    ImageUrl = "https://cdn.theatlantic.com/thumbor/fOZjgqHH0RmXA1A5ek-yDz697W4=/133x0:2091x1020/1200x625/media/img/mt/2015/12/RTRD62Q/original.jpg"
+                    Colour = "Green",
+                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/f/f0/BASEBALL_card_image.png/revision/latest?cb=20150123224015"
+                }, new Card
+                {
+                    Id = 24,
+                    Name = "Emerald Princess",
+                    Attack = 8,
+                    Health = 3,
+                    Cost = 3,
+                    Colour = "Green",
+                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/5/52/EMERALD_PRINCESS_card_image.png/revision/latest?cb=20150123224015"
+                }, new Card
+                {
+                    Id = 25,
+                    Name = "Bean Counters",
+                    Attack = 3,
+                    Health = 3,
+                    Cost = 3,
+                    Colour = "Orange",
+                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/6/6b/BEAN_COUNTERS_card_image.png/revision/latest?cb=20150123224016"
+                }, new Card
+                {
+                    Id = 26,
+                    Name = "Manhole Cover",
+                    Attack = 4,
+                    Health = 2,
+                    Cost = 2,
+                    Colour = "Violet",
+                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/e/e8/MANHOLE_COVER_card_image.png/revision/latest?cb=20150123224059"
                 }
             };
         }
