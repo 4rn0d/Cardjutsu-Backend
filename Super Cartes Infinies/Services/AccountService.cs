@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.Host.Mef;
@@ -25,23 +26,32 @@ namespace Super_Cartes_Infinies.Services
             UserManager = userManager;
             SignInManager = signInManager;
         }
+        //public async Task<IdentityUser?> RegisterUser(RegisterDTO register)
+        //{
 
-
-        public async Task<IdentityUser> Register(RegisterDTO register)
-        {
+        //    IdentityUser user = new IdentityUser()
+        //    {
+        //        UserName = register.Email,
+        //        Email = register.Email
+        //    };
+        //    IdentityResult identityResult = await this.UserManager.CreateAsync(user, register.Password);
+        //    if (!identityResult.Succeeded)
+        //    {
+        //        return Ok;
+        //    }
+        //    else
+        //    {
+        //        return user;
+        //    }
+       
+        //}
            
-            IdentityUser user = new IdentityUser()
-            {
-                UserName = register.Email,
-                Email = register.Email
-            };
-
-            IdentityResult identityResult = await this.UserManager.CreateAsync(user, register.Password);
+        public async Task<IdentityUser> RegisterPlayer(IdentityUser user)
+        {
            
             _servicePlayer.CreatePlayer(user);
             return user;
 
-           
         }
 
   

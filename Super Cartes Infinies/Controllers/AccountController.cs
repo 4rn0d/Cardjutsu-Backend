@@ -38,12 +38,26 @@ namespace Super_Cartes_Infinies.Controllers
                 return StatusCode(StatusCodes.Status400BadRequest,
                     new { Message = "Les deux mots de passe spécifiés sont différents." });
             }
-             await _accountService.Register(register);  
-            //if (!identityResult.Succeeded)
-            //{
-            //    return StatusCode(StatusCodes.Status500InternalServerError,
-            //        new { Message = "La création de l'utilisateur a échoué." });
-            //}
+            //IdentityUser? user = await _accountService.RegisterUser(register);
+            IdentityUser user = new IdentityUser()
+            {
+                UserName = register.Email,
+                Email = register.Email
+            };
+            IdentityResult identityResult = await this.UserManager.CreateAsync(user, register.Password);
+            if (!identityResult.Succeeded)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    new { Message = identityResult.Errors.First().Description });
+            }
+          
+            if (user == null)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    new { Message = "La création de l'utilisateur a échoué." });
+            }
+            await _accountService.RegisterPlayer(user);
 
             return Ok(new { Message = "Inscription réussie" });
         }
