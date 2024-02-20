@@ -39,6 +39,7 @@ namespace Super_Cartes_Infinies.Controllers
                     new { Message = "Les deux mots de passe spécifiés sont différents." });
             }
             //IdentityUser? user = await _accountService.RegisterUser(register);
+            ////ne px pas le mettre dans le servrice pour traiter les erreur avec les messages
             IdentityUser user = new IdentityUser()
             {
                 UserName = register.Email,
