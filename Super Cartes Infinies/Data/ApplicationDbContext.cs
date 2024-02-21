@@ -19,7 +19,9 @@ public class ApplicationDbContext : IdentityDbContext
         base.OnModelCreating(builder);
 
         builder.Entity<Card>().HasData(Seed.SeedCards());
-        
+        builder.Entity<Player>().HasData(Seed.SeedTestPlayers());
+        builder.Entity<IdentityUser>().HasData(Seed.SeedTestUsers());
+
         builder.Entity<IdentityUser>().HasData(Seed.SeedUsers());
         builder.Entity<IdentityRole>().HasData(Seed.SeedRoles());         
         builder.Entity<IdentityUserRole<string>>().HasData(Seed.SeedUserRoles());

@@ -137,6 +137,40 @@ namespace Super_Cartes_Infinies.Data
             };
             return new IdentityUserRole<string>[] { userAdmin };
         }
+
+        public static IdentityUser[] SeedTestUsers()
+        {
+            return new IdentityUser[] {
+                new IdentityUser()
+                {
+                    Id = "User1Id"
+
+                },
+                new IdentityUser
+                {
+                    Id = "User2Id"
+                }
+            };
+        }
+
+        public static Player[] SeedTestPlayers()
+        {
+            return new Player[] {
+                new Player
+                {
+                    Id = 1,
+                    Name = "Test player 1",
+                    IdentityUserId = "User1Id"
+
+                },
+                new Player
+                {
+                    Id = 2,
+                    Name = "Test player 2",
+                    IdentityUserId = "User2Id"
+                }
+            };
+        }
     }
 }
 

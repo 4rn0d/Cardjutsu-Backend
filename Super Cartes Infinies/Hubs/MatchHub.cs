@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Super_Cartes_Infinies.Data;
 using Super_Cartes_Infinies.Models;
+using Super_Cartes_Infinies.Models.Dtos;
 using Super_Cartes_Infinies.Services;
 
 namespace Super_Cartes_Infinies.Hubs;
@@ -22,7 +23,7 @@ public class MatchHub : Hub
     {
         get
         {
-            // On récupère le userid à partir du Cookie qui devrait être envoyé automatiquement (meme avec userid hardcode on ne peut pas JoinMatch)
+            // On rï¿½cupï¿½re le userid ï¿½ partir du Cookie qui devrait ï¿½tre envoyï¿½ automatiquement (meme avec userid hardcode on ne peut pas JoinMatch)
             //CurentUser still null because no players exist in _context --> List<Player> players = _context.Players.ToList() ---> players = empty list;
             // We should be returning _context.Players.Single(u => u.Id == userid) instead of Users
 
@@ -40,11 +41,12 @@ public class MatchHub : Hub
 
     public override async Task OnConnectedAsync()
     {
-        await _matchesService.JoinMatch(CurentUser.Id,0,Context.ConnectionId, null);
-        await base.OnConnectedAsync();
+        Console.WriteLine("test");
+    }
 
-
-        //UserHandler.ConnectedIds.Add(Context.ConnectionId);
+    public async Task JoinMatch(string id)
+    {
+        await _matchesService.JoinMatch(id,0,Context.ConnectionId, null);
     }
 
 
