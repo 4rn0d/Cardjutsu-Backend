@@ -46,13 +46,13 @@ namespace Super_Cartes_Infinies.Services
 
                 };
                 _context.OwnedCards.Add(ownedCard);
-                _context.SaveChanges();
+                
             }
-            
-          
+            _context.SaveChanges();
+
             // TODO: Ajoutez ces cartes au joueur en utilisant le modèle OwnedCard que vous allez devoir ajouter
 
-          
+
 
             return p;
         }
