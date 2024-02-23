@@ -41,8 +41,8 @@ namespace Super_Cartes_Infinies.Services
                 OwnedCard ownedCard = new OwnedCard()
                 {
                     Id = 0,
-                    PlayerID = p.Id,
-                    CardID =card.Id,
+                    PlayerId = p.Id,
+                    CardId =card.Id,
 
                 };
                 _context.OwnedCards.Add(ownedCard);

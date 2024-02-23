@@ -40,26 +40,21 @@ namespace Super_Cartes_Infinies.Services
             Player player = _context.Players.SingleOrDefault(p => p.IdentityUserId == user.Id);
             //trouver tt les cards
 
-           List<OwnedCard> ListownedCards = _context.OwnedCards.Where(p => p.PlayerID == player.Id).ToList();
-           
+          List<OwnedCard> ListownedCards = _context.OwnedCards.Where(p => p.PlayerId == player.Id).ToList();
+            List<Card> cards = new List<Card>();
+
             if (ListownedCards.Count > 0)
             {
-                List<Card> cards = new List<Card>();
+                
                 foreach (OwnedCard ownedCard in ListownedCards)
                 {
                     //ajouter les carte trouver a cards
-                    cards.Add(_context.Cards.Where(c => c.Id == ownedCard.CardID).FirstOrDefault());
+                    cards.Add(_context.Cards.Where(c => c.Id == ownedCard.CardId).FirstOrDefault());
                 }
-                if (player.OwnedCards == null)
-                {
-                    return Enumerable.Empty<Card>();
-                }
+                
                 return cards;
             }
-            else 
-            {
-                return Enumerable.Empty<Card>();
-            }
+            return cards;
 
             
 

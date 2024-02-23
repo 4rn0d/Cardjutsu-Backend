@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Super_Cartes_Infinies.Data;
 
@@ -11,9 +12,11 @@ using Super_Cartes_Infinies.Data;
 namespace Super_Cartes_Infinies.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240223182922_ajoutFkOwnedCard")]
+    partial class ajoutFkOwnedCard
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -154,15 +157,15 @@ namespace Super_Cartes_Infinies.Migrations
                         {
                             Id = "11111111-1111-1111-1111-111111111111",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "00fff364-f250-4ca8-891b-53499e542770",
+                            ConcurrencyStamp = "dc3bfc15-ea95-4d3b-b624-0e8b84e0a56c",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEBiIaZQTxseKaeoHdi1DGQRAgRpdYHChCExlQHUc+0S8xzAbOa59FwScJelDyZjkkg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEACho0POnukrDWA+Gl53JxmWwmjNnTAwAl/bEJLwqYW48sY9/UCx5CqFMwWB/qdgYw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "f3f7bfec-f2b6-432a-bf68-da5df488cca0",
+                            SecurityStamp = "7cef2f44-9c27-4129-a8a0-4041c728e526",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         });
@@ -459,17 +462,13 @@ namespace Super_Cartes_Infinies.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CardId")
+                    b.Property<int>("CardID")
                         .HasColumnType("int");
 
-                    b.Property<int>("PlayerId")
+                    b.Property<int>("PlayerID")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CardId");
-
-                    b.HasIndex("PlayerId");
 
                     b.ToTable("OwnedCards");
                 });
@@ -625,25 +624,6 @@ namespace Super_Cartes_Infinies.Migrations
                         .HasForeignKey("PlayerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Player");
-                });
-
-            modelBuilder.Entity("Super_Cartes_Infinies.Models.OwnedCard", b =>
-                {
-                    b.HasOne("Super_Cartes_Infinies.Models.Card", "Card")
-                        .WithMany()
-                        .HasForeignKey("CardId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Super_Cartes_Infinies.Models.Player", "Player")
-                        .WithMany()
-                        .HasForeignKey("PlayerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Card");
 
                     b.Navigation("Player");
                 });
