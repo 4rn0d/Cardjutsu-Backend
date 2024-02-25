@@ -41,13 +41,20 @@ public class MatchHub : Hub
 
     public override async Task OnConnectedAsync()
     {
-        Console.WriteLine("test");
+
     }
 
     public async Task JoinMatch(string id)
     {
-        await _matchesService.JoinMatch(id,0,Context.ConnectionId, null);
+        JoiningMatchData joiningMatchData = await _matchesService.JoinMatch(id, 0, Context.ConnectionId, null);
+        await Clients.All.SendAsync("GetMatchData", joiningMatchData);
+        await Clients.All.SendAsync("GetMatchId", joiningMatchData.Match.Id);
+        // await _matchesService.StartMatch(id, joiningMatchData.Match);
     }
 
+    public async Task StartMatch(string currentUserId, Match match)
+    {
+        await Clients.All.SendAsync("StartMatch", await _matchesService.StartMatch(currentUserId, match));
+    }
 
 }
