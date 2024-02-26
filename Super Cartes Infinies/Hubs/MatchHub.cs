@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 using Super_Cartes_Infinies.Data;
 using Super_Cartes_Infinies.Models;
@@ -9,7 +10,7 @@ using Super_Cartes_Infinies.Services;
 
 namespace Super_Cartes_Infinies.Hubs;
 
- //[Authorize]
+//[Authorize]
 
 
 
@@ -44,28 +45,25 @@ public class MatchHub : Hub
 
     }
 
-    public async Task JoinMatch(string id)
+    public async Task JoinMatch(string userId)
     {
-        JoiningMatchData joiningMatchData = await _matchesService.JoinMatch(id, 0, Context.ConnectionId, null);
-        await Clients.All.SendAsync("GetMatchId", joiningMatchData.Match.Id);
-    }
 
-    public async Task GetMatchData(int matchId)
-    {
-        Match match = await _context.Matches.Where(m => m.Id == matchId).FirstAsync();
-        JoiningMatchData joiningMatchData = new JoiningMatchData();
-        joiningMatchData.Match = match;
-        Player playerA = await _context.Players.Where(p => p.Id == match.PlayerDataA.PlayerId).FirstAsync();
-        Player playerB = await _context.Players.Where(p => p.Id == match.PlayerDataB.PlayerId).FirstAsync();
-        joiningMatchData.PlayerA = playerA;
-        joiningMatchData.PlayerB = playerB;
-        await Clients.All.SendAsync("GetMatchData", joiningMatchData);
-    }
+        JoiningMatchData joiningMatchData = await _matchesService.JoinMatch(userId, 0, Context.ConnectionId, null);
 
-    public async Task StartMatch(string currentUserId, Match match)
-    {
-        var startMatchEvent = await _matchesService.StartMatch(currentUserId, match);
-        await Clients.All.SendAsync("StartMatch", startMatchEvent);
+        if(joiningMatchData != null)
+        {
+            // tODO
+            await Clients.Caller.SendAsync("GetMatchData", joiningMatchData);
+
+            if(!joiningMatchData.IsStarted)
+            {
+                // TODO
+                var startMatchEvent = await _matchesService.StartMatch(userId, joiningMatchData.Match);
+                await Clients.All.SendAsync("StartMatch", startMatchEvent);
+            }
+        }
+
+
     }
 
     public async Task Surrender(string currentUserId, int matchId)

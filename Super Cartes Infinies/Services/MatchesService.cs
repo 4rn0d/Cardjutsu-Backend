@@ -72,13 +72,16 @@ namespace Super_Cartes_Infinies.Services
                 }
             }
 
-            if(match != null && otherPlayerConnectionId != null) {
+            if (match != null)
+            {
                 return new JoiningMatchData
                 {
                     Match = match,
                     PlayerA = playerA!,
                     PlayerB = playerB!,
-                    OtherPlayerConnectionId = otherPlayerConnectionId
+                    OtherPlayerConnectionId = otherPlayerConnectionId,
+                    // otherPlayerConnectionId est null seulement si c'est une partie qui existait deja
+                    IsStarted = otherPlayerConnectionId == null
                 };
             }
 
@@ -114,7 +117,7 @@ namespace Super_Cartes_Infinies.Services
 
             int nbStartingCards = _matchConfigurationService.GetNbStartingCards();
             int nbManaPerTurn = _matchConfigurationService.GetNbManaPerTurn();
-            var startMatchEvent = new StartMatchEvent(match, currentPlayerData, opposingPlayerData, nbStartingCards, nbManaPerTurn, _matchConfigurationService);
+            var startMatchEvent = new StartMatchEvent(match, currentPlayerData, opposingPlayerData, nbStartingCards, nbManaPerTurn);
             
             await db.SaveChangesAsync();
 
