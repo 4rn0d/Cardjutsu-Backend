@@ -70,11 +70,13 @@ public class MatchHub : Hub
 
     public async Task Surrender(string currentUserId, int matchId)
     {
-        await _matchesService.Surrender(currentUserId, matchId);
+        var surrenderEvent = await _matchesService.Surrender(currentUserId, matchId);
+        await Clients.All.SendAsync("Surrender", surrenderEvent);
     }
 
     public async Task EndTurn(string currentUserId, int matchId)
     {
-        await _matchesService.EndTurn(currentUserId, matchId);
+        var EndTurnEvent = await _matchesService.EndTurn(currentUserId, matchId);
+        await Clients.All.SendAsync("EndTurn", EndTurnEvent);
     }
 }

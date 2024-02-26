@@ -19,9 +19,9 @@ namespace Super_Cartes_Infinies.Combat
                 Events.Add(new PlayerStartTurnEvent(currentPlayerData, _matchConfigurationService));
                 Events.Add(new PlayerStartTurnEvent(opposingPlayerData, _matchConfigurationService));
             }
-            // Events.Add(new GainManaEvent(currentPlayerData, _matchConfigurationService.GetNbManaPerTurn()));
-            // // On fait piger la carte de début de tour du premier joueur
-            // Events.Add(new DrawCardEvent(currentPlayerData));
+            Events.Add(new GainManaEvent(currentPlayerData, _matchConfigurationService.GetNbManaPerTurn()));
+            // On fait piger la carte de début de tour du premier joueur
+            Events.Add(new DrawCardEvent(currentPlayerData));
         }
     }
 }
