@@ -20,7 +20,7 @@ namespace Super_Cartes_Infinies.Data
                     Health = 3,
                     Cost = 3,
                     Colour = "Blue",
-                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/0/0b/CART_SURFER_card_image.png/revision/latest?cb=20150121025008"
+                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/0/0b/CART_SURFER_card_image.png"
                 }, new Card
                 {
                     Id = 2,
@@ -29,7 +29,7 @@ namespace Super_Cartes_Infinies.Data
                     Health = 3,
                     Cost = 3,
                     Colour = "Green",
-                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/b/b2/COFFEE_SHOP_card_image.png/revision/latest?cb=20150123213646"
+                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/b/b2/COFFEE_SHOP_card_image.png"
                 }, new Card
                 {
                     Id = 3,
@@ -38,7 +38,7 @@ namespace Super_Cartes_Infinies.Data
                     Health = 3,
                     Cost = 3,
                     Colour = "Green",
-                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/2/22/ASTRO_BARRIER_card_image.png/revision/latest?cb=20150123213647"
+                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/2/22/ASTRO_BARRIER_card_image.png"
                 }, new Card
                 {
                     Id = 4,
@@ -47,7 +47,7 @@ namespace Super_Cartes_Infinies.Data
                     Health = 3,
                     Cost = 3,
                     Colour = "Orange",
-                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/3/3d/HOT_CHOCOLATE_card_image.png/revision/latest?cb=20150123213647"
+                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/3/3d/HOT_CHOCOLATE_card_image.png"
                 }, new Card
                 {
                     Id = 5,
@@ -56,7 +56,7 @@ namespace Super_Cartes_Infinies.Data
                     Health = 3,
                     Cost = 3,
                     Colour = "Violet",
-                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/d/d2/LANDING_PAD_card_image.png/revision/latest?cb=20150123213647"
+                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/d/d2/LANDING_PAD_card_image.png"
                 }, new Card
                 {
                     Id = 6,
@@ -65,7 +65,7 @@ namespace Super_Cartes_Infinies.Data
                     Health = 4,
                     Cost = 3,
                     Colour = "Violet",
-                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/5/57/PIZZA_CHEF_card_image.png/revision/latest?cb=20150123213648"
+                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/5/57/PIZZA_CHEF_card_image.png"
                 }, new Card
                 {
                     Id = 7,
@@ -74,7 +74,7 @@ namespace Super_Cartes_Infinies.Data
                     Health = 3,
                     Cost = 3,
                     Colour = "Red",
-                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/b/b5/PAINT_BY_LETTERS_card_image.png/revision/latest?cb=20150806164936"
+                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/b/b5/PAINT_BY_LETTERS_card_image.png"
                 }, new Card
                 {
                     Id = 8,
@@ -83,7 +83,7 @@ namespace Super_Cartes_Infinies.Data
                     Health = 3,
                     Cost = 3,
                     Colour = "Red",
-                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/3/30/MINE_card_image.png/revision/latest?cb=20150123213648"
+                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/3/30/MINE_card_image.png"
                 }, new Card
                 {
                     Id = 9,
@@ -92,7 +92,7 @@ namespace Super_Cartes_Infinies.Data
                     Health = 1,
                     Cost = 1,
                     Colour = "Yellow",
-                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/a/a5/CONSTRUCTION_WORKER_card_image.png/revision/latest?cb=20150123220534"
+                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/a/a5/CONSTRUCTION_WORKER_card_image.png"
                 }, new Card
                 {
                     Id = 10,
@@ -101,7 +101,7 @@ namespace Super_Cartes_Infinies.Data
                     Health = 3,
                     Cost = 3,
                     Colour = "Yellow",
-                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/1/13/JET_PACK_ADVENTURE_card_image.png/revision/latest?cb=20150123220536"
+                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/1/13/JET_PACK_ADVENTURE_card_image.png"
                 }, new Card
                 {
                     Id = 11,
@@ -110,7 +110,7 @@ namespace Super_Cartes_Infinies.Data
                     Health = 3,
                     Cost = 3,
                     Colour = "Blue",
-                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/f/f2/GIFT_SHOP_card_image.png/revision/latest?cb=20150123220535"
+                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/f/f2/GIFT_SHOP_card_image.png"
                 }, new Card
                 {
                     Id = 12,
@@ -119,7 +119,7 @@ namespace Super_Cartes_Infinies.Data
                     Health = 3,
                     Cost = 3,
                     Colour = "Green",
-                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/7/72/HIKING_IN_THE_FOREST_card_image.png/revision/latest?cb=20150123220536"
+                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/7/72/HIKING_IN_THE_FOREST_card_image.png"
                 }, new Card
                 {
                     Id = 13,
@@ -128,7 +128,7 @@ namespace Super_Cartes_Infinies.Data
                     Health = 3,
                     Cost = 3,
                     Colour = "Green",
-                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/a/a6/RESCUE_SQUAD_card_image.png/revision/latest?cb=20150123220537"
+                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/a/a6/RESCUE_SQUAD_card_image.png"
                 }, new Card
                 {
                     Id = 14,
@@ -137,7 +137,7 @@ namespace Super_Cartes_Infinies.Data
                     Health = 6,
                     Cost = 4,
                     Colour = "Orange",
-                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/b/b3/PET_SHOP_card_image.png/revision/latest?cb=20150123220538"
+                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/b/b3/PET_SHOP_card_image.png"
                 }, new Card
                 {
                     Id = 15,
@@ -146,7 +146,7 @@ namespace Super_Cartes_Infinies.Data
                     Health = 3,
                     Cost = 3,
                     Colour = "Violet",
-                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/c/c3/SKI_VILLAGE_card_image.png/revision/latest?cb=20150806165004"
+                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/c/c3/SKI_VILLAGE_card_image.png"
                 }, new Card
                 {
                     Id = 16,
@@ -155,7 +155,7 @@ namespace Super_Cartes_Infinies.Data
                     Health = 3,
                     Cost = 3,
                     Colour = "Violet",
-                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/f/f4/ICE_HOCKEY_card_image.png/revision/latest?cb=20150123224012"
+                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/f/f4/ICE_HOCKEY_card_image.png"
                 }, new Card
                 {
                     Id = 17,
@@ -164,7 +164,7 @@ namespace Super_Cartes_Infinies.Data
                     Health = 8,
                     Cost = 5,
                     Colour = "Red",
-                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/c/c1/SKI_HILL_card_image.png/revision/latest?cb=20150123224012"
+                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/c/c1/SKI_HILL_card_image.png"
                 }, new Card
                 {
                     Id = 18,
@@ -173,7 +173,7 @@ namespace Super_Cartes_Infinies.Data
                     Health = 3,
                     Cost = 3,
                     Colour = "Red",
-                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/f/f5/SNOWBALL_FIGHT_card_image.png/revision/latest?cb=20150123224013"
+                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/f/f5/SNOWBALL_FIGHT_card_image.png"
                 }, new Card
                 {
                     Id = 19,
@@ -182,7 +182,7 @@ namespace Super_Cartes_Infinies.Data
                     Health = 3,
                     Cost = 3,
                     Colour = "Yellow",
-                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/1/13/SNOW_FORTS_card_image.png/revision/latest?cb=20150123224013"
+                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/1/13/SNOW_FORTS_card_image.png"
                 }, new Card
                 {
                     Id = 20,
@@ -191,7 +191,7 @@ namespace Super_Cartes_Infinies.Data
                     Health = 2,
                     Cost = 3,
                     Colour = "Yellow",
-                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/9/97/SOCCER_card_image.png/revision/latest?cb=20150123224014"
+                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/9/97/SOCCER_card_image.png"
                 }, new Card
                 {
                     Id = 21,
@@ -200,7 +200,7 @@ namespace Super_Cartes_Infinies.Data
                     Health = 3,
                     Cost = 3,
                     Colour = "Blue",
-                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/7/77/BEACH_card_image.png/revision/latest?cb=20150123224014"
+                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/7/77/BEACH_card_image.png"
                 }, new Card
                 {
                     Id = 22,
@@ -209,7 +209,7 @@ namespace Super_Cartes_Infinies.Data
                     Health = 3,
                     Cost = 4,
                     Colour = "Blue",
-                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/1/1a/FOOTBALL_card_image.png/revision/latest?cb=20150123224014"
+                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/1/1a/FOOTBALL_card_image.png"
                 }, new Card
                 {
                     Id = 23,
@@ -218,7 +218,7 @@ namespace Super_Cartes_Infinies.Data
                     Health = 9,
                     Cost = 2,
                     Colour = "Green",
-                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/f/f0/BASEBALL_card_image.png/revision/latest?cb=20150123224015"
+                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/f/f0/BASEBALL_card_image.png"
                 }, new Card
                 {
                     Id = 24,
@@ -227,7 +227,7 @@ namespace Super_Cartes_Infinies.Data
                     Health = 3,
                     Cost = 3,
                     Colour = "Green",
-                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/5/52/EMERALD_PRINCESS_card_image.png/revision/latest?cb=20150123224015"
+                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/5/52/EMERALD_PRINCESS_card_image.png"
                 }, new Card
                 {
                     Id = 25,
@@ -236,7 +236,7 @@ namespace Super_Cartes_Infinies.Data
                     Health = 3,
                     Cost = 3,
                     Colour = "Orange",
-                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/6/6b/BEAN_COUNTERS_card_image.png/revision/latest?cb=20150123224016"
+                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/6/6b/BEAN_COUNTERS_card_image.png"
                 }, new Card
                 {
                     Id = 26,
@@ -245,7 +245,7 @@ namespace Super_Cartes_Infinies.Data
                     Health = 2,
                     Cost = 2,
                     Colour = "Violet",
-                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/e/e8/MANHOLE_COVER_card_image.png/revision/latest?cb=20150123224059"
+                    ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/e/e8/MANHOLE_COVER_card_image.png"
                 }
             };
         }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Super_Cartes_Infinies.Data;
 
@@ -11,9 +12,11 @@ using Super_Cartes_Infinies.Data;
 namespace Super_Cartes_Infinies.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240226212458_color")]
+    partial class color
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -154,15 +157,15 @@ namespace Super_Cartes_Infinies.Migrations
                         {
                             Id = "11111111-1111-1111-1111-111111111111",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f60b9e35-ef0f-4a6a-a8d1-5602be47eeae",
+                            ConcurrencyStamp = "38bf7a26-e388-489a-aeb6-7f146ee5eff9",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEM1mj6zn2ZcoNAz9TrcII5rJUQHk61rwomynOkd+7NhCxzy/nejmv4g3ZGE2N0mctQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEPks1qKNegDfW216lVCg2MS8dtWA0aB5KjEEzStVfR6MO908gewJKBLEGNDd9ZMCOA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5dd88a47-b4e1-4b72-9ee1-9846a8d62712",
+                            SecurityStamp = "e69b0b3a-4fa8-40b3-a30b-59e8f84dfc73",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         });
@@ -301,7 +304,7 @@ namespace Super_Cartes_Infinies.Migrations
                             Colour = "Blue",
                             Cost = 3,
                             Health = 3,
-                            ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/0/0b/CART_SURFER_card_image.png",
+                            ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/0/0b/CART_SURFER_card_image.png/revision/latest?cb=20150121025008",
                             Name = "Cart Surfer"
                         },
                         new
@@ -311,7 +314,7 @@ namespace Super_Cartes_Infinies.Migrations
                             Colour = "Green",
                             Cost = 3,
                             Health = 3,
-                            ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/b/b2/COFFEE_SHOP_card_image.png",
+                            ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/b/b2/COFFEE_SHOP_card_image.png/revision/latest?cb=20150123213646",
                             Name = "Coffee Shop"
                         },
                         new
@@ -321,7 +324,7 @@ namespace Super_Cartes_Infinies.Migrations
                             Colour = "Green",
                             Cost = 3,
                             Health = 3,
-                            ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/2/22/ASTRO_BARRIER_card_image.png",
+                            ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/2/22/ASTRO_BARRIER_card_image.png/revision/latest?cb=20150123213647",
                             Name = "Astro Barrier"
                         },
                         new
@@ -331,7 +334,7 @@ namespace Super_Cartes_Infinies.Migrations
                             Colour = "Orange",
                             Cost = 3,
                             Health = 3,
-                            ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/3/3d/HOT_CHOCOLATE_card_image.png",
+                            ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/3/3d/HOT_CHOCOLATE_card_image.png/revision/latest?cb=20150123213647",
                             Name = "Hot Chocolate"
                         },
                         new
@@ -341,7 +344,7 @@ namespace Super_Cartes_Infinies.Migrations
                             Colour = "Violet",
                             Cost = 3,
                             Health = 3,
-                            ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/d/d2/LANDING_PAD_card_image.png",
+                            ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/d/d2/LANDING_PAD_card_image.png/revision/latest?cb=20150123213647",
                             Name = "Landing Pad"
                         },
                         new
@@ -351,7 +354,7 @@ namespace Super_Cartes_Infinies.Migrations
                             Colour = "Violet",
                             Cost = 3,
                             Health = 4,
-                            ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/5/57/PIZZA_CHEF_card_image.png",
+                            ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/5/57/PIZZA_CHEF_card_image.png/revision/latest?cb=20150123213648",
                             Name = "Pizza Chef"
                         },
                         new
@@ -361,7 +364,7 @@ namespace Super_Cartes_Infinies.Migrations
                             Colour = "Red",
                             Cost = 3,
                             Health = 3,
-                            ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/b/b5/PAINT_BY_LETTERS_card_image.png",
+                            ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/b/b5/PAINT_BY_LETTERS_card_image.png/revision/latest?cb=20150806164936",
                             Name = "Paint by Letters"
                         },
                         new
@@ -371,7 +374,7 @@ namespace Super_Cartes_Infinies.Migrations
                             Colour = "Red",
                             Cost = 3,
                             Health = 3,
-                            ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/3/30/MINE_card_image.png",
+                            ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/3/30/MINE_card_image.png/revision/latest?cb=20150123213648",
                             Name = "Mine"
                         },
                         new
@@ -381,7 +384,7 @@ namespace Super_Cartes_Infinies.Migrations
                             Colour = "Yellow",
                             Cost = 1,
                             Health = 1,
-                            ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/a/a5/CONSTRUCTION_WORKER_card_image.png",
+                            ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/a/a5/CONSTRUCTION_WORKER_card_image.png/revision/latest?cb=20150123220534",
                             Name = "Construction Worker"
                         },
                         new
@@ -391,7 +394,7 @@ namespace Super_Cartes_Infinies.Migrations
                             Colour = "Yellow",
                             Cost = 3,
                             Health = 3,
-                            ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/1/13/JET_PACK_ADVENTURE_card_image.png",
+                            ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/1/13/JET_PACK_ADVENTURE_card_image.png/revision/latest?cb=20150123220536",
                             Name = "Jetpack Adventure"
                         },
                         new
@@ -401,7 +404,7 @@ namespace Super_Cartes_Infinies.Migrations
                             Colour = "Blue",
                             Cost = 3,
                             Health = 3,
-                            ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/f/f2/GIFT_SHOP_card_image.png",
+                            ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/f/f2/GIFT_SHOP_card_image.png/revision/latest?cb=20150123220535",
                             Name = "Gift Shop"
                         },
                         new
@@ -411,7 +414,7 @@ namespace Super_Cartes_Infinies.Migrations
                             Colour = "Green",
                             Cost = 3,
                             Health = 3,
-                            ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/7/72/HIKING_IN_THE_FOREST_card_image.png",
+                            ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/7/72/HIKING_IN_THE_FOREST_card_image.png/revision/latest?cb=20150123220536",
                             Name = "Hiking in the Forest"
                         },
                         new
@@ -421,7 +424,7 @@ namespace Super_Cartes_Infinies.Migrations
                             Colour = "Green",
                             Cost = 3,
                             Health = 3,
-                            ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/a/a6/RESCUE_SQUAD_card_image.png",
+                            ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/a/a6/RESCUE_SQUAD_card_image.png/revision/latest?cb=20150123220537",
                             Name = "Rescue Squad"
                         },
                         new
@@ -431,7 +434,7 @@ namespace Super_Cartes_Infinies.Migrations
                             Colour = "Orange",
                             Cost = 4,
                             Health = 6,
-                            ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/b/b3/PET_SHOP_card_image.png",
+                            ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/b/b3/PET_SHOP_card_image.png/revision/latest?cb=20150123220538",
                             Name = "Pet Shop"
                         },
                         new
@@ -441,7 +444,7 @@ namespace Super_Cartes_Infinies.Migrations
                             Colour = "Violet",
                             Cost = 3,
                             Health = 3,
-                            ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/c/c3/SKI_VILLAGE_card_image.png",
+                            ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/c/c3/SKI_VILLAGE_card_image.png/revision/latest?cb=20150806165004",
                             Name = "Ski Village"
                         },
                         new
@@ -451,7 +454,7 @@ namespace Super_Cartes_Infinies.Migrations
                             Colour = "Violet",
                             Cost = 3,
                             Health = 3,
-                            ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/f/f4/ICE_HOCKEY_card_image.png",
+                            ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/f/f4/ICE_HOCKEY_card_image.png/revision/latest?cb=20150123224012",
                             Name = "Ice Hockey"
                         },
                         new
@@ -461,7 +464,7 @@ namespace Super_Cartes_Infinies.Migrations
                             Colour = "Red",
                             Cost = 5,
                             Health = 8,
-                            ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/c/c1/SKI_HILL_card_image.png",
+                            ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/c/c1/SKI_HILL_card_image.png/revision/latest?cb=20150123224012",
                             Name = "Ski Hill"
                         },
                         new
@@ -471,7 +474,7 @@ namespace Super_Cartes_Infinies.Migrations
                             Colour = "Red",
                             Cost = 3,
                             Health = 3,
-                            ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/f/f5/SNOWBALL_FIGHT_card_image.png",
+                            ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/f/f5/SNOWBALL_FIGHT_card_image.png/revision/latest?cb=20150123224013",
                             Name = "Snowball Fight"
                         },
                         new
@@ -481,7 +484,7 @@ namespace Super_Cartes_Infinies.Migrations
                             Colour = "Yellow",
                             Cost = 3,
                             Health = 3,
-                            ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/1/13/SNOW_FORTS_card_image.png",
+                            ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/1/13/SNOW_FORTS_card_image.png/revision/latest?cb=20150123224013",
                             Name = "Snow Forts"
                         },
                         new
@@ -491,7 +494,7 @@ namespace Super_Cartes_Infinies.Migrations
                             Colour = "Yellow",
                             Cost = 3,
                             Health = 2,
-                            ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/9/97/SOCCER_card_image.png",
+                            ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/9/97/SOCCER_card_image.png/revision/latest?cb=20150123224014",
                             Name = "Soccer"
                         },
                         new
@@ -501,7 +504,7 @@ namespace Super_Cartes_Infinies.Migrations
                             Colour = "Blue",
                             Cost = 3,
                             Health = 3,
-                            ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/7/77/BEACH_card_image.png",
+                            ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/7/77/BEACH_card_image.png/revision/latest?cb=20150123224014",
                             Name = "Beach"
                         },
                         new
@@ -511,7 +514,7 @@ namespace Super_Cartes_Infinies.Migrations
                             Colour = "Blue",
                             Cost = 4,
                             Health = 3,
-                            ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/1/1a/FOOTBALL_card_image.png",
+                            ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/1/1a/FOOTBALL_card_image.png/revision/latest?cb=20150123224014",
                             Name = "Football"
                         },
                         new
@@ -521,7 +524,7 @@ namespace Super_Cartes_Infinies.Migrations
                             Colour = "Green",
                             Cost = 2,
                             Health = 9,
-                            ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/f/f0/BASEBALL_card_image.png",
+                            ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/f/f0/BASEBALL_card_image.png/revision/latest?cb=20150123224015",
                             Name = "Baseball"
                         },
                         new
@@ -531,7 +534,7 @@ namespace Super_Cartes_Infinies.Migrations
                             Colour = "Green",
                             Cost = 3,
                             Health = 3,
-                            ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/5/52/EMERALD_PRINCESS_card_image.png",
+                            ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/5/52/EMERALD_PRINCESS_card_image.png/revision/latest?cb=20150123224015",
                             Name = "Emerald Princess"
                         },
                         new
@@ -541,7 +544,7 @@ namespace Super_Cartes_Infinies.Migrations
                             Colour = "Orange",
                             Cost = 3,
                             Health = 3,
-                            ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/6/6b/BEAN_COUNTERS_card_image.png",
+                            ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/6/6b/BEAN_COUNTERS_card_image.png/revision/latest?cb=20150123224016",
                             Name = "Bean Counters"
                         },
                         new
@@ -551,7 +554,7 @@ namespace Super_Cartes_Infinies.Migrations
                             Colour = "Violet",
                             Cost = 2,
                             Health = 2,
-                            ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/e/e8/MANHOLE_COVER_card_image.png",
+                            ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/e/e8/MANHOLE_COVER_card_image.png/revision/latest?cb=20150123224059",
                             Name = "Manhole Cover"
                         });
                 });
