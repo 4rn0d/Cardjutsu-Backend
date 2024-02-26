@@ -114,11 +114,11 @@ namespace Super_Cartes_Infinies.Services
 
             int nbStartingCards = _matchConfigurationService.GetNbStartingCards();
             int nbManaPerTurn = _matchConfigurationService.GetNbManaPerTurn();
-            var startMatchEvent = new StartMatchEvent(match, currentPlayerData, opposingPlayerData, nbStartingCards, nbManaPerTurn);
+            var startMatchEvent = new StartMatchEvent(match, currentPlayerData, opposingPlayerData, nbStartingCards, nbManaPerTurn, _matchConfigurationService);
             
             await db.SaveChangesAsync();
 
-            return JsonSerializer.Serialize(startMatchEvent); ;
+            return JsonSerializer.Serialize(startMatchEvent as MatchEvent);
         }
 
         public async Task<string> EndTurn(string userId, int matchId)
@@ -151,11 +151,11 @@ namespace Super_Cartes_Infinies.Services
                 opposingPlayerData = match.PlayerDataA;
             }
 
-            var playerTurnEvent = new PlayerEndTurnEvent(match, currentPlayerData, opposingPlayerData);
+            var playerTurnEvent = new PlayerEndTurnEvent(match, currentPlayerData, opposingPlayerData, _matchConfigurationService);
 
             await db.SaveChangesAsync();
 
-            return JsonSerializer.Serialize(playerTurnEvent);
+            return JsonSerializer.Serialize(playerTurnEvent as MatchEvent);
         }
 
         public async Task<string> Surrender(string userId, int matchId)
@@ -189,7 +189,7 @@ namespace Super_Cartes_Infinies.Services
 
             await db.SaveChangesAsync();
 
-            return JsonSerializer.Serialize(playerTurnEvent);
+            return JsonSerializer.Serialize(playerTurnEvent as MatchEvent);
         }
     }
 }

@@ -8,8 +8,9 @@ namespace Super_Cartes_Infinies.Combat
         public int PlayerId { get; set; }
         public MatchConfigurationService _matchConfigurationService;
         // L'évènement lorsqu'un joueur débutte son tour
-        public PlayerStartTurnEvent(MatchPlayerData playerData)
+        public PlayerStartTurnEvent(MatchPlayerData playerData, MatchConfigurationService matchConfigurationService)
         {
+            _matchConfigurationService = matchConfigurationService;
             this.PlayerId = playerData.PlayerId;
             this.Events = new List<MatchEvent>();
 

@@ -47,14 +47,34 @@ public class MatchHub : Hub
     public async Task JoinMatch(string id)
     {
         JoiningMatchData joiningMatchData = await _matchesService.JoinMatch(id, 0, Context.ConnectionId, null);
-        await Clients.All.SendAsync("GetMatchData", joiningMatchData);
         await Clients.All.SendAsync("GetMatchId", joiningMatchData.Match.Id);
-        // await _matchesService.StartMatch(id, joiningMatchData.Match);
+    }
+
+    public async Task GetMatchData(int matchId)
+    {
+        Match match = await _context.Matches.Where(m => m.Id == matchId).FirstAsync();
+        JoiningMatchData joiningMatchData = new JoiningMatchData();
+        joiningMatchData.Match = match;
+        Player playerA = await _context.Players.Where(p => p.Id == match.PlayerDataA.PlayerId).FirstAsync();
+        Player playerB = await _context.Players.Where(p => p.Id == match.PlayerDataB.PlayerId).FirstAsync();
+        joiningMatchData.PlayerA = playerA;
+        joiningMatchData.PlayerB = playerB;
+        await Clients.All.SendAsync("GetMatchData", joiningMatchData);
     }
 
     public async Task StartMatch(string currentUserId, Match match)
     {
-        await Clients.All.SendAsync("StartMatch", await _matchesService.StartMatch(currentUserId, match));
+        var startMatchEvent = await _matchesService.StartMatch(currentUserId, match);
+        await Clients.All.SendAsync("StartMatch", startMatchEvent);
     }
 
+    public async Task Surrender(string currentUserId, int matchId)
+    {
+        await _matchesService.Surrender(currentUserId, matchId);
+    }
+
+    public async Task EndTurn(string currentUserId, int matchId)
+    {
+        await _matchesService.EndTurn(currentUserId, matchId);
+    }
 }
