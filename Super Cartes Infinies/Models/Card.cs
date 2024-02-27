@@ -14,6 +14,7 @@ namespace Super_Cartes_Infinies.Models
 		[DisplayName("Mana cost")]
         public int Cost { get; set; }
         public string ImageUrl { get; set; } = "";
-    }
+        public string Colour { get; set; } = "";
+	}
 }
 
