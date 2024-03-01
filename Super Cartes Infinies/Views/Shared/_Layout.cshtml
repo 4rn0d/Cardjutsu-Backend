@@ -6,7 +6,6 @@
     <title>@ViewData["Title"] - Super_Cartes_Infinies: Admin</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Super_Cartes_Infinies.styles.css" asp-append-version="true" />
 </head>
 <body>
     <header>
@@ -21,6 +20,15 @@
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Cards" asp-action="Index">Cartes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="CardStarts" asp-action="Index">Cartes de départ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Configs" asp-action="Index">Configs</a>
                         </li>
                     </ul>
                     <partial name="_LoginPartial" />

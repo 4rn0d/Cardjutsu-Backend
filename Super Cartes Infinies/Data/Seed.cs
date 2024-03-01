@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Drawing;
 using Microsoft.AspNetCore.Identity;
 using Super_Cartes_Infinies.Models;
@@ -134,7 +134,7 @@ namespace Super_Cartes_Infinies.Data
                     Id = 14,
                     Name = "Pet Shop",
                     Attack = 3,
-                    Health = 6,
+                    Health = 3,
                     Cost = 4,
                     Colour = "Orange",
                     ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/b/b3/PET_SHOP_card_image.png"
@@ -292,6 +292,62 @@ namespace Super_Cartes_Infinies.Data
                 UserId = "11111111-1111-1111-1111-111111111111"
             };
             return new IdentityUserRole<string>[] { userAdmin };
+        }
+
+        public static Config[] SeedConfigs()
+        {
+            return new Config[]
+            {
+                new Config
+                {
+                    Id = 1,
+                    NbCardsStart = 4,
+                    ManaPerRound = 3,
+                }
+            };
+        }
+
+        public static CardStart[] SeedCardStarts()
+        {
+            return new CardStart[] {
+                new CardStart
+                {
+                    Id = 1,
+                    CardId = 1,
+                }, new CardStart
+                {
+                    Id = 2,
+                    CardId = 2,
+                }, new CardStart
+                {
+                    Id = 3,
+                    CardId = 3,
+                }, new CardStart
+                {
+                    Id = 4,
+                    CardId = 1,
+                }, new CardStart
+                {
+                    Id = 5,
+                    CardId = 2,
+                }, new CardStart
+                {
+                    Id = 6,
+                    CardId = 3,
+                }, new CardStart
+                {
+                    Id = 7,
+                    CardId = 7
+                }, new CardStart
+                {
+                    Id = 8,
+                    CardId = 8,
+                }, new CardStart
+                {
+                    Id = 9,
+                    CardId = 4,
+                }
+            };
         }
     }
 }

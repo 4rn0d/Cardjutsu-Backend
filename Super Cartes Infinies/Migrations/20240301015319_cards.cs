@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Super_Cartes_Infinies.Migrations
 {
     /// <inheritdoc />
-    public partial class merger_connexion : Migration
+    public partial class cards : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -50,6 +50,20 @@ namespace Super_Cartes_Infinies.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Config",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    NbCardsStart = table.Column<int>(type: "int", nullable: false),
+                    ManaPerRound = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Config", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -188,8 +202,8 @@ namespace Super_Cartes_Infinies.Migrations
                     Attack = table.Column<int>(type: "int", nullable: false),
                     Health = table.Column<int>(type: "int", nullable: false),
                     Cost = table.Column<int>(type: "int", nullable: false),
-                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Colour = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PlayerId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -219,6 +233,25 @@ namespace Super_Cartes_Infinies.Migrations
                         name: "FK_MatchPlayersData_Players_PlayerId",
                         column: x => x.PlayerId,
                         principalTable: "Players",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CardStart",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CardId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CardStart", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CardStart_Cards_CardId",
+                        column: x => x.CardId,
+                        principalTable: "Cards",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -331,7 +364,7 @@ namespace Super_Cartes_Infinies.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "11111111-1111-1111-1111-111111111111", 0, "8981d07e-fd7f-4112-baf1-659543acfe10", "admin@admin.com", true, true, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAIAAYagAAAAELlAKRhcEvPNYz1nGJU4U1pLj3opc8ZlIpCHyHrmWNAHixhgRw0b8Cu4jgWQeZVZ4g==", null, false, "7d03072d-c75a-4a76-94e7-e60cc82fc32d", false, "admin@admin.com" });
+                values: new object[] { "11111111-1111-1111-1111-111111111111", 0, "00b2a79a-a50e-4b0e-a8ca-749c9f93e24b", "admin@admin.com", true, true, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAIAAYagAAAAEE7VIw9kLi+Fq0WFNG0qEm7OHjpAWnpI+q2JUSl+k5amxxwm5IyyNRSo4TQKi3SNRA==", null, false, "58ec70ab-9cb5-42bf-a9e0-81e9d9557d8c", false, "admin@admin.com" });
 
             migrationBuilder.InsertData(
                 table: "Cards",
@@ -351,7 +384,7 @@ namespace Super_Cartes_Infinies.Migrations
                     { 11, 3, "Blue", 3, 3, "https://static.wikia.nocookie.net/clubpenguin/images/f/f2/GIFT_SHOP_card_image.png", "Gift Shop", null },
                     { 12, 2, "Green", 3, 3, "https://static.wikia.nocookie.net/clubpenguin/images/7/72/HIKING_IN_THE_FOREST_card_image.png", "Hiking in the Forest", null },
                     { 13, 5, "Green", 3, 3, "https://static.wikia.nocookie.net/clubpenguin/images/a/a6/RESCUE_SQUAD_card_image.png", "Rescue Squad", null },
-                    { 14, 3, "Orange", 4, 6, "https://static.wikia.nocookie.net/clubpenguin/images/b/b3/PET_SHOP_card_image.png", "Pet Shop", null },
+                    { 14, 3, "Orange", 4, 3, "https://static.wikia.nocookie.net/clubpenguin/images/b/b3/PET_SHOP_card_image.png", "Pet Shop", null },
                     { 15, 4, "Violet", 3, 3, "https://static.wikia.nocookie.net/clubpenguin/images/c/c3/SKI_VILLAGE_card_image.png", "Ski Village", null },
                     { 16, 8, "Violet", 3, 3, "https://static.wikia.nocookie.net/clubpenguin/images/f/f4/ICE_HOCKEY_card_image.png", "Ice Hockey", null },
                     { 17, 2, "Red", 5, 8, "https://static.wikia.nocookie.net/clubpenguin/images/c/c1/SKI_HILL_card_image.png", "Ski Hill", null },
@@ -367,9 +400,30 @@ namespace Super_Cartes_Infinies.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Config",
+                columns: new[] { "Id", "ManaPerRound", "NbCardsStart" },
+                values: new object[] { 1, 3, 4 });
+
+            migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
                 values: new object[] { "11111111-1111-1111-1111-111111111112", "11111111-1111-1111-1111-111111111111" });
+
+            migrationBuilder.InsertData(
+                table: "CardStart",
+                columns: new[] { "Id", "CardId" },
+                values: new object[,]
+                {
+                    { 1, 1 },
+                    { 2, 2 },
+                    { 3, 3 },
+                    { 4, 1 },
+                    { 5, 2 },
+                    { 6, 3 },
+                    { 7, 7 },
+                    { 8, 8 },
+                    { 9, 4 }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -414,6 +468,11 @@ namespace Super_Cartes_Infinies.Migrations
                 name: "IX_Cards_PlayerId",
                 table: "Cards",
                 column: "PlayerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CardStart_CardId",
+                table: "CardStart",
+                column: "CardId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Matches_PlayerDataAId",
@@ -488,6 +547,12 @@ namespace Super_Cartes_Infinies.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "CardStart");
+
+            migrationBuilder.DropTable(
+                name: "Config");
 
             migrationBuilder.DropTable(
                 name: "Matches");
