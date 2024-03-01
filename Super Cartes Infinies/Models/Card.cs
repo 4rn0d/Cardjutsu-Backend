@@ -1,4 +1,4 @@
-﻿using System.ComponentModel;
+using System.ComponentModel;
 using Super_Cartes_Infinies.Services.Interfaces;
 
 namespace Super_Cartes_Infinies.Models
@@ -13,7 +13,8 @@ namespace Super_Cartes_Infinies.Models
 		public int Health { get; set; }
 		[DisplayName("Mana cost")]
         public int Cost { get; set; }
+        public string Colour { get; set; }
         public string ImageUrl { get; set; } = "";
-    }
+	}
 }
 

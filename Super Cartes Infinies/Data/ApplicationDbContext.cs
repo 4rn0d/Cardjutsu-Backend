@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Super_Cartes_Infinies.Models;
@@ -22,6 +22,9 @@ public class ApplicationDbContext : IdentityDbContext
         builder.Entity<Player>().HasData(Seed.SeedTestPlayers());
         builder.Entity<IdentityUser>().HasData(Seed.SeedTestUsers());
 
+        builder.Entity<Config>().HasData(Seed.SeedConfigs());
+        builder.Entity<CardStart>().HasData(Seed.SeedCardStarts());
+        
         builder.Entity<IdentityUser>().HasData(Seed.SeedUsers());
         builder.Entity<IdentityRole>().HasData(Seed.SeedRoles());         
         builder.Entity<IdentityUserRole<string>>().HasData(Seed.SeedUserRoles());
@@ -47,7 +50,12 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet<Player> Players { get; set; } = default!;
 
     public DbSet<Match> Matches { get; set; } = default!;
+    public DbSet<OwnedCard> OwnedCards { get; set; } = default!;
 
     public DbSet<MatchPlayerData> MatchPlayersData { get; set; } = default!;
+
+    public DbSet<Super_Cartes_Infinies.Models.Config> Config { get; set; } = default!;
+
+    public DbSet<Super_Cartes_Infinies.Models.CardStart> CardStart { get; set; } = default!;
 }
 
