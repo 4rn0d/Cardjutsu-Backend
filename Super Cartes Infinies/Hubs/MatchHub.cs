@@ -45,20 +45,20 @@ public class MatchHub : Hub
 
     }
 
-    public async Task JoinMatch(string userId)
+    public async Task JoinMatch()
     {
 
-        JoiningMatchData joiningMatchData = await _matchesService.JoinMatch(userId, 0, Context.ConnectionId, null);
+        JoiningMatchData joiningMatchData = await _matchesService.JoinMatch(CurentUser.Id, 0, Context.ConnectionId, null);
 
         if(joiningMatchData != null)
         {
             // tODO
-            await Clients.Caller.SendAsync("GetMatchData", joiningMatchData);
+            await Clients.All.SendAsync("GetMatchData", joiningMatchData);
 
             if(!joiningMatchData.IsStarted)
             {
                 // TODO
-                var startMatchEvent = await _matchesService.StartMatch(userId, joiningMatchData.Match);
+                var startMatchEvent = await _matchesService.StartMatch(CurentUser.Id, joiningMatchData.Match);
                 await Clients.All.SendAsync("StartMatch", startMatchEvent);
             }
         }
@@ -66,15 +66,15 @@ public class MatchHub : Hub
 
     }
 
-    public async Task Surrender(string currentUserId, int matchId)
+    public async Task Surrender(int matchId)
     {
-        var surrenderEvent = await _matchesService.Surrender(currentUserId, matchId);
+        var surrenderEvent = await _matchesService.Surrender(CurentUser.Id, matchId);
         await Clients.All.SendAsync("Surrender", surrenderEvent);
     }
 
-    public async Task EndTurn(string currentUserId, int matchId)
+    public async Task EndTurn(int matchId)
     {
-        var EndTurnEvent = await _matchesService.EndTurn(currentUserId, matchId);
-        await Clients.All.SendAsync("EndTurn", EndTurnEvent);
+        var endTurnEvent = await _matchesService.EndTurn(CurentUser.Id, matchId);
+        await Clients.All.SendAsync("EndTurn", endTurnEvent);
     }
 }
