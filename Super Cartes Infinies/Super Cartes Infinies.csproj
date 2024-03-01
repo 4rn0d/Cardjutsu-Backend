@@ -39,4 +39,12 @@
   <ItemGroup>
     <None Include="wwwroot\js\signalr\dist\browser\signalr.js" />
   </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\CardsTEST\Create.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\CardsTEST\Delete.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\CardsTEST\Details.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\CardsTEST\Edit.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\CardsTEST\Index.cshtml" />
+  </ItemGroup>
 </Project>

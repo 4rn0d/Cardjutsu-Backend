@@ -1,4 +1,4 @@
-﻿using System.Text;
+using System.Text;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.CookiePolicy;
@@ -6,10 +6,12 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using Super_Cartes_Infinies.Hubs;
 using Super_Cartes_Infinies.Data;
 using Super_Cartes_Infinies.Services;
 using Super_Cartes_Infinies.Services.Interfaces;
+using Super_Cartes_Infinies.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,32 +25,21 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 // Permet d'obtenir des erreurs de BD plus claires et même d'appliquer des migrations manquantes
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>()
-    .AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+//builder.Services.AddDefaultIdentity<IdentityUser>()
+  //  .AddRoles<IdentityRole>()
+    //.AddEntityFrameworkStores<ApplicationDbContext>();
 
-builder.Services.ConfigureApplicationCookie(options =>
-{
-    options.Cookie.HttpOnly = false;
-});
+
 
 builder.Services.AddSignalR();
 
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowAll", policy =>
-    {
-        policy.WithOrigins("http://localhost:4200", "https://localhost:4200");
-        policy.AllowAnyHeader();
-        policy.AllowAnyMethod();
-        policy.AllowCredentials();
-    });
-});
+
 
 // Injection de dépendance
 builder.Services.AddScoped<PlayersService>();
+builder.Services.AddScoped<AccountService>();
 builder.Services.AddScoped<CardsService>();
 builder.Services.AddSingleton<WaitingUserService>();
 builder.Services.AddScoped<MatchesService>();
@@ -57,6 +48,69 @@ builder.Services.AddScoped<MatchConfigurationService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+//Authentifiction par cookie
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
+     .AddRoles<IdentityRole>()// jai add ca maybe not 
+    .AddEntityFrameworkStores<ApplicationDbContext>();
+
+/*builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.WithOrigins("http://localhost:4200", "https://localhost:4200");
+        policy.AllowAnyHeader();
+        policy.AllowAnyMethod();
+        policy.AllowCredentials();
+    });
+});*/
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.WithOrigins("https://localhost:4200")
+               .AllowAnyMethod()
+               .AllowAnyHeader()
+               .AllowCredentials();
+
+    });
+});
+
+builder.Services.AddHttpContextAccessor();
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.Cookie.HttpOnly = false;
+});
+
+//fin cookie
+/*
+builder.Services.AddAntiforgery();
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.SaveToken = true;
+    options.RequireHttpsMetadata = true;
+    options.TokenValidationParameters = new TokenValidationParameters()
+    {
+        ValidateAudience = true,
+        ValidateIssuer = true,
+        ValidAudience = "http://localhost:4200",
+        ValidIssuer = "https://localhost:7011",
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"]!))
+    };
+})
+.AddCookie(options =>
+{
+    options.Cookie.Name = ".AspNetCore.Antiforgery.tK-DXvb_1jc";
+    options.Cookie.Name = ".AspNetCore.Identity.Application"; 
+});*/
 
 var app = builder.Build();
 
