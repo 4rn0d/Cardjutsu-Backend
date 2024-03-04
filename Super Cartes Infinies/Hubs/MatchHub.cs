@@ -52,7 +52,8 @@ public class MatchHub : Hub
 
         if(joiningMatchData != null)
         {
-            // tODO
+            await Clients.All.SendAsync("IsWaiting", false);
+            // TODO
             await Clients.All.SendAsync("GetMatchData", joiningMatchData);
 
             if(!joiningMatchData.IsStarted)
@@ -62,7 +63,10 @@ public class MatchHub : Hub
                 await Clients.All.SendAsync("StartMatch", startMatchEvent);
             }
         }
-
+        else
+        {
+            await Clients.Caller.SendAsync("IsWaiting", true);
+        }
 
     }
 
