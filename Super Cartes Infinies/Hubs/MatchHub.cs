@@ -10,10 +10,7 @@ using Super_Cartes_Infinies.Services;
 
 namespace Super_Cartes_Infinies.Hubs;
 
-//[Authorize]
-
-
-
+[Authorize]
 public class MatchHub : Hub
 {
     ApplicationDbContext _context;
@@ -52,6 +49,13 @@ public class MatchHub : Hub
 
         if(joiningMatchData != null)
         {
+            // string matchGroup = CreateGroup(joiningMatchData.Match.Id);
+            // await Groups.AddToGroupAsync(CurentUser.Id, matchGroup);
+            //
+            // await Clients.Caller.SendAsync("IsWaiting", false);
+            // // TODO
+            // await Clients.Group(matchGroup).SendAsync("GetMatchData", joiningMatchData);
+
             await Clients.All.SendAsync("IsWaiting", false);
             // TODO
             await Clients.All.SendAsync("GetMatchData", joiningMatchData);
@@ -74,11 +78,17 @@ public class MatchHub : Hub
     {
         var surrenderEvent = await _matchesService.Surrender(CurentUser.Id, matchId);
         await Clients.All.SendAsync("Surrender", surrenderEvent);
+        await Groups.RemoveFromGroupAsync(Context.ConnectionId, "Match " + matchId);
     }
 
     public async Task EndTurn(int matchId)
     {
         var endTurnEvent = await _matchesService.EndTurn(CurentUser.Id, matchId);
         await Clients.All.SendAsync("EndTurn", endTurnEvent);
+    }
+
+    public static string CreateGroup(int matchId)
+    {
+        return "Match " + matchId;
     }
 }
