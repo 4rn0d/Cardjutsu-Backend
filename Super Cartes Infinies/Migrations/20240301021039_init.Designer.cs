@@ -12,8 +12,8 @@ using Super_Cartes_Infinies.Data;
 namespace Super_Cartes_Infinies.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240301015319_cards")]
-    partial class cards
+    [Migration("20240301021039_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -155,17 +155,39 @@ namespace Super_Cartes_Infinies.Migrations
                     b.HasData(
                         new
                         {
+                            Id = "User1Id",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "e69d210a-d309-4262-9c4a-2e3f18dafcae",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "f633b035-b9ad-432b-83bc-e013495a2423",
+                            TwoFactorEnabled = false
+                        },
+                        new
+                        {
+                            Id = "User2Id",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "739595df-0d0e-4384-b9e4-86de20f628db",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "b1c213f5-4e74-43f2-9581-1624de352190",
+                            TwoFactorEnabled = false
+                        },
+                        new
+                        {
                             Id = "11111111-1111-1111-1111-111111111111",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "00b2a79a-a50e-4b0e-a8ca-749c9f93e24b",
+                            ConcurrencyStamp = "ed77da77-d8d2-482b-b4d0-a3c705dde63d",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEE7VIw9kLi+Fq0WFNG0qEm7OHjpAWnpI+q2JUSl+k5amxxwm5IyyNRSo4TQKi3SNRA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEI+2ASF2P8FpvmHAF1/4ShkIxYKKWClEv1Oedm4zikGGgoNgxPVRS9XzpiC0B+otsw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "58ec70ab-9cb5-42bf-a9e0-81e9d9557d8c",
+                            SecurityStamp = "7214d323-8948-4745-b210-6f4fc5677825",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         });
@@ -808,6 +830,20 @@ namespace Super_Cartes_Infinies.Migrations
                     b.HasIndex("IdentityUserId");
 
                     b.ToTable("Players");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            IdentityUserId = "User1Id",
+                            Name = "Test player 1"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            IdentityUserId = "User2Id",
+                            Name = "Test player 2"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

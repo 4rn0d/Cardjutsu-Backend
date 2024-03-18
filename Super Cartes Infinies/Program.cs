@@ -137,7 +137,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseCors("AllowAll");
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute( //routing admin

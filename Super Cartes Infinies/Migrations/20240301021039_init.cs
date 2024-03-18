@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Super_Cartes_Infinies.Migrations
 {
     /// <inheritdoc />
-    public partial class cards : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -364,7 +364,12 @@ namespace Super_Cartes_Infinies.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "11111111-1111-1111-1111-111111111111", 0, "00b2a79a-a50e-4b0e-a8ca-749c9f93e24b", "admin@admin.com", true, true, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAIAAYagAAAAEE7VIw9kLi+Fq0WFNG0qEm7OHjpAWnpI+q2JUSl+k5amxxwm5IyyNRSo4TQKi3SNRA==", null, false, "58ec70ab-9cb5-42bf-a9e0-81e9d9557d8c", false, "admin@admin.com" });
+                values: new object[,]
+                {
+                    { "11111111-1111-1111-1111-111111111111", 0, "ed77da77-d8d2-482b-b4d0-a3c705dde63d", "admin@admin.com", true, true, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAIAAYagAAAAEI+2ASF2P8FpvmHAF1/4ShkIxYKKWClEv1Oedm4zikGGgoNgxPVRS9XzpiC0B+otsw==", null, false, "7214d323-8948-4745-b210-6f4fc5677825", false, "admin@admin.com" },
+                    { "User1Id", 0, "e69d210a-d309-4262-9c4a-2e3f18dafcae", null, false, false, null, null, null, null, null, false, "f633b035-b9ad-432b-83bc-e013495a2423", false, null },
+                    { "User2Id", 0, "739595df-0d0e-4384-b9e4-86de20f628db", null, false, false, null, null, null, null, null, false, "b1c213f5-4e74-43f2-9581-1624de352190", false, null }
+                });
 
             migrationBuilder.InsertData(
                 table: "Cards",
@@ -423,6 +428,15 @@ namespace Super_Cartes_Infinies.Migrations
                     { 7, 7 },
                     { 8, 8 },
                     { 9, 4 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Players",
+                columns: new[] { "Id", "IdentityUserId", "Name" },
+                values: new object[,]
+                {
+                    { 1, "User1Id", "Test player 1" },
+                    { 2, "User2Id", "Test player 2" }
                 });
 
             migrationBuilder.CreateIndex(

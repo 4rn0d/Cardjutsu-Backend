@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Super_Cartes_Infinies.Models;
@@ -19,6 +19,9 @@ public class ApplicationDbContext : IdentityDbContext
         base.OnModelCreating(builder);
 
         builder.Entity<Card>().HasData(Seed.SeedCards());
+        builder.Entity<Player>().HasData(Seed.SeedTestPlayers());
+        builder.Entity<IdentityUser>().HasData(Seed.SeedTestUsers());
+
         builder.Entity<Config>().HasData(Seed.SeedConfigs());
         builder.Entity<CardStart>().HasData(Seed.SeedCardStarts());
         

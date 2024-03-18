@@ -103,6 +103,20 @@ namespace Super_Cartes_Infinies.Controllers
             return user;
            
         }
+
+        [Authorize]
+        public Player GetCurrentPlayerId()
+        {
+
+            string Id = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            //IdentityUser? user = await UserManager.FindByIdAsync(Id);
+
+            Player? player = _context.Players.Where(p => p.IdentityUserId == Id).FirstOrDefault();
+
+            //IdentityUser? user = await _context.Users.FindAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            return player;
+
+        }
     }
 
     }

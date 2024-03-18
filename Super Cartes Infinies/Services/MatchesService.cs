@@ -72,13 +72,16 @@ namespace Super_Cartes_Infinies.Services
                 }
             }
 
-            if(match != null && otherPlayerConnectionId != null) {
+            if (match != null)
+            {
                 return new JoiningMatchData
                 {
                     Match = match,
                     PlayerA = playerA!,
                     PlayerB = playerB!,
-                    OtherPlayerConnectionId = otherPlayerConnectionId
+                    OtherPlayerConnectionId = otherPlayerConnectionId,
+                    // otherPlayerConnectionId est null seulement si c'est une partie qui existait deja
+                    IsStarted = otherPlayerConnectionId == null
                 };
             }
 
@@ -118,7 +121,7 @@ namespace Super_Cartes_Infinies.Services
             
             await db.SaveChangesAsync();
 
-            return JsonSerializer.Serialize(startMatchEvent); ;
+            return JsonSerializer.Serialize(startMatchEvent as MatchEvent);
         }
 
         public async Task<string> EndTurn(string userId, int matchId)
@@ -151,11 +154,11 @@ namespace Super_Cartes_Infinies.Services
                 opposingPlayerData = match.PlayerDataA;
             }
 
-            var playerTurnEvent = new PlayerEndTurnEvent(match, currentPlayerData, opposingPlayerData);
+            var playerTurnEvent = new PlayerEndTurnEvent(match, currentPlayerData, opposingPlayerData, _matchConfigurationService);
 
             await db.SaveChangesAsync();
 
-            return JsonSerializer.Serialize(playerTurnEvent);
+            return JsonSerializer.Serialize(playerTurnEvent as MatchEvent);
         }
 
         public async Task<string> Surrender(string userId, int matchId)
@@ -189,7 +192,7 @@ namespace Super_Cartes_Infinies.Services
 
             await db.SaveChangesAsync();
 
-            return JsonSerializer.Serialize(playerTurnEvent);
+            return JsonSerializer.Serialize(playerTurnEvent as MatchEvent);
         }
     }
 }
