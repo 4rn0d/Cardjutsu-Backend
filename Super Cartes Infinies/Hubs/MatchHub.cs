@@ -49,22 +49,18 @@ public class MatchHub : Hub
 
         if(joiningMatchData != null)
         {
-            // string matchGroup = CreateGroup(joiningMatchData.Match.Id);
-            // await Groups.AddToGroupAsync(CurentUser.Id, matchGroup);
-            //
-            // await Clients.Caller.SendAsync("IsWaiting", false);
-            // // TODO
-            // await Clients.Group(matchGroup).SendAsync("GetMatchData", joiningMatchData);
+            string matchGroup = CreateGroup(joiningMatchData.Match.Id);
+            await Groups.AddToGroupAsync(Context.ConnectionId, matchGroup);
 
-            await Clients.All.SendAsync("IsWaiting", false);
             // TODO
-            await Clients.All.SendAsync("GetMatchData", joiningMatchData);
+            await Clients.Caller.SendAsync("IsWaiting", false);
+            await Clients.Group(matchGroup).SendAsync("GetMatchData", joiningMatchData);
 
             if(!joiningMatchData.IsStarted)
             {
                 // TODO
                 var startMatchEvent = await _matchesService.StartMatch(CurentUser.Id, joiningMatchData.Match);
-                await Clients.All.SendAsync("StartMatch", startMatchEvent);
+                await Clients.Group(matchGroup).SendAsync("StartMatch", startMatchEvent);
             }
         }
         else
@@ -76,15 +72,17 @@ public class MatchHub : Hub
 
     public async Task Surrender(int matchId)
     {
+        string matchGroup = CreateGroup(matchId);
         var surrenderEvent = await _matchesService.Surrender(CurentUser.Id, matchId);
-        await Clients.All.SendAsync("Surrender", surrenderEvent);
+        await Clients.Group(matchGroup).SendAsync("Surrender", surrenderEvent);
         await Groups.RemoveFromGroupAsync(Context.ConnectionId, "Match " + matchId);
     }
 
     public async Task EndTurn(int matchId)
     {
+        string matchGroup = CreateGroup(matchId);
         var endTurnEvent = await _matchesService.EndTurn(CurentUser.Id, matchId);
-        await Clients.All.SendAsync("EndTurn", endTurnEvent);
+        await Clients.Group(matchGroup).SendAsync("EndTurn", endTurnEvent);
     }
 
     public static string CreateGroup(int matchId)
