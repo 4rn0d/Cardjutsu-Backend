@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Super_Cartes_Infinies.Data;
 
@@ -11,13 +12,15 @@ using Super_Cartes_Infinies.Data;
 namespace Super_Cartes_Infinies.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240320191608_DeckCards")]
+    partial class DeckCards
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.17")
+                .HasAnnotation("ProductVersion", "7.0.15")
                 .HasAnnotation("Proxies:ChangeTracking", false)
                 .HasAnnotation("Proxies:CheckEquality", false)
                 .HasAnnotation("Proxies:LazyLoading", true)
@@ -154,37 +157,37 @@ namespace Super_Cartes_Infinies.Migrations
                         {
                             Id = "User1Id",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "45886259-8f1a-4f60-a035-2025c1f52230",
+                            ConcurrencyStamp = "97ab4341-483f-49df-a4bf-c31ad0d4cbce",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e51ba75e-8b77-4a2f-bcbc-f72112e90da4",
+                            SecurityStamp = "d56250cc-cf97-43c4-bcd8-7427884d7b5d",
                             TwoFactorEnabled = false
                         },
                         new
                         {
                             Id = "User2Id",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "fac27489-b131-4089-be01-ba8fbd95a4c1",
+                            ConcurrencyStamp = "12e0cb86-17d6-4d67-90e8-64adc61e6225",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "ea3f8af2-7b58-4f73-8716-69ce2235e435",
+                            SecurityStamp = "0e694ebb-db94-4f22-88cb-cb3d57b908ca",
                             TwoFactorEnabled = false
                         },
                         new
                         {
                             Id = "11111111-1111-1111-1111-111111111111",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "eac97955-fb29-4201-9447-2b51d371c65f",
+                            ConcurrencyStamp = "0cd4421e-a581-426d-aea7-66e5562585df",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEAxh+gpg/0jSweUzRjwqZ+ra2RNW0yBQbRrFZYxg6NFr4c/IdwcGISHf+UAS5yScKw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEGAEzHicei5uLmKGCeJ0tAqw9C/Pmz+nrGdig9TlSVfAMOqTN29s6B2HhwaTLePBeQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "30b29be8-c7bb-453d-8585-60b7beef4bf5",
+                            SecurityStamp = "00b4464a-d2a6-433d-a10a-9f7cc23c150f",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         });
@@ -682,10 +685,6 @@ namespace Super_Cartes_Infinies.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DeckId"));
-
-                    b.Property<string>("DeckName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsCurrentDeck")
                         .HasColumnType("bit");

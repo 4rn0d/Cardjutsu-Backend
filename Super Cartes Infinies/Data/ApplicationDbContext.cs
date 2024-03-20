@@ -50,6 +50,8 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet<Player> Players { get; set; } = default!;
 
     public DbSet<Match> Matches { get; set; } = default!;
+    public DbSet<Deck> Decks { get; set; } = default!;
+
     public DbSet<OwnedCard> OwnedCards { get; set; } = default!;
 
     public DbSet<MatchPlayerData> MatchPlayersData { get; set; } = default!;
