@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Super_Cartes_Infinies.Models
 {
@@ -6,9 +7,12 @@ namespace Super_Cartes_Infinies.Models
     {
         
         public int DeckCardId { get; set; }
-        [ValidateNever]
-        public virtual Deck Deck { get; set; }
-        [ValidateNever]
-        public virtual Card OwnedCard { get; set; }
+
+      
+        public int DeckId { get; set; }
+
+
+        public int OwnedCardId { get; set; }
+
     }
 }

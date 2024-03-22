@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Super_Cartes_Infinies.Data;
+using Super_Cartes_Infinies.Migrations;
 using Super_Cartes_Infinies.Models;
 
 namespace Super_Cartes_Infinies.Controllers
@@ -90,11 +91,13 @@ namespace Super_Cartes_Infinies.Controllers
           if (_context.Decks == null)
           {
               return Problem("Entity set 'ApplicationDbContext.Decks'  is null.");
-          }
+            }
+
 
             try
             {
-                _context.Decks.Add(deck);
+                
+                _context.Add(deck);
                 await _context.SaveChangesAsync();
 
             }
@@ -104,7 +107,26 @@ namespace Super_Cartes_Infinies.Controllers
                 throw e;
             }
            
-            return CreatedAtAction("GetDeck", new { id = deck.DeckId }, deck);
+            return NoContent();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<Deck>>MakeCurrentDeck(Deck deck)
+        {
+            if (_context.Decks == null)
+            {
+                return Problem("Entity set 'ApplicationDbContext.Decks'  is null.");
+            }
+
+           
+           
+            if (deck != null) {
+                deck.IsCurrentDeck = true;
+                _context.Decks.Update(deck);
+                _context.SaveChanges();
+            }
+
+            return NoContent();
         }
 
         // DELETE: api/Decks/5

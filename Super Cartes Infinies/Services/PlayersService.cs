@@ -17,6 +17,7 @@ namespace Super_Cartes_Infinies.Services
 
         public Player CreatePlayer(IdentityUser user)
         {
+
             Player p = new Player()
             {
                 Id = 0,

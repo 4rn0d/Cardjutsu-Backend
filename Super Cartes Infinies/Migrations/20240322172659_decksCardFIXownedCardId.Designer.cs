@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Super_Cartes_Infinies.Data;
 
@@ -11,9 +12,11 @@ using Super_Cartes_Infinies.Data;
 namespace Super_Cartes_Infinies.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240322172659_decksCardFIXownedCardId")]
+    partial class decksCardFIXownedCardId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -154,37 +157,37 @@ namespace Super_Cartes_Infinies.Migrations
                         {
                             Id = "User1Id",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "8047120f-5c96-443f-ada5-ddc52b004d97",
+                            ConcurrencyStamp = "cc00d319-2fb9-449b-8387-fe20412d9693",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "630b3a02-b733-43d4-ab12-15c7622eab27",
+                            SecurityStamp = "aedc6037-09c5-49c1-bd07-c21861c83640",
                             TwoFactorEnabled = false
                         },
                         new
                         {
                             Id = "User2Id",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "08b1a9b9-31b4-48d9-accd-172ceb05a070",
+                            ConcurrencyStamp = "e1a1df86-0d2f-4e5b-bdd7-226f4651ce02",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "ecffca07-94b0-497d-bc9c-250082a95963",
+                            SecurityStamp = "210772a7-2346-4025-9ee6-383414b1273b",
                             TwoFactorEnabled = false
                         },
                         new
                         {
                             Id = "11111111-1111-1111-1111-111111111111",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "558cb78c-1fc9-4859-9883-42831be0b5e1",
+                            ConcurrencyStamp = "49635a4d-3d36-4a8b-a051-a95b84a42c72",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAECuUI/WP0UGsnyl5UDhxNOIFGQEQ4fZOVUjSrMWk8rJhMAbsyXjDsPcUf5wbBMHNkQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEHiifNd+hsdqrQrTeP90ZGfG0W+GXkWHWNl/0mqwk6Tptoxo3MVsyeGNNgrlx5P89w==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "8b967a92-964e-4359-87ae-7aa6a12814c2",
+                            SecurityStamp = "e409b085-b020-4eae-8025-abb238631e25",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         });
