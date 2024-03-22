@@ -17,7 +17,7 @@ namespace Super_Cartes_Infinies.Models
         [ForeignKey("Card")]
         public int CardId { get; set; }
 
-        public virtual List<DeckCard> DeckCards { get; set; }
+        
 
     }
 }

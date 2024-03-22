@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +11,7 @@ using Super_Cartes_Infinies.Models;
 
 namespace Super_Cartes_Infinies.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class DecksController : ControllerBase
     {
@@ -90,9 +91,19 @@ namespace Super_Cartes_Infinies.Controllers
           {
               return Problem("Entity set 'ApplicationDbContext.Decks'  is null.");
           }
-            _context.Decks.Add(deck);
-            await _context.SaveChangesAsync();
 
+            try
+            {
+                _context.Decks.Add(deck);
+                await _context.SaveChangesAsync();
+
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+           
             return CreatedAtAction("GetDeck", new { id = deck.DeckId }, deck);
         }
 

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Super_Cartes_Infinies.Data;
 
@@ -11,9 +12,11 @@ using Super_Cartes_Infinies.Data;
 namespace Super_Cartes_Infinies.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240322154210_decksCardsFIX")]
+    partial class decksCardsFIX
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -154,37 +157,37 @@ namespace Super_Cartes_Infinies.Migrations
                         {
                             Id = "User1Id",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9ea69ae4-c037-42be-bee7-7958447019d1",
+                            ConcurrencyStamp = "926aaf0b-79ac-44a2-97e0-7fa00ed8e52e",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "813ce454-09c9-456a-8b9a-7280af61bb09",
+                            SecurityStamp = "b80b25de-5e9f-4adf-8382-6b16d2112479",
                             TwoFactorEnabled = false
                         },
                         new
                         {
                             Id = "User2Id",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "93a16eb8-d57d-453c-bb4f-6ea3499e4e79",
+                            ConcurrencyStamp = "170c4dbc-d754-4a79-aec6-75c37182ce57",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "19a6870f-e339-44d3-85d6-6fcf88ca185e",
+                            SecurityStamp = "efbb9f23-d207-4fdb-8fb2-a141423c23f6",
                             TwoFactorEnabled = false
                         },
                         new
                         {
                             Id = "11111111-1111-1111-1111-111111111111",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "3c3ad6b1-bd1f-4a55-82d7-81091b40897b",
+                            ConcurrencyStamp = "0e9a7bdc-d332-429a-b000-c4d4f881b79f",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEMcyRvTe4q5SGP5slmJRVOJhQshZG2yvrDeHDCYs2zT6txyin0NhjU1x7b87cciAZA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEF8kunWNqLDrp0kyGjUK90Yw1YlkRM3MRVykKmBtXx+YNIEh6T+762bFxMjKr+8zcQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "3dab7440-27ff-46c6-b270-70acdbe51aff",
+                            SecurityStamp = "376ae163-ef95-4ef9-9685-0d7b98e5c0ab",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         });
@@ -300,6 +303,9 @@ namespace Super_Cartes_Infinies.Migrations
                     b.Property<int>("Cost")
                         .HasColumnType("int");
 
+                    b.Property<int?>("DeckId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Health")
                         .HasColumnType("int");
 
@@ -315,6 +321,8 @@ namespace Super_Cartes_Infinies.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DeckId");
 
                     b.HasIndex("PlayerId");
 
@@ -708,15 +716,10 @@ namespace Super_Cartes_Infinies.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DeckCardId"));
 
-                    b.Property<int>("DeckId")
-                        .HasColumnType("int");
-
                     b.Property<int>("OwnedCardId")
                         .HasColumnType("int");
 
                     b.HasKey("DeckCardId");
-
-                    b.HasIndex("DeckId");
 
                     b.HasIndex("OwnedCardId");
 
@@ -944,6 +947,10 @@ namespace Super_Cartes_Infinies.Migrations
 
             modelBuilder.Entity("Super_Cartes_Infinies.Models.Card", b =>
                 {
+                    b.HasOne("Super_Cartes_Infinies.Models.Deck", null)
+                        .WithMany("DeckCards")
+                        .HasForeignKey("DeckId");
+
                     b.HasOne("Super_Cartes_Infinies.Models.Player", null)
                         .WithMany("OwnedCards")
                         .HasForeignKey("PlayerId");
@@ -969,19 +976,11 @@ namespace Super_Cartes_Infinies.Migrations
 
             modelBuilder.Entity("Super_Cartes_Infinies.Models.DeckCard", b =>
                 {
-                    b.HasOne("Super_Cartes_Infinies.Models.Deck", "Deck")
-                        .WithMany("DeckCards")
-                        .HasForeignKey("DeckId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Super_Cartes_Infinies.Models.Card", "OwnedCard")
+                    b.HasOne("Super_Cartes_Infinies.Models.OwnedCard", "OwnedCard")
                         .WithMany("DeckCards")
                         .HasForeignKey("OwnedCardId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Deck");
 
                     b.Navigation("OwnedCard");
                 });
@@ -1073,11 +1072,6 @@ namespace Super_Cartes_Infinies.Migrations
                     b.Navigation("IdentityUser");
                 });
 
-            modelBuilder.Entity("Super_Cartes_Infinies.Models.Card", b =>
-                {
-                    b.Navigation("DeckCards");
-                });
-
             modelBuilder.Entity("Super_Cartes_Infinies.Models.Deck", b =>
                 {
                     b.Navigation("DeckCards");
@@ -1092,6 +1086,11 @@ namespace Super_Cartes_Infinies.Migrations
                     b.Navigation("Graveyard");
 
                     b.Navigation("Hand");
+                });
+
+            modelBuilder.Entity("Super_Cartes_Infinies.Models.OwnedCard", b =>
+                {
+                    b.Navigation("DeckCards");
                 });
 
             modelBuilder.Entity("Super_Cartes_Infinies.Models.Player", b =>
