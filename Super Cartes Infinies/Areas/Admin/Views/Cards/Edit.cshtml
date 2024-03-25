@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Edit";
+    var powers = ViewData["Powers"] as List<Power>;
 }
 
 <h1>Edit</h1>
@@ -10,37 +11,69 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
+        <h4>Edit Card</h4>
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="Id"/>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control"/>
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Attack" class="control-label"></label>
+                <input asp-for="Attack" class="form-control"/>
+                <span asp-validation-for="Attack" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Health" class="control-label"></label>
+                <input asp-for="Health" class="form-control"/>
+                <span asp-validation-for="Health" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Cost" class="control-label"></label>
+                <input asp-for="Cost" class="form-control"/>
+                <span asp-validation-for="Cost" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageUrl" class="control-label"></label>
+                <input asp-for="ImageUrl" class="form-control"/>
+                <span asp-validation-for="ImageUrl" class="text-danger"></span>
+            </div>
+            <br/>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary"/>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-4">
+        <h4>Add Power</h4>
+        <form asp-action="AddPower">
+            <div class="form-group">
+                <label asp-for="CardPowers" class="control-label">Power</label>
+                <select asp-for="CardPowers" class ="form-control" asp-items="ViewBag.PowerId"></select>
+            </div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
+            <br/>
             <div class="form-group">
-                <label asp-for="Attack" class="control-label"></label>
-                <input asp-for="Attack" class="form-control" />
-                <span asp-validation-for="Attack" class="text-danger"></span>
+                <input type="submit" value="Save" class="btn btn-primary"/>
             </div>
-            <div class="form-group">
-                <label asp-for="Health" class="control-label"></label>
-                <input asp-for="Health" class="form-control" />
-                <span asp-validation-for="Health" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Cost" class="control-label"></label>
-                <input asp-for="Cost" class="form-control" />
-                <span asp-validation-for="Cost" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ImageUrl" class="control-label"></label>
-                <input asp-for="ImageUrl" class="form-control" />
-                <span asp-validation-for="ImageUrl" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
+        </form>
+    </div>
+    <div class="col-md-4">
+        <h4>Remove Power</h4>
+        <form asp-action="RemovePowers">
+            @foreach (Power item in powers)
+            {
+                @item.Name
+                <div class="form-group">
+                    <input type="submit" value="Delete" class="btn btn-danger"/>
+                </div>
+            }
         </form>
     </div>
 </div>

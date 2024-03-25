@@ -67,6 +67,8 @@ namespace Super_Cartes_Infinies.Areas.Admin.Controllers
             {
                 return NotFound();
             }
+            ViewData["PowerId"] = new SelectList(_context.Power, "PowerId", "Name");
+            ViewData["Powers"] = _context.Power.ToList();
             return View(card);
         }
 
@@ -75,7 +77,7 @@ namespace Super_Cartes_Infinies.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Attack,Health,Cost,ImageUrl")] Card card)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Attack,Health,Cost,ImageUrl,PowerId")] Card card)
         {
             if (id != card.Id)
             {
@@ -102,6 +104,7 @@ namespace Super_Cartes_Infinies.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["PowerId"] = new SelectList(_context.Power, "PowerId", "Name", card.CardPowers);
             return View(card);
         }
 
@@ -145,6 +148,16 @@ namespace Super_Cartes_Infinies.Areas.Admin.Controllers
         private bool CardExists(int id)
         {
           return (_context.Cards?.Any(e => e.Id == id)).GetValueOrDefault();
+        }
+
+        public IActionResult RemovePowers(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IActionResult AddPower()
+        {
+            throw new NotImplementedException();
         }
     }
 }

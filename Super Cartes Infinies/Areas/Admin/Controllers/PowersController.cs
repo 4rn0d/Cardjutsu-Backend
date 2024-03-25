@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using Super_Cartes_Infinies.Models;
 
 namespace Super_Cartes_Infinies.Areas.Admin.Controllers
 {
+    [Authorize]
     [Area("Admin")]
     public class PowersController : Controller
     {
@@ -81,6 +83,7 @@ namespace Super_Cartes_Infinies.Areas.Admin.Controllers
             {
                 return NotFound();
             }
+
             return View(power);
         }
 
