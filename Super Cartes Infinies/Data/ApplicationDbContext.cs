@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Super_Cartes_Infinies.Models;
+using System.Reflection.Emit;
 
 namespace Super_Cartes_Infinies.Data;
 
@@ -42,6 +43,21 @@ public class ApplicationDbContext : IdentityDbContext
             .HasOne(m => m.PlayerDataB)
             .WithMany()
             .OnDelete(DeleteBehavior.NoAction);
+
+        //DECK 
+        builder.Entity<DeckCard>()
+        .HasKey(dc => new { dc.DeckId, dc.CardId });
+
+        builder.Entity<DeckCard>()
+            .HasOne(dc => dc.Deck)
+            .WithMany(d => d.DeckCards)
+            .HasForeignKey(dc => dc.DeckId);
+
+        builder.Entity<DeckCard>()
+            .HasOne(dc => dc.Card)
+            .WithMany(c => c.DeckCards)
+            .HasForeignKey(dc => dc.CardId);
+        
         // Fin de Fluent API
     }
 

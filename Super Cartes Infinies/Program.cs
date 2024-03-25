@@ -12,6 +12,7 @@ using Super_Cartes_Infinies.Data;
 using Super_Cartes_Infinies.Services;
 using Super_Cartes_Infinies.Services.Interfaces;
 using Super_Cartes_Infinies.Controllers;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,7 +34,12 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddSignalR();
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    }); 
+
 
 
 

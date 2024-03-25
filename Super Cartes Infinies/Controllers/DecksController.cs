@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Super_Cartes_Infinies.Data;
 using Super_Cartes_Infinies.Migrations;
 using Super_Cartes_Infinies.Models;
+using Super_Cartes_Infinies.Models.Dtos;
 
 namespace Super_Cartes_Infinies.Controllers
 {
@@ -31,7 +32,8 @@ namespace Super_Cartes_Infinies.Controllers
           {
               return NotFound();
           }
-            return await _context.Decks.ToListAsync();
+          List<Deck> decks = await _context.Decks.ToListAsync();
+            return decks;
         }
 
         // GET: api/Decks/5
@@ -86,28 +88,37 @@ namespace Super_Cartes_Infinies.Controllers
         // POST: api/Decks
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Deck>> PostDeck(Deck deck)
+        public async Task<ActionResult<Deck>> PostDeck(DeckCardDTO deckDTO)
         {
           if (_context.Decks == null)
           {
               return Problem("Entity set 'ApplicationDbContext.Decks'  is null.");
             }
 
-
             try
             {
-                
+                Deck deck = new Deck();
+                deck.DeckName = deckDTO.Deck.DeckName;
+                deck.IsCurrentDeck = deckDTO.Deck.IsCurrentDeck;
+
+                foreach (var card in deckDTO.cards)
+                {
+                    deck.DeckCards.Add(new DeckCard { Deck = deck, CardId = card.Id, DeckCardId =0});
+                }
+
+             
                 _context.Add(deck);
                 await _context.SaveChangesAsync();
 
+                return NoContent();
             }
             catch (Exception e)
             {
-
-                throw e;
+                // Handle any exceptions
+                return Problem($"An error occurred while creating the deck: {e.Message}");
             }
-           
-            return NoContent();
+
+
         }
 
         [HttpPost]
