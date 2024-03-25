@@ -51,9 +51,9 @@ public class MatchHub : Hub
         {
             string matchGroup = CreateGroup(joiningMatchData.Match.Id);
             await Groups.AddToGroupAsync(Context.ConnectionId, matchGroup);
+            await Groups.AddToGroupAsync(joiningMatchData.OtherPlayerConnectionId, matchGroup);
 
             // TODO
-            await Clients.Caller.SendAsync("IsWaiting", false);
             await Clients.Group(matchGroup).SendAsync("GetMatchData", joiningMatchData);
 
             if(!joiningMatchData.IsStarted)
@@ -62,6 +62,7 @@ public class MatchHub : Hub
                 var startMatchEvent = await _matchesService.StartMatch(CurentUser.Id, joiningMatchData.Match);
                 await Clients.Group(matchGroup).SendAsync("StartMatch", startMatchEvent);
             }
+            await Clients.Caller.SendAsync("IsWaiting", false);
         }
         else
         {

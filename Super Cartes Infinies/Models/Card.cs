@@ -16,9 +16,9 @@ namespace Super_Cartes_Infinies.Models
         public int Cost { get; set; }
         public string Colour { get; set; }
         public string ImageUrl { get; set; } = "";
-
         [ValidateNever]
-        public virtual List<DeckCard> DeckCards { get; set; }
+        public virtual List<CardPower> CardPowers { get; set; }
+
     }
 }
 
