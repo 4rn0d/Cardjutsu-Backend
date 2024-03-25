@@ -21,6 +21,34 @@ namespace Super_Cartes_Infinies.Models
 		public virtual Card Card { get; set; }
 		public int Health { get; set; }
         public int Attack { get; set; }
+      
+
+
+        public bool HasPower(int powerId)
+        {
+            if (powerId == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+            
+        }
+        public int GetPowerValue(int powerId)
+        {
+            // Return the value of that power for that card. 
+            // Simply returns 0 if the card doesn't have the power.
+            if (!HasPower(powerId)) {
+                return 0;
+            }
+            else
+            {
+               
+                return Card.CardPowers.Where(p=>p.Power.PowerId == powerId).First().Value;
+            }
+        }
     }
 }
 
