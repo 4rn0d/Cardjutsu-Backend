@@ -26,14 +26,19 @@ namespace Super_Cartes_Infinies.Models
 
         public bool HasPower(int powerId)
         {
-            if (powerId == null)
+
+            List<CardPower> cardplist = new List<CardPower>(Card.CardPowers);
+
+
+            foreach (CardPower cardpower in cardplist)
             {
-                return false;
+                if(cardpower.Power.PowerId == powerId)
+                {
+                    return true;
+                }
             }
-            else
-            {
-                return true;
-            }
+            return false;
+            
             
         }
         public int GetPowerValue(int powerId)
