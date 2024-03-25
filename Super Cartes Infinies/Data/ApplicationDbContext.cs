@@ -21,6 +21,7 @@ public class ApplicationDbContext : IdentityDbContext
         builder.Entity<Card>().HasData(Seed.SeedCards());
         builder.Entity<Player>().HasData(Seed.SeedTestPlayers());
         builder.Entity<IdentityUser>().HasData(Seed.SeedTestUsers());
+        builder.Entity<Power>().HasData(Seed.SeedPower());
 
         builder.Entity<Config>().HasData(Seed.SeedConfigs());
         builder.Entity<CardStart>().HasData(Seed.SeedCardStarts());
@@ -50,6 +51,9 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet<Player> Players { get; set; } = default!;
 
     public DbSet<Match> Matches { get; set; } = default!;
+
+    public DbSet<Power> Powers { get; set; } = default!;
+
     public DbSet<OwnedCard> OwnedCards { get; set; } = default!;
 
     public DbSet<MatchPlayerData> MatchPlayersData { get; set; } = default!;
@@ -57,5 +61,7 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet<Super_Cartes_Infinies.Models.Config> Config { get; set; } = default!;
 
     public DbSet<Super_Cartes_Infinies.Models.CardStart> CardStart { get; set; } = default!;
+
+    public DbSet<Super_Cartes_Infinies.Models.Power> Power { get; set; } = default!;
 }
 

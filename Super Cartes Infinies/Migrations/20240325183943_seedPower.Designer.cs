@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Super_Cartes_Infinies.Data;
 
@@ -11,9 +12,11 @@ using Super_Cartes_Infinies.Data;
 namespace Super_Cartes_Infinies.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240325183943_seedPower")]
+    partial class seedPower
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -154,37 +157,37 @@ namespace Super_Cartes_Infinies.Migrations
                         {
                             Id = "User1Id",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "51803559-13a0-4992-ad4f-8bd33ec0668d",
+                            ConcurrencyStamp = "827be8cb-016c-45f2-b71f-086737fcf3e1",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "b843ea18-bb64-4eb7-b71e-f5b76eafc19a",
+                            SecurityStamp = "ff0e603a-837e-43e4-8653-5c2b5eb22abe",
                             TwoFactorEnabled = false
                         },
                         new
                         {
                             Id = "User2Id",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "247fd7a3-e45c-4ef4-b999-2fda913e389c",
+                            ConcurrencyStamp = "550343fb-a493-4d13-8eef-462ca8c6be22",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "36d078cf-a1ca-4a8c-9263-0d64d25bd654",
+                            SecurityStamp = "5319e435-6bca-4cda-b5a4-540ca6dad228",
                             TwoFactorEnabled = false
                         },
                         new
                         {
                             Id = "11111111-1111-1111-1111-111111111111",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f61d2790-63c7-4408-a8d8-ef8d58db6d05",
+                            ConcurrencyStamp = "7aa8a54b-c1bd-473d-b9ec-848164abc154",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEPcAqBIqyCOjVWD3eKahj3NcGqOlb4iiILbf0yT5Tk0r++Wwpj2l8IUqPa0t6cDM2g==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEH5MsgC3GhWTyZvQkbGJ0aO1soBqz7hmqI1YEvg0UlfSYdHYxe5QEugSDesN79h7oQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "b8e5e768-51de-4176-add6-050c7fcd0465",
+                            SecurityStamp = "84cb9031-62ea-449b-90e5-44c60e8f51bb",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         });
@@ -892,29 +895,6 @@ namespace Super_Cartes_Infinies.Migrations
                     b.HasKey("PowerId");
 
                     b.ToTable("Power");
-
-                    b.HasData(
-                        new
-                        {
-                            PowerId = 1,
-                            Description = "First Strike permet à une carte d’attaquer en « premier » et de ne pas recevoir de dégât si elle tue la carte de l’adversaire.",
-                            Icone = "https://leagueofitems.com/images/runes/256/8369.webp",
-                            Name = "First Strike"
-                        },
-                        new
-                        {
-                            PowerId = 2,
-                            Description = "Lorsqu’une carte défend, elle inflige X de dégâts AVANT de recevoir des dégâts. Si l’attaquant est tué par ces dégâts, l’attaque s’arrête et le défenseur ne reçoit pas de dégâts.",
-                            Icone = "https://leagueofitems.com/images/items/128/3075.webp",
-                            Name = "Thorns"
-                        },
-                        new
-                        {
-                            PowerId = 3,
-                            Description = "Soigne les cartes alliées de X incluant elle-même AVANT d’attaquer (mais les cartes ne peuvent pas avoir plus de health qu’au départ.)",
-                            Icone = "https://cdnb.artstation.com/p/assets/images/images/059/650/103/large/mackenzie-miller-healthpotion.jpg?1676863888",
-                            Name = "Heal"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
