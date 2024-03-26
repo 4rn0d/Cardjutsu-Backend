@@ -100,22 +100,23 @@ namespace Super_Cartes_Infinies.Controllers
                 Deck deck = new Deck();
                 deck.DeckName = deckDTO.Deck.DeckName;
                 deck.IsCurrentDeck = deckDTO.Deck.IsCurrentDeck;
-
-                foreach (var card in deckDTO.cards)
+                int nb = 0;
+                foreach (Card card in deckDTO.cards)
                 {
-                    deck.DeckCards.Add(new DeckCard { Deck = deck, CardId = card.Id, DeckCardId =0});
+                    DeckCard deckCard = new DeckCard { Deck = deck, DeckId = deck.DeckId, CardId = card.Id, DeckCardId=nb };
+                    nb++;
+                    _context.Add(deckCard);
                 }
 
              
-                _context.Add(deck);
+                _context.Decks.Add(deck);
                 await _context.SaveChangesAsync();
 
                 return NoContent();
             }
             catch (Exception e)
             {
-                // Handle any exceptions
-                return Problem($"An error occurred while creating the deck: {e.Message}");
+                return null;
             }
 
 

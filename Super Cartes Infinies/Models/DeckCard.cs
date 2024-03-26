@@ -7,7 +7,7 @@ namespace Super_Cartes_Infinies.Models
 {
     public class DeckCard
     {
-      
+
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public int DeckCardId { get; set; }

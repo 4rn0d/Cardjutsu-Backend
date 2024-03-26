@@ -46,7 +46,7 @@ public class ApplicationDbContext : IdentityDbContext
 
         //DECK 
         builder.Entity<DeckCard>()
-        .HasKey(dc => new { dc.DeckId, dc.CardId });
+            .HasKey(p => p.DeckCardId);  
 
         builder.Entity<DeckCard>()
             .HasOne(dc => dc.Deck)
@@ -57,7 +57,7 @@ public class ApplicationDbContext : IdentityDbContext
             .HasOne(dc => dc.Card)
             .WithMany(c => c.DeckCards)
             .HasForeignKey(dc => dc.CardId);
-        
+
         // Fin de Fluent API
     }
 
