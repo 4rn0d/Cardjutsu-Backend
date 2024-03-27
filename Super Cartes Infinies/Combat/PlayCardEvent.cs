@@ -9,8 +9,6 @@ namespace Super_Cartes_Infinies.Combat
         // TODO: Ajouter tout ce qui manque
         public PlayCardEvent(MatchPlayerData currentPlayerData, MatchPlayerData opposingPlayerData, int playableCardId)
         {
-            Events = new List<MatchEvent>();
-
             PlayableCard playedcard = currentPlayerData.Hand.Where(c => c.Id == playableCardId).FirstOrDefault();
 
             currentPlayerData.BattleField.Add(playedcard);
