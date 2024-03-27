@@ -48,11 +48,8 @@ namespace Super_Cartes_Infinies.Models
             if (!HasPower(powerId)) {
                 return 0;
             }
-            else
-            {
-               
-                return Card.CardPowers.Where(p=>p.Power.PowerId == powerId).First().Value;
-            }
+
+            return Card.CardPowers.Where(p=>p.Power.PowerId == powerId).First().Value;
         }
     }
 }

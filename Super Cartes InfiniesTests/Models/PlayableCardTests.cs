@@ -72,5 +72,59 @@ namespace Super_Cartes_Infinies.Models.Tests
             Assert.IsTrue(playableCard.HasPower(Power.FIRST_STRIKE_ID));
 
         }
+
+        [TestMethod()]
+        public void GetPowerValueOtherTest()
+        {
+            int testPowerId = 2;
+
+            Card card = new Card();
+
+            CardPower cardp = new CardPower();
+
+            Power power = new Power();
+
+            power.PowerId = testPowerId;
+
+            cardp.Power = power;
+
+            cardp.Value = 1;
+
+            card.CardPowers = new List<CardPower>();
+
+            card.CardPowers.Add(cardp);
+
+            PlayableCard playableCard = new PlayableCard(card);
+
+            Assert.AreEqual(playableCard.GetPowerValue(testPowerId + 1), 0);
+        }
+
+        [TestMethod()]
+        public void GetPowerValueGoodTest()
+        {
+            int testPowerId = 2;
+
+            int cardPowerValue = 3;
+
+            Card card = new Card();
+
+            CardPower cardp = new CardPower();
+
+            Power power = new Power();
+
+            power.PowerId = testPowerId;
+
+            cardp.Power = power;
+
+            cardp.Value = cardPowerValue;
+
+            card.CardPowers = new List<CardPower>();
+
+            card.CardPowers.Add(cardp);
+
+            PlayableCard playableCard = new PlayableCard(card);
+
+            Assert.AreEqual(playableCard.GetPowerValue(testPowerId), cardPowerValue);
+        }
     }
 }
