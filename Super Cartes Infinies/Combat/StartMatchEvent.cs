@@ -12,6 +12,8 @@ namespace Super_Cartes_Infinies.Combat
 
             Events = new List<MatchEvent> { };
 
+            
+
             for (int i = 0; i < nbStartingCards; i++)
             {
                 Events.Add(new DrawCardEvent(currentPlayerData));
