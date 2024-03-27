@@ -44,19 +44,11 @@ public class ApplicationDbContext : IdentityDbContext
             .WithMany()
             .OnDelete(DeleteBehavior.NoAction);
 
-        //DECK 
-        builder.Entity<DeckCard>()
-            .HasKey(p => p.DeckCardId);  
-
-        builder.Entity<DeckCard>()
-            .HasOne(dc => dc.Deck)
-            .WithMany(d => d.DeckCards)
-            .HasForeignKey(dc => dc.DeckId);
-
-        builder.Entity<DeckCard>()
-            .HasOne(dc => dc.Card)
-            .WithMany(c => c.DeckCards)
-            .HasForeignKey(dc => dc.CardId);
+        //DECKPLAYER
+        builder.Entity<Deck>()
+        .HasOne(e => e.Player)
+        .WithMany()
+        .OnDelete(DeleteBehavior.NoAction); // <--
 
         // Fin de Fluent API
     }

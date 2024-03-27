@@ -100,23 +100,28 @@ namespace Super_Cartes_Infinies.Controllers
                 Deck deck = new Deck();
                 deck.DeckName = deckDTO.Deck.DeckName;
                 deck.IsCurrentDeck = deckDTO.Deck.IsCurrentDeck;
-                int nb = 0;
+                deck.PlayerId = deckDTO.Deck.PlayerId;
+                List<OwnedCard> ownedCards = new List<OwnedCard>(); 
                 foreach (Card card in deckDTO.cards)
                 {
-                    DeckCard deckCard = new DeckCard { Deck = deck, DeckId = deck.DeckId, CardId = card.Id, DeckCardId=nb };
-                    nb++;
-                    _context.Add(deckCard);
+                    OwnedCard ownedCard = _context.OwnedCards.Where(p=>p.Card == card).FirstOrDefault();
+                    ownedCard.decks.Add(deck);
+                    ownedCards.Add(ownedCard);
+                
                 }
+                deck.OwnedCards = ownedCards;
+               
 
              
                 _context.Decks.Add(deck);
                 await _context.SaveChangesAsync();
 
+
                 return NoContent();
             }
             catch (Exception e)
             {
-                return null;
+                return Problem();
             }
 
 
@@ -130,15 +135,35 @@ namespace Super_Cartes_Infinies.Controllers
                 return Problem("Entity set 'ApplicationDbContext.Decks'  is null.");
             }
 
-           
-           
-            if (deck != null) {
-                deck.IsCurrentDeck = true;
-                _context.Decks.Update(deck);
-                _context.SaveChanges();
+            if (deck == null)
+            {
+                return BadRequest("No deck provided in the request body.");
             }
 
-            return NoContent();
+            Deck? deckCurrent =  _context.Decks.Where(p => p.IsCurrentDeck == true).FirstOrDefault();
+            if (deckCurrent != null)
+            {
+                deckCurrent.IsCurrentDeck = false;
+            }
+
+
+         
+            try
+            {
+                var existingDeck = await _context.Decks.FindAsync(deck.DeckId);
+                if (existingDeck == null)
+                {
+                    return NotFound("Deck not found.");
+                }
+
+                existingDeck.IsCurrentDeck = true;
+                await _context.SaveChangesAsync();
+                return NoContent();
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, $"An error occurred while making the deck the current deck: {e.Message}");
+            }
         }
 
         // DELETE: api/Decks/5
