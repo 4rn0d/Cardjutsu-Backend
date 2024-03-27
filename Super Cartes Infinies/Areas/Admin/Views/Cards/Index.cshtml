@@ -57,9 +57,12 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Colour)
             </td>>
-             <td>
-                 @Html.DisplayFor(modelItem => item.CardPowers)
-             </td>
+            <td>
+                @foreach (CardPower cardPower in item.CardPowers)
+                {
+                    <p>@cardPower.Power.Name</p>
+                }
+            </td>
             <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                     <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>

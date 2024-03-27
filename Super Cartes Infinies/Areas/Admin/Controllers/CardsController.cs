@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis.Differencing;
 using Microsoft.EntityFrameworkCore;
 using Super_Cartes_Infinies.Data;
 using Super_Cartes_Infinies.Models;
@@ -67,8 +68,12 @@ namespace Super_Cartes_Infinies.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            ViewData["PowerId"] = new SelectList(_context.Power, "PowerId", "Name");
-            ViewData["Powers"] = _context.Power.ToList();
+            ViewData["PowerList"] = new SelectList(_context.Power, "PowerId", "Name");
+            CardPower cardPower = new CardPower();
+            cardPower.Power = new Power();
+            ViewData["CardPower"] = cardPower;
+            ViewData["PowerId"] = 0;
+            ViewData["Value"] = 0;
             return View(card);
         }
 
@@ -77,7 +82,7 @@ namespace Super_Cartes_Infinies.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Attack,Health,Cost,ImageUrl,PowerId")] Card card)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Attack,Health,Cost,ImageUrl")] Card card)
         {
             if (id != card.Id)
             {
@@ -104,7 +109,6 @@ namespace Super_Cartes_Infinies.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["PowerId"] = new SelectList(_context.Power, "PowerId", "Name", card.CardPowers);
             return View(card);
         }
 
@@ -150,14 +154,34 @@ namespace Super_Cartes_Infinies.Areas.Admin.Controllers
           return (_context.Cards?.Any(e => e.Id == id)).GetValueOrDefault();
         }
 
-        public IActionResult RemovePowers(int id)
+        public async Task<IActionResult> RemovePowers(int cardId, int cardPowerId)
         {
-            throw new NotImplementedException();
+            Card card;
+            card = _context.Cards.Where(c => c.Id == cardId).First();
+
+            card.CardPowers.RemoveAt(cardPowerId);
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Edit), card);
         }
 
-        public IActionResult AddPower()
+        [HttpPost]
+        public async Task<IActionResult> AddPower(int cardId, int powerId, int value)
         {
-            throw new NotImplementedException();
+            Card card;
+            card = _context.Cards.Where(c => c.Id == cardId).First();
+
+            CardPower cardPower = new CardPower();
+            cardPower.Power = _context.Power.Where(p => p.PowerId == powerId).First();
+            cardPower.Value = value;
+            cardPower.Card = card;
+
+            card.CardPowers = new List<CardPower>();
+            card.CardPowers.Add(cardPower);
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Edit), card);
         }
     }
 }

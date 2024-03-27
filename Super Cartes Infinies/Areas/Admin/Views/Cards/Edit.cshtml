@@ -2,7 +2,8 @@
 
 @{
     ViewData["Title"] = "Edit";
-    var powers = ViewData["Powers"] as List<Power>;
+    var powerId = ViewData["PowerId"];
+    var value = ViewData["Value"];
 }
 
 <h1>Edit</h1>
@@ -48,15 +49,16 @@
     </div>
     <div class="col-md-4">
         <h4>Add Power</h4>
-        <form asp-action="AddPower">
+        <form asp-action="AddPower" asp-route-cardId="@Model.Id">
             <div class="form-group">
-                <label asp-for="CardPowers" class="control-label">Power</label>
-                <select asp-for="CardPowers" class ="form-control" asp-items="ViewBag.PowerId"></select>
+                <label asp-for="@powerId" class="control-label">Power</label>
+                <select asp-for="@powerId" class ="form-control" asp-items="ViewBag.PowerList">
+                </select>
             </div>
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <label class="control-label">Value</label>
+                <input asp-for="@value" class="form-control" />
+                <span asp-validation-for="@value" class="text-danger"></span>
             </div>
             <br/>
             <div class="form-group">
@@ -66,15 +68,16 @@
     </div>
     <div class="col-md-4">
         <h4>Remove Power</h4>
-        <form asp-action="RemovePowers">
-            @foreach (Power item in powers)
-            {
-                @item.Name
-                <div class="form-group">
+        @for (int i = 0; i < @Model.CardPowers.Count; i++)
+        {
+            <form asp-action="RemovePowers" asp-route-cardId="@Model.CardPowers[i].Card.Id" asp-route-cardPowerId="@i">
+                <br/>
+                <div class="form-group" style="display: flex;justify-content: space-between;border: 1px solid #ced4da; padding: 5px;border-radius: .25rem;">
+                    <span><b>Power :</b> <u>@Model.CardPowers[i].Power.Name</u>, <b>Value :</b> <u>@Model.CardPowers[i].Value</u></span>
                     <input type="submit" value="Delete" class="btn btn-danger"/>
                 </div>
-            }
-        </form>
+            </form>
+        }
     </div>
 </div>
 
