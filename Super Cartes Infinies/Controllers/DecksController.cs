@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Super_Cartes_Infinies.Data;
@@ -37,21 +39,25 @@ namespace Super_Cartes_Infinies.Controllers
         }
 
         // GET: api/Decks/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Deck>> GetDeck(int id)
+        [HttpGet]
+        public async Task<ActionResult<List<Deck>>> GetDeck()
         {
-          if (_context.Decks == null)
-          {
+            string Id = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            IdentityUser? user = _context.Users.Find(Id);
+            if (_context.Decks == null)
+              {
               return NotFound();
-          }
-            var deck = await _context.Decks.FindAsync(id);
+              }
 
-            if (deck == null)
+            Player player = await _context.Players.Where(p=>p.IdentityUserId == user.Id).FirstAsync();
+            List<Deck> decks = await _context.Decks.Where(d=>d.PlayerId == player.Id).ToListAsync();
+
+            if (decks == null)
             {
                 return NotFound();
             }
 
-            return deck;
+            return decks;
         }
 
         // PUT: api/Decks/5
