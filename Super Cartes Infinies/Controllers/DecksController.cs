@@ -12,6 +12,7 @@ using Super_Cartes_Infinies.Data;
 using Super_Cartes_Infinies.Migrations;
 using Super_Cartes_Infinies.Models;
 using Super_Cartes_Infinies.Models.Dtos;
+using Super_Cartes_Infinies.Services;
 
 namespace Super_Cartes_Infinies.Controllers
 {
@@ -20,10 +21,12 @@ namespace Super_Cartes_Infinies.Controllers
     public class DecksController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
+        private DecksService _decksService;
 
-        public DecksController(ApplicationDbContext context)
+        public DecksController(ApplicationDbContext context, DecksService DecksService)
         {
             _context = context;
+            _decksService = DecksService;
         }
 
         // GET: api/Decks
@@ -38,19 +41,20 @@ namespace Super_Cartes_Infinies.Controllers
             return decks;
         }
 
-        // GET: api/Decks/5
+       
         [HttpGet]
         public async Task<ActionResult<List<Deck>>> GetDeck()
         {
-            string Id = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            IdentityUser? user = _context.Users.Find(Id);
-            if (_context.Decks == null)
-              {
-              return NotFound();
-              }
+            //string Id = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            //IdentityUser? user = _context.Users.Find(Id);
+            //if (_context.Decks == null)
+            //  {
+            //  return NotFound();
+            //  }
 
-            Player player = await _context.Players.Where(p=>p.IdentityUserId == user.Id).FirstAsync();
-            List<Deck> decks = await _context.Decks.Where(d=>d.PlayerId == player.Id).ToListAsync();
+            //Player player = await _context.Players.Where(p=>p.IdentityUserId == user.Id).FirstAsync();
+
+            List<Deck> decks = await _decksService.GetDecks();
 
             if (decks == null)
             {
@@ -96,7 +100,10 @@ namespace Super_Cartes_Infinies.Controllers
         [HttpPost]
         public async Task<ActionResult<Deck>> PostDeck(DeckCardDTO deckDTO)
         {
-          if (_context.Decks == null)
+            string Id = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            IdentityUser? user = _context.Users.Find(Id);
+            Player player = await _context.Players.Where(p => p.IdentityUserId == user.Id).FirstAsync();
+            if (_context.Decks == null)
           {
               return Problem("Entity set 'ApplicationDbContext.Decks'  is null.");
             }
@@ -106,7 +113,7 @@ namespace Super_Cartes_Infinies.Controllers
                 Deck deck = new Deck();
                 deck.DeckName = deckDTO.Deck.DeckName;
                 deck.IsCurrentDeck = deckDTO.Deck.IsCurrentDeck;
-                deck.PlayerId = deckDTO.Deck.PlayerId;
+                deck.PlayerId = player.Id;
                 List<OwnedCard> ownedCards = new List<OwnedCard>(); 
                 foreach (Card card in deckDTO.cards)
                 {
@@ -133,30 +140,27 @@ namespace Super_Cartes_Infinies.Controllers
 
         }
 
-        [HttpPost]
-        public async Task<ActionResult<Deck>>MakeCurrentDeck(Deck deck)
+        [HttpGet("{deckId}")]
+        public async Task<ActionResult<Deck>>MakeCurrentDeck(int deckId)
         {
             if (_context.Decks == null)
             {
                 return Problem("Entity set 'ApplicationDbContext.Decks'  is null.");
             }
 
-            if (deck == null)
-            {
-                return BadRequest("No deck provided in the request body.");
-            }
+         
 
             Deck? deckCurrent =  _context.Decks.Where(p => p.IsCurrentDeck == true).FirstOrDefault();
             if (deckCurrent != null)
             {
                 deckCurrent.IsCurrentDeck = false;
+                await _context.SaveChangesAsync();
             }
 
 
          
-            try
-            {
-                var existingDeck = await _context.Decks.FindAsync(deck.DeckId);
+           
+                var existingDeck = await _context.Decks.FindAsync(deckId);
                 if (existingDeck == null)
                 {
                     return NotFound("Deck not found.");
@@ -165,11 +169,7 @@ namespace Super_Cartes_Infinies.Controllers
                 existingDeck.IsCurrentDeck = true;
                 await _context.SaveChangesAsync();
                 return NoContent();
-            }
-            catch (Exception e)
-            {
-                return StatusCode(500, $"An error occurred while making the deck the current deck: {e.Message}");
-            }
+         
         }
 
         // DELETE: api/Decks/5
@@ -185,7 +185,10 @@ namespace Super_Cartes_Infinies.Controllers
             {
                 return NotFound();
             }
-
+            if (deck.IsCurrentDeck == true)
+            {
+                return Problem();
+            }
             _context.Decks.Remove(deck);
             await _context.SaveChangesAsync();
 
