@@ -100,34 +100,35 @@ namespace Super_Cartes_Infinies.Controllers
         [HttpPost]
         public async Task<ActionResult<Deck>> PostDeck(DeckCardDTO deckDTO)
         {
-            string Id = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            IdentityUser? user = _context.Users.Find(Id);
-            Player player = await _context.Players.Where(p => p.IdentityUserId == user.Id).FirstAsync();
+            //string Id = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            //IdentityUser? user = _context.Users.Find(Id);
+            //Player player = await _context.Players.Where(p => p.IdentityUserId == user.Id).FirstAsync();
             if (_context.Decks == null)
-          {
+            {
               return Problem("Entity set 'ApplicationDbContext.Decks'  is null.");
             }
 
             try
             {
-                Deck deck = new Deck();
-                deck.DeckName = deckDTO.Deck.DeckName;
-                deck.IsCurrentDeck = deckDTO.Deck.IsCurrentDeck;
-                deck.PlayerId = player.Id;
-                List<OwnedCard> ownedCards = new List<OwnedCard>(); 
-                foreach (Card card in deckDTO.cards)
-                {
-                    OwnedCard ownedCard = _context.OwnedCards.Where(p=>p.Card == card).FirstOrDefault();
-                    ownedCard.decks.Add(deck);
-                    ownedCards.Add(ownedCard);
-                
-                }
-                deck.OwnedCards = ownedCards;
-               
+                //Deck deck = new Deck();
+                //deck.DeckName = deckDTO.Deck.DeckName;
+                //deck.IsCurrentDeck = deckDTO.Deck.IsCurrentDeck;
+                //deck.PlayerId = player.Id;
+                //List<OwnedCard> ownedCards = new List<OwnedCard>(); 
+                //foreach (Card card in deckDTO.cards)
+                //{
+                //    OwnedCard ownedCard = _context.OwnedCards.Where(p=>p.Card == card).FirstOrDefault();
+                //    ownedCard.decks.Add(deck);
+                //    ownedCards.Add(ownedCard);
 
-             
-                _context.Decks.Add(deck);
-                await _context.SaveChangesAsync();
+                //}
+                //deck.OwnedCards = ownedCards;
+
+
+
+                //_context.Decks.Add(deck);
+                //await _context.SaveChangesAsync();
+                _decksService.PostDeck(deckDTO);
 
 
                 return NoContent();
@@ -148,26 +149,27 @@ namespace Super_Cartes_Infinies.Controllers
                 return Problem("Entity set 'ApplicationDbContext.Decks'  is null.");
             }
 
-         
-
-            Deck? deckCurrent =  _context.Decks.Where(p => p.IsCurrentDeck == true).FirstOrDefault();
-            if (deckCurrent != null)
-            {
-                deckCurrent.IsCurrentDeck = false;
-                await _context.SaveChangesAsync();
-            }
 
 
-         
-           
-                var existingDeck = await _context.Decks.FindAsync(deckId);
-                if (existingDeck == null)
-                {
-                    return NotFound("Deck not found.");
-                }
+            //Deck? deckCurrent =  _context.Decks.Where(p => p.IsCurrentDeck == true).FirstOrDefault();
+            //if (deckCurrent != null)
+            //{
+            //    deckCurrent.IsCurrentDeck = false;
+            //    await _context.SaveChangesAsync();
+            //}
 
-                existingDeck.IsCurrentDeck = true;
-                await _context.SaveChangesAsync();
+
+
+
+            //    var existingDeck = await _context.Decks.FindAsync(deckId);
+            //    if (existingDeck == null)
+            //    {
+            //        return NotFound("Deck not found.");
+            //    }
+
+            //    existingDeck.IsCurrentDeck = true;
+            //    await _context.SaveChangesAsync();
+            _decksService.MakeCurrentDeck(deckId);
                 return NoContent();
          
         }
@@ -180,17 +182,18 @@ namespace Super_Cartes_Infinies.Controllers
             {
                 return NotFound();
             }
-            var deck = await _context.Decks.FindAsync(id);
-            if (deck == null)
-            {
-                return NotFound();
-            }
-            if (deck.IsCurrentDeck == true)
-            {
-                return Problem();
-            }
-            _context.Decks.Remove(deck);
-            await _context.SaveChangesAsync();
+            //var deck = await _context.Decks.FindAsync(id);
+            //if (deck == null)
+            //{
+            //    return NotFound();
+            //}
+            //if (deck.IsCurrentDeck == true)
+            //{
+            //    return Problem();
+            //}
+            //_context.Decks.Remove(deck);
+            //await _context.SaveChangesAsync();
+            _decksService.DeleteDeck(id);
 
             return NoContent();
         }
