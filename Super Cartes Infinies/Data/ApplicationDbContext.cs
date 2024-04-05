@@ -19,6 +19,7 @@ public class ApplicationDbContext : IdentityDbContext
     {
         base.OnModelCreating(builder);
 
+        
         builder.Entity<Card>().HasData(Seed.SeedCards());
         builder.Entity<Player>().HasData(Seed.SeedTestPlayers());
         builder.Entity<IdentityUser>().HasData(Seed.SeedTestUsers());
@@ -27,7 +28,8 @@ public class ApplicationDbContext : IdentityDbContext
         builder.Entity<CardStart>().HasData(Seed.SeedCardStarts());
         
         builder.Entity<IdentityUser>().HasData(Seed.SeedUsers());
-        builder.Entity<IdentityRole>().HasData(Seed.SeedRoles());         
+        builder.Entity<IdentityRole>().HasData(Seed.SeedRoles());      
+        
         builder.Entity<IdentityUserRole<string>>().HasData(Seed.SeedUserRoles());
 
         // Lorsque le modèle de données se complexifient, il faut éventuellement utiliser Fluent API

@@ -20,7 +20,7 @@ namespace Super_Cartes_Infinies.Controllers
     [ApiController]
     public class DecksController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
+        readonly ApplicationDbContext _context;
         private DecksService _decksService;
 
         public DecksController(ApplicationDbContext context, DecksService DecksService)
@@ -69,7 +69,7 @@ namespace Super_Cartes_Infinies.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutDeck(int id, Deck deck)
         {
-            if (id != deck.DeckId)
+            if (id != deck.Id)
             {
                 return BadRequest();
             }
@@ -128,10 +128,10 @@ namespace Super_Cartes_Infinies.Controllers
 
                 //_context.Decks.Add(deck);
                 //await _context.SaveChangesAsync();
-                _decksService.PostDeck(deckDTO);
+                Deck re = await _decksService.PostDeck(deckDTO);
+                //await _context.SaveChangesAsync();
 
-
-                return NoContent();
+                return Ok();
             }
             catch (Exception e)
             {
@@ -169,8 +169,9 @@ namespace Super_Cartes_Infinies.Controllers
 
             //    existingDeck.IsCurrentDeck = true;
             //    await _context.SaveChangesAsync();
-            _decksService.MakeCurrentDeck(deckId);
-                return NoContent();
+           Deck deck =await _decksService.MakeCurrentDeck(deckId);
+            //await _context.SaveChangesAsync();
+            return Ok();
          
         }
 
@@ -182,25 +183,14 @@ namespace Super_Cartes_Infinies.Controllers
             {
                 return NotFound();
             }
-            //var deck = await _context.Decks.FindAsync(id);
-            //if (deck == null)
-            //{
-            //    return NotFound();
-            //}
-            //if (deck.IsCurrentDeck == true)
-            //{
-            //    return Problem();
-            //}
-            //_context.Decks.Remove(deck);
-            //await _context.SaveChangesAsync();
-            _decksService.DeleteDeck(id);
-
-            return NoContent();
+          
+           bool re =await _decksService.DeleteDeck(id); //je retourne un bool car je dois mettre un await ou sinon System.ObjectDisposedException.
+            return Ok();
         }
 
         private bool DeckExists(int id)
         {
-            return (_context.Decks?.Any(e => e.DeckId == id)).GetValueOrDefault();
+            return (_context.Decks?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

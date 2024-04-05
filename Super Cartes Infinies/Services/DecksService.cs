@@ -8,19 +8,17 @@ using System.Security.Claims;
 
 namespace Super_Cartes_Infinies.Services
 {
-    public class DecksService
+    public class DecksService : BaseService<Deck>
     {
-        private readonly PlayersService _servicePlayer;
+       
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly ApplicationDbContext _context;
+        private ApplicationDbContext _context;
 
-
-        public DecksService(PlayersService playersService, IHttpContextAccessor httpContextAccessor, ApplicationDbContext applicationDbContext)
+        public DecksService(  ApplicationDbContext context, IHttpContextAccessor httpContextAccessor) : base(context)
         {
 
-            _servicePlayer = playersService;
             _httpContextAccessor = httpContextAccessor;
-            _context = applicationDbContext;
+            _context = context;
         }
 
 
@@ -41,46 +39,52 @@ namespace Super_Cartes_Infinies.Services
             List<Deck> decks = await _context.Decks.Where(d => d.PlayerId == player.Id).ToListAsync();
             return decks;
         }
-        public async void DeleteDeck(int id)
+        public async Task<bool> DeleteDeck(int id)
         {
-            Deck? deck = await _context.Decks.FindAsync(id);
+            Deck? deck = await db.Decks.Where(p=>p.Id==id).FirstOrDefaultAsync();
             if (deck != null)
             {
                 if (deck.IsCurrentDeck != true)
                 {
-                    _context.Decks.Remove(deck);
-                    await _context.SaveChangesAsync();
-
+                   db.Decks.Remove(deck);
+                    await db.SaveChangesAsync();
+                    return true;
                 }
             }
+            return false;
 
 
         }
-        public async void MakeCurrentDeck(int deckId)
+        public async Task<Deck> MakeCurrentDeck(int deckId)
         {
-            Deck? deckCurrent = _context.Decks.Where(p => p.IsCurrentDeck == true).FirstOrDefault();
+            //string userId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            //IdentityUser user = _context.Users.Find(userId);
+            //Player player = await _context.Players.FirstOrDefaultAsync(p => p.IdentityUserId == user.Id);
+            List<Deck> decks = await this.GetDecks();
+
+            Deck? deckCurrent =  decks.Where(p => p.IsCurrentDeck == true).FirstOrDefault();
+            Deck? existingDeck =  decks.Where(p=>p.Id==deckId).FirstOrDefault();
             if (deckCurrent != null)
             {
                 deckCurrent.IsCurrentDeck = false;
-                await _context.SaveChangesAsync();
+             
             }
 
-
-
-
-            Deck existingDeck = await _context.Decks.FindAsync(deckId);
             if (existingDeck != null)
             {
                 existingDeck.IsCurrentDeck = true;
-                await _context.SaveChangesAsync();
+               
 
             }
 
+            await db.SaveChangesAsync();
+            return existingDeck;
+            
 
         }
-        public async void PostDeck(DeckCardDTO deckDTO)
+        public async Task<Deck> PostDeck(DeckCardDTO deckDTO)
         {
-            string userId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            string userId =  _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             IdentityUser user = _context.Users.Find(userId);
             Player player = _context.Players.SingleOrDefault(p => p.IdentityUserId == user.Id);
 
@@ -103,11 +107,11 @@ namespace Super_Cartes_Infinies.Services
 
 
                 _context.Decks.Add(deck);
-                await _context.SaveChangesAsync();
+            await db.SaveChangesAsync();
+
+            return deck;
 
 
-                
-           
 
         }
     }

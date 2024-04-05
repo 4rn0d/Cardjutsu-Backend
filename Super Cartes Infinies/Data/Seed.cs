@@ -383,6 +383,7 @@ namespace Super_Cartes_Infinies.Data
                 }
             };
         }
+
     }
 }
 

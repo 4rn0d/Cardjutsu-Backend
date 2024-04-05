@@ -17,11 +17,12 @@ using System.Text.Json.Serialization;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseSqlServer(connectionString);
     options.UseLazyLoadingProxies();
+
 });
 // Permet d'obtenir des erreurs de BD plus claires et même d'appliquer des migrations manquantes
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
@@ -47,10 +48,12 @@ builder.Services.AddControllersWithViews()
 builder.Services.AddScoped<PlayersService>();
 builder.Services.AddScoped<AccountService>();
 builder.Services.AddScoped<CardsService>();
+builder.Services.AddScoped<DecksService>();
 builder.Services.AddSingleton<WaitingUserService>();
 builder.Services.AddScoped<MatchesService>();
 builder.Services.AddScoped<StartingCardsService>();
 builder.Services.AddScoped<MatchConfigurationService>();
+
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
