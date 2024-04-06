@@ -170,14 +170,29 @@ namespace Super_Cartes_Infinies.Areas.Admin.Controllers
         {
             Card card;
             card = _context.Cards.Where(c => c.Id == cardId).First();
+            if (card.CardPowers == null)
+            {
+                card.CardPowers = new List<CardPower>();
+            }
 
-            CardPower cardPower = new CardPower();
-            cardPower.Power = _context.Power.Where(p => p.PowerId == powerId).First();
-            cardPower.Value = value;
-            cardPower.Card = card;
+            int score = 0;
+            for (int i = 0; i < card.CardPowers.Count; i++)
+            {
+                if (card.CardPowers[i].Power.PowerId != powerId)
+                {
+                    score++;
+                }
+            }
 
-            card.CardPowers = new List<CardPower>();
-            card.CardPowers.Add(cardPower);
+            if (score == card.CardPowers.Count)
+            {
+                CardPower cardPower = new CardPower();
+                cardPower.Power = _context.Power.Where(p => p.PowerId == powerId).First();
+                cardPower.Value = value;
+                cardPower.Card = card;
+
+                card.CardPowers.Add(cardPower);
+            }
 
             await _context.SaveChangesAsync();
 

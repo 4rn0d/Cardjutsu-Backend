@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Super_Cartes_Infinies.Models.Card>
+﻿@using System.Diagnostics.Eventing.Reader
+@model IEnumerable<Super_Cartes_Infinies.Models.Card>
 
 @{
     ViewData["Title"] = "Index";
@@ -60,7 +61,14 @@
             <td>
                 @foreach (CardPower cardPower in item.CardPowers)
                 {
-                    <p>@cardPower.Power.Name</p>
+                    if (cardPower.Power.PowerId == 1)
+                    {
+                        <p>@cardPower.Power.Name</p>
+                    }
+                    else
+                    {
+                        <p>@cardPower.Power.Name @cardPower.Value</p>
+                    }
                 }
             </td>
             <td>

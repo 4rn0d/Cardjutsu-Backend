@@ -57,7 +57,7 @@
             </div>
             <div class="form-group">
                 <label class="control-label">Value</label>
-                <input asp-for="@value" class="form-control" />
+                <input asp-for="@value" class="form-control" value="1" type="number" min="1" max="5"/>
                 <span asp-validation-for="@value" class="text-danger"></span>
             </div>
             <br/>
@@ -73,7 +73,14 @@
             <form asp-action="RemovePowers" asp-route-cardId="@Model.CardPowers[i].Card.Id" asp-route-cardPowerId="@i">
                 <br/>
                 <div class="form-group" style="display: flex;justify-content: space-between;border: 1px solid #ced4da; padding: 5px;border-radius: .25rem;">
-                    <span><b>Power :</b> <u>@Model.CardPowers[i].Power.Name</u>, <b>Value :</b> <u>@Model.CardPowers[i].Value</u></span>
+                    @if (@Model.CardPowers[i].Power.PowerId == 1)
+                    {
+                        <span><b>Power :</b> <u>@Model.CardPowers[i].Power.Name</u></span>
+                    }
+                    else
+                    {
+                        <span><b>Power :</b> <u>@Model.CardPowers[i].Power.Name</u> <b>Value :</b> <u>@Model.CardPowers[i].Value</u></span>
+                    }
                     <input type="submit" value="Delete" class="btn btn-danger"/>
                 </div>
             </form>
