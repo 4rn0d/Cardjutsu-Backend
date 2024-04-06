@@ -53,8 +53,10 @@ namespace Super_Cartes_Infinies.Controllers
             //  }
 
             //Player player = await _context.Players.Where(p=>p.IdentityUserId == user.Id).FirstAsync();
-
-            List<Deck> decks = await _decksService.GetDecks();
+            string Id = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            IdentityUser? user = _context.Users.Find(Id);
+            Player player = await _context.Players.Where(p => p.IdentityUserId == user.Id).FirstAsync();
+            List<Deck> decks = await _decksService.GetDecks(player);
 
             if (decks == null)
             {
@@ -100,9 +102,9 @@ namespace Super_Cartes_Infinies.Controllers
         [HttpPost]
         public async Task<ActionResult<Deck>> PostDeck(DeckCardDTO deckDTO)
         {
-            //string Id = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            //IdentityUser? user = _context.Users.Find(Id);
-            //Player player = await _context.Players.Where(p => p.IdentityUserId == user.Id).FirstAsync();
+            string Id = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            IdentityUser? user = _context.Users.Find(Id);
+            Player player = await _context.Players.Where(p => p.IdentityUserId == user.Id).FirstAsync();
             if (_context.Decks == null)
             {
               return Problem("Entity set 'ApplicationDbContext.Decks'  is null.");
@@ -128,7 +130,7 @@ namespace Super_Cartes_Infinies.Controllers
 
                 //_context.Decks.Add(deck);
                 //await _context.SaveChangesAsync();
-                Deck re = await _decksService.PostDeck(deckDTO);
+                Deck re = await _decksService.PostDeck(deckDTO, player);
                 //await _context.SaveChangesAsync();
 
                 return Ok();
@@ -150,7 +152,9 @@ namespace Super_Cartes_Infinies.Controllers
             }
 
 
-
+            string Id = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            IdentityUser? user = _context.Users.Find(Id);
+            Player player = await _context.Players.Where(p => p.IdentityUserId == user.Id).FirstAsync();
             //Deck? deckCurrent =  _context.Decks.Where(p => p.IsCurrentDeck == true).FirstOrDefault();
             //if (deckCurrent != null)
             //{
@@ -169,7 +173,7 @@ namespace Super_Cartes_Infinies.Controllers
 
             //    existingDeck.IsCurrentDeck = true;
             //    await _context.SaveChangesAsync();
-           Deck deck =await _decksService.MakeCurrentDeck(deckId);
+            Deck deck =await _decksService.MakeCurrentDeck(deckId, player);
             //await _context.SaveChangesAsync();
             return Ok();
          

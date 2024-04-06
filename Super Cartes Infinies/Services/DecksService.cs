@@ -22,7 +22,7 @@ namespace Super_Cartes_Infinies.Services
         }
 
 
-        public async Task<List<Deck>> GetDecks()
+        public async Task<List<Deck>> GetDecks(Player player)
         {
             //string Id = User.FindFirstValue(ClaimTypes.NameIdentifier);
             //IdentityUser? user = _context.Users.Find(Id);
@@ -32,9 +32,9 @@ namespace Super_Cartes_Infinies.Services
             //}
 
             //Player player = await _context.Players.Where(p => p.IdentityUserId == user.Id).FirstAsync();
-            string userId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            IdentityUser user = _context.Users.Find(userId);
-            Player player = _context.Players.SingleOrDefault(p => p.IdentityUserId == user.Id);
+            //string userId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            //IdentityUser user = _context.Users.Find(userId);
+            //Player player = _context.Players.SingleOrDefault(p => p.IdentityUserId == user.Id);
 
             List<Deck> decks = await _context.Decks.Where(d => d.PlayerId == player.Id).ToListAsync();
             return decks;
@@ -55,13 +55,13 @@ namespace Super_Cartes_Infinies.Services
 
 
         }
-        public async Task<Deck> MakeCurrentDeck(int deckId)
+        public async Task<Deck> MakeCurrentDeck(int deckId, Player player)
         {
             //string userId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             //IdentityUser user = _context.Users.Find(userId);
             //Player player = await _context.Players.FirstOrDefaultAsync(p => p.IdentityUserId == user.Id);
-            List<Deck> decks = await this.GetDecks();
-
+            List<Deck> decks = await this.GetDecks(player);
+            
             Deck? deckCurrent =  decks.Where(p => p.IsCurrentDeck == true).FirstOrDefault();
             Deck? existingDeck =  decks.Where(p=>p.Id==deckId).FirstOrDefault();
             if (deckCurrent != null)
@@ -82,11 +82,11 @@ namespace Super_Cartes_Infinies.Services
             
 
         }
-        public async Task<Deck> PostDeck(DeckCardDTO deckDTO)
+        public async Task<Deck> PostDeck(DeckCardDTO deckDTO, Player player)
         {
-            string userId =  _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            IdentityUser user = _context.Users.Find(userId);
-            Player player = _context.Players.SingleOrDefault(p => p.IdentityUserId == user.Id);
+            //string userId =  _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            //IdentityUser user = _context.Users.Find(userId);
+            //Player player = _context.Players.SingleOrDefault(p => p.IdentityUserId == user.Id);
 
 
             
@@ -103,11 +103,8 @@ namespace Super_Cartes_Infinies.Services
 
                 }
                 deck.OwnedCards = ownedCards;
-
-
-
                 _context.Decks.Add(deck);
-            await db.SaveChangesAsync();
+                await db.SaveChangesAsync();
 
             return deck;
 

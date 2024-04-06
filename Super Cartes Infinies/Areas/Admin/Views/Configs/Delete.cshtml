@@ -23,6 +23,18 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.ManaPerRound)
         </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NbDecks)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NbDecks)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NbCarteParDeck)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NbCarteParDeck)
+        </dd>
     </dl>
     
     <form asp-action="Delete">
