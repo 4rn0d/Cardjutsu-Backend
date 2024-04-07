@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 using Super_Cartes_Infinies.Data;
 using Super_Cartes_Infinies.Migrations;
@@ -41,7 +42,19 @@ namespace Super_Cartes_Infinies.Controllers
             return decks;
         }
 
-       
+        [HttpGet]
+        public ActionResult<Config> GetConfigDecks()
+        {
+            if (_context.Config == null)
+            {
+                return NotFound();
+            }
+
+            Config config = _decksService.ConfigurationDeck();
+            return config;
+        }
+
+
         [HttpGet]
         public async Task<ActionResult<List<Deck>>> GetDeck()
         {
@@ -195,6 +208,33 @@ namespace Super_Cartes_Infinies.Controllers
         private bool DeckExists(int id)
         {
             return (_context.Decks?.Any(e => e.Id == id)).GetValueOrDefault();
+        }
+
+        [HttpPost("{id}")]
+        public async Task<ActionResult<Deck>> AjouterCarte(int id, Card card)
+        {
+            string Id = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            IdentityUser? user = _context.Users.Find(Id);
+            Player player = await _context.Players.Where(p => p.IdentityUserId == user.Id).FirstAsync();
+            if (_context.Decks == null)
+            {
+                return Problem("Entity set 'ApplicationDbContext.Decks'  is null.");
+            }
+
+            try
+            {
+                
+               Deck deck =await _decksService.AjouterCarte(player, id, card);
+            
+
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return Problem();
+            }
+
+
         }
     }
 }

@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Super_Cartes_Infinies.Data;
 using Super_Cartes_Infinies.Models;
 using Super_Cartes_Infinies.Models.Dtos;
+using System.Numerics;
 using System.Security.Claims;
 
 namespace Super_Cartes_Infinies.Services
@@ -88,7 +89,10 @@ namespace Super_Cartes_Infinies.Services
             //IdentityUser user = _context.Users.Find(userId);
             //Player player = _context.Players.SingleOrDefault(p => p.IdentityUserId == user.Id);
 
-
+            if (player.Decks.Where(x=>x.DeckName == deckDTO.Deck.DeckName).Any())
+            {
+                throw new Exception("Deux decks ne peuvent pas avoir le meme nom");
+            }
             
                 Deck deck = new Deck();
                 deck.DeckName = deckDTO.Deck.DeckName;
@@ -109,6 +113,33 @@ namespace Super_Cartes_Infinies.Services
             return deck;
 
 
+
+        }
+
+        //Envoyer la valeur des config pour max deck et max card
+        public Config ConfigurationDeck()
+        {
+           Config config = _context.Config.First();
+            if (config == null)
+            {
+                return null;
+            }
+            return config;
+
+
+
+        }
+        
+       public async Task<Deck> AjouterCarte(Player player, int id, Card card)
+        {
+            OwnedCard ownedCard = _context.OwnedCards.Where(w => w.CardId == card.Id).FirstOrDefault();
+            Deck? deck = player.Decks.Where(p => p.Id == id).FirstOrDefault();
+            if (deck.OwnedCards.Where(p=>p.CardId == card.Id).Any()) {
+                throw new Exception("La carte existe dans le deck");
+            }
+            deck?.OwnedCards.Add(ownedCard);
+            await db.SaveChangesAsync();
+            return deck;
 
         }
     }

@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Runtime.InteropServices;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -87,6 +88,7 @@ namespace Super_Cartes_Infinies.Services.Tests
         {
             //TODO on efface les données de tests pour remettre la BD dans son état initial
             using ApplicationDbContext db = new ApplicationDbContext(options);
+
             db.Decks.RemoveRange(db.Decks);
             db.OwnedCards.RemoveRange(db.OwnedCards);
             db.Players.RemoveRange(db.Players);
@@ -151,7 +153,46 @@ namespace Super_Cartes_Infinies.Services.Tests
                 Assert.AreEqual(true, deckTest2.IsCurrentDeck);
             
         }
+        [TestMethod()]
+        public void AjouterCardDeck()
+        {
 
+            using ApplicationDbContext db = new ApplicationDbContext(options);
+            IHttpContextAccessor httpContextAccessor = new HttpContextAccessor();
+            StartingCardsService startingCardsService = new StartingCardsService(db);
+            PlayersService playersService = new PlayersService(db, startingCardsService);
+            DecksService service = new DecksService(db, httpContextAccessor);
+
+            //test ajouter card
+            Deck? deckTest = db.Decks.Where(x => x.Id == 1).FirstOrDefault();
+            Card cardAjouter = db.Cards.Where(x => x.Id == 4).FirstOrDefault();
+            service.AjouterCarte(db.Players.First(), 1, cardAjouter);
+            Deck deckVerfier = db.Decks.Where(y => y.Id == 1).FirstOrDefault();
+            Assert.AreEqual(cardAjouter, deckVerfier.OwnedCards.Where(x=>x.Card.Id == 4).FirstOrDefault().Card);
+
+          
+
+
+        }
+        [TestMethod()]
+        public void AjouterMemeCardDeck()
+        {
+
+            using ApplicationDbContext db = new ApplicationDbContext(options);
+            IHttpContextAccessor httpContextAccessor = new HttpContextAccessor();
+            StartingCardsService startingCardsService = new StartingCardsService(db);
+            PlayersService playersService = new PlayersService(db, startingCardsService);
+            DecksService service = new DecksService(db, httpContextAccessor);
+
+            //test ajouter card
+            Deck? deckTest = db.Decks.Where(x => x.Id == 1).FirstOrDefault();
+            Card cardAjouter = db.Cards.Where(x => x.Id == 1).FirstOrDefault();
+          
+            Exception e = Assert.ThrowsException<Exception>(() => service.AjouterCarte(db.Players.First(), 1, cardAjouter));
+            Assert.AreEqual("La carte existe dans le deck", e.Message);
+
+
+        }
         [TestMethod()]
         public void PostDeckTest()
         {
@@ -165,6 +206,89 @@ namespace Super_Cartes_Infinies.Services.Tests
             {
                 Id = 3,
                 DeckName = "DeckTestNiki",
+                IsCurrentDeck = false,
+                OwnedCards = new List<OwnedCard>(),
+                PlayerId = db.Players.First().Id,
+
+            };
+            List<Card> cards = new List<Card>()
+            {
+                 new Card
+            {
+                Id = 1,
+                Name = "Cart Surfer",
+                Attack = 3,
+                Health = 3,
+                Cost = 3,
+                Colour = "Blue",
+                ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/0/0b/CART_SURFER_card_image.png"
+            }, new Card
+            {
+                Id = 2,
+                Name = "Coffee Shop",
+                Attack = 2,
+                Health = 3,
+                Cost = 3,
+                Colour = "Green",
+                ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/b/b2/COFFEE_SHOP_card_image.png"
+            }, new Card
+            {
+                Id = 3,
+                Name = "Astro Barrier",
+                Attack = 8,
+                Health = 3,
+                Cost = 3,
+                Colour = "Green",
+                ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/2/22/ASTRO_BARRIER_card_image.png"
+            }, new Card
+            {
+                Id = 4,
+                Name = "Hot Chocolate",
+                Attack = 3,
+                Health = 3,
+                Cost = 3,
+                Colour = "Orange",
+                ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/3/3d/HOT_CHOCOLATE_card_image.png"
+            }, new Card
+            {
+                Id = 5,
+                Name = "Landing Pad",
+                Attack = 4,
+                Health = 3,
+                Cost = 3,
+                Colour = "Violet",
+                ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/d/d2/LANDING_PAD_card_image.png"
+            }
+            };
+
+            DeckCardDTO DeckCardDTO = new DeckCardDTO()
+            {
+                Deck = deckAjouter,
+                cards = cards
+            };
+            service.PostDeck(DeckCardDTO, db.Players.First());
+            Deck deckAtester = db.Decks.Where(d => d.DeckName == "DeckTestNiki").First();
+
+            Assert.AreEqual("DeckTestNiki", deckAtester.DeckName);
+            Assert.AreEqual(db.Players.First(), deckAtester.Player);
+            Assert.AreEqual(false, deckAtester.IsCurrentDeck);
+            Assert.AreEqual(5, db.Decks.Where(d => d.DeckName == "DeckTestNiki").FirstOrDefault()?.OwnedCards.Count);
+            Assert.AreEqual(5, db.Players.Where(p => p.Id == 1).First().OwnedCards.Count);
+        }
+
+        [TestMethod()]
+        public void PstDeckMemeNomTest()
+        {
+            using ApplicationDbContext db = new ApplicationDbContext(options);
+            IHttpContextAccessor httpContextAccessor = new HttpContextAccessor();
+            StartingCardsService startingCardsService = new StartingCardsService(db);
+            PlayersService playersService = new PlayersService(db, startingCardsService);
+            DecksService service = new DecksService(db, httpContextAccessor);
+
+            Deck deckAjouter = new Deck()
+            {
+                Id = 3,
+                DeckName = "Coffee",
                 IsCurrentDeck = false,
                 OwnedCards = new List<OwnedCard>(),
                 PlayerId = db.Players.First().Id,
@@ -224,14 +348,12 @@ namespace Super_Cartes_Infinies.Services.Tests
                 Deck = deckAjouter,
                 cards = cards
             };
-            service.PostDeck(DeckCardDTO, db.Players.First());
-            Deck deckAtester = db.Decks.Where(d => d.DeckName == "DeckTestNiki").First();
+            
+            
+            Exception? e = Assert.ThrowsException<Exception>(() => service.PostDeck(DeckCardDTO, db.Players.First()));
+            Assert.AreEqual("Deux decks ne peuvent pas avoir le meme nom", e.Message);
 
-            Assert.AreEqual("DeckTestNiki", deckAtester.DeckName);
-            Assert.AreEqual(db.Players.First(), deckAtester.Player);
-            Assert.AreEqual(false, deckAtester.IsCurrentDeck);
-            Assert.AreEqual(5, db.Decks.Where(d => d.DeckName == "DeckTestNiki").FirstOrDefault()?.OwnedCards.Count);
-            Assert.AreEqual(5, db.Players.Where(p=>p.Id == 1).First().OwnedCards.Count);
         }
         }
+
     }
