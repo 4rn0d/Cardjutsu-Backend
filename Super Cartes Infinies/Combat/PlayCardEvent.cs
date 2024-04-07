@@ -13,6 +13,11 @@ namespace Super_Cartes_Infinies.Combat
 
             currentPlayerData.BattleField.Add(playedcard);
 
+            if (currentPlayerData.Mana - playedcard.Card.Cost <0)
+            {
+                throw new Exception("Le joueur n'a pas assez de mana pour jouer la carte");
+            }
+
             currentPlayerData.Mana -= playedcard.Card.Cost;
 
 

@@ -16,6 +16,8 @@ namespace Super_Cartes_Infinies.Combat
             Events.Add(new DrawCardEvent(playerData));
             // TODO: Faire gagner le Mana
             Events.Add(new GainManaEvent(playerData, manaPerTurn));
+
+            
         }
 
     }

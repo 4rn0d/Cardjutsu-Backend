@@ -22,17 +22,7 @@ namespace Super_Cartes_Infinies.Combat
             if (activatedCard.HasPower(Power.HEAL_ID)) //if current card has healing
             {
                 int amountHeal = activatedCard.GetPowerValue(Power.HEAL_ID);
-                foreach(PlayableCard pc in currentPlayerData.BattleField)
-                {
-                    if(pc.Health +  amountHeal <= pc.Card.Health)
-                    {
-                        pc.Health += amountHeal;
-                    }
-                    else
-                    {
-                        pc.Health = pc.Card.Health;
-                    }
-                }
+                this.Events.Add(new HealEvent(currentPlayerData, amountHeal));
             }
             
 
@@ -42,13 +32,8 @@ namespace Super_Cartes_Infinies.Combat
 
                 if (activatedCard.HasPower(Power.FIRST_STRIKE_ID)) // if current card has first strike
                 {
-                    this.Events.Add(new CardDamageEvent(opposingPlayerData, enemyCard, activatedCard.Attack));
-                    if(enemyCard.Health == 0) //if enemyCard is ded
-                    {
-                        this.Events.Add(new CardDeathEvent(opposingPlayerData, enemyCard));
-                        return;
+                    this.Events.Add(new FirstStrikeEvent(opposingPlayerData, enemyCard, activatedCard.Attack));
 
-                    }
                 }
 
                 if (enemyCard.HasPower(Power.THORNS_ID))

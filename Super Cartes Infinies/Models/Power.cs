@@ -6,7 +6,7 @@
         public const int THORNS_ID = 2;
         public const int HEAL_ID = 3;
 
-        public int PowerId { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
     }

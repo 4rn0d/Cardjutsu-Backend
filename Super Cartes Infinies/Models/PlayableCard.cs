@@ -30,7 +30,7 @@ namespace Super_Cartes_Infinies.Models
 
 			foreach (CardPower power in powerList)
 			{
-				if(power.Power.PowerId == powerId)
+				if(power.Power.Id == powerId)
 				{
 					return true;
 				}
@@ -47,7 +47,7 @@ namespace Super_Cartes_Infinies.Models
 				return 0;
 			}
 
-			return Card.CardPowers.Where(p => p.Power.PowerId == powerId).First().Value;
+			return Card.CardPowers.Where(p => p.Power.Id == powerId).First().Value;
 
         }
 	}
