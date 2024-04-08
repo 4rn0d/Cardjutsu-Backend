@@ -6,6 +6,8 @@ namespace Tests.Services
     [TestClass]
     public class CombatTests : BaseTests
 	{
+
+
         public CombatTests()
         {
         }
@@ -22,10 +24,10 @@ namespace Tests.Services
             // L'adversaire n'a pas encore de Mana
             Assert.AreEqual(0, _opposingPlayerData.Mana);
 
-            new PlayerEndTurnEvent(_match, _currentPlayerData, _opposingPlayerData);
+            new PlayerEndTurnEvent(_match, _currentPlayerData, _opposingPlayerData, NB_MANA_PER_TURN);
 
             // L'adversaire a maintenant du Mana
-            Assert.AreEqual(3, _opposingPlayerData.Mana);
+            Assert.AreEqual(NB_MANA_PER_TURN, _opposingPlayerData.Mana);
         }
 
 
@@ -38,13 +40,13 @@ namespace Tests.Services
             // L'adversaire n'a pas encore de Mana
             Assert.AreEqual(0, _opposingPlayerData.Mana);
 
-            new PlayerEndTurnEvent(_match, _currentPlayerData, _opposingPlayerData);
+            new PlayerEndTurnEvent(_match, _currentPlayerData, _opposingPlayerData, NB_MANA_PER_TURN);
 
             // Les joueurs ont encore leur health
             AssertBothPlayersStillHaveFullHealth();
 
             // L'adversaire a maintenant du Mana
-            Assert.AreEqual(3, _opposingPlayerData.Mana);
+            Assert.AreEqual(NB_MANA_PER_TURN, _opposingPlayerData.Mana);
 
             // 
             Assert.AreEqual(_cardA.Health - _playableCardB.Attack, _playableCardA.Health);
@@ -69,7 +71,7 @@ namespace Tests.Services
             _currentPlayerData.BattleField.Add(playableCardA2);
             _opposingPlayerData.BattleField.Add(_playableCardB);
 
-            new PlayerEndTurnEvent(_match, _currentPlayerData, _opposingPlayerData);
+            new PlayerEndTurnEvent(_match, _currentPlayerData, _opposingPlayerData, NB_MANA_PER_TURN);
 
             // Le joueur donc c'est le tour a encore son health
             Assert.AreEqual(STARTING_PLAYER_HEALTH, _currentPlayerData.Health);
@@ -101,7 +103,7 @@ namespace Tests.Services
             _currentPlayerData.BattleField.Add(_playableCardA);
             _opposingPlayerData.BattleField.Add(_playableCardB);
 
-            new PlayerEndTurnEvent(_match, _currentPlayerData, _opposingPlayerData);
+            new PlayerEndTurnEvent(_match, _currentPlayerData, _opposingPlayerData, NB_MANA_PER_TURN);
 
             // Les joueurs ont encore leurs health
             AssertBothPlayersStillHaveFullHealth();
@@ -123,7 +125,7 @@ namespace Tests.Services
             _currentPlayerData.BattleField.Add(_playableCardA);
             // On n'ajoute PAS la carte B sur le BattleField
 
-            new PlayerEndTurnEvent(_match, _currentPlayerData, _opposingPlayerData);
+            new PlayerEndTurnEvent(_match, _currentPlayerData, _opposingPlayerData, NB_MANA_PER_TURN);
 
             // L'adversaire n'a plus de health
             Assert.AreEqual(0, _opposingPlayerData.Health);
@@ -153,7 +155,7 @@ namespace Tests.Services
             _currentPlayerData.BattleField.Add(playableCardA2);
             _opposingPlayerData.BattleField.Add(_playableCardB);
 
-            new PlayerEndTurnEvent(_match, _currentPlayerData, _opposingPlayerData);
+            new PlayerEndTurnEvent(_match, _currentPlayerData, _opposingPlayerData, NB_MANA_PER_TURN);
 
             // Le joueur donc c'est le tour a encore son health
             Assert.AreEqual(STARTING_PLAYER_HEALTH, _currentPlayerData.Health);

@@ -9,6 +9,7 @@ namespace Tests.Services
     public class BaseTests
 	{
         protected const int STARTING_PLAYER_HEALTH = 1;
+        public const int NB_MANA_PER_TURN = 3;
 
         protected MatchPlayerData _currentPlayerData, _opposingPlayerData;
         protected Match _match;

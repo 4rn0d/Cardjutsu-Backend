@@ -154,37 +154,37 @@ namespace Super_Cartes_Infinies.Migrations
                         {
                             Id = "User1Id",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5560bc06-1bde-4838-8be8-e6908b67b526",
+                            ConcurrencyStamp = "0847c692-6fb8-4202-8ffc-84b564d628e3",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "623aafd6-af4f-40e1-906d-27464a4ab8a8",
+                            SecurityStamp = "7c6779b2-c1da-4d08-a0d7-5285bef5d2e1",
                             TwoFactorEnabled = false
                         },
                         new
                         {
                             Id = "User2Id",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a37ffc8a-3951-4803-864a-b8c3f892a0f2",
+                            ConcurrencyStamp = "a778708a-ee63-4d8f-bd64-a3faf373a0e5",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "b5f6f6e9-ddd3-4cc8-a79d-de3c03cedb2b",
+                            SecurityStamp = "3cd8375e-43b0-4f96-b57e-30fc533faae4",
                             TwoFactorEnabled = false
                         },
                         new
                         {
                             Id = "11111111-1111-1111-1111-111111111111",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b5915dad-3bad-40e4-beab-c1426eb5676f",
+                            ConcurrencyStamp = "c751b800-4cd8-4a26-855b-98718bc6bc0e",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEDm1IyMB6qz1eu46agQOCMehKrJV9Qcj+8OoiJBMe9MztOkb69KYWZP+8HAt6TYYRw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEHwC7qKUJE+29uzQGV+Cr+FS/aI7tb5O2Tu4tXu+1AsB0WHpuFXYercALPy79wQpqA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "1f6e9cd6-a9d2-4aff-a840-20b452d60019",
+                            SecurityStamp = "3193ce7e-4f6a-4c18-bd0e-a66b156ca592",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         });
@@ -583,6 +583,32 @@ namespace Super_Cartes_Infinies.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Super_Cartes_Infinies.Models.CardPower", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CardId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PowerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Value")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CardId");
+
+                    b.HasIndex("PowerId");
+
+                    b.ToTable("CardPower");
+                });
+
             modelBuilder.Entity("Super_Cartes_Infinies.Models.CardStart", b =>
                 {
                     b.Property<int>("Id")
@@ -843,6 +869,27 @@ namespace Super_Cartes_Infinies.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Super_Cartes_Infinies.Models.Power", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Power");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -899,6 +946,25 @@ namespace Super_Cartes_Infinies.Migrations
                     b.HasOne("Super_Cartes_Infinies.Models.Player", null)
                         .WithMany("OwnedCards")
                         .HasForeignKey("PlayerId");
+                });
+
+            modelBuilder.Entity("Super_Cartes_Infinies.Models.CardPower", b =>
+                {
+                    b.HasOne("Super_Cartes_Infinies.Models.Card", "Card")
+                        .WithMany("CardPowers")
+                        .HasForeignKey("CardId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Super_Cartes_Infinies.Models.Power", "Power")
+                        .WithMany()
+                        .HasForeignKey("PowerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Card");
+
+                    b.Navigation("Power");
                 });
 
             modelBuilder.Entity("Super_Cartes_Infinies.Models.CardStart", b =>
@@ -997,6 +1063,11 @@ namespace Super_Cartes_Infinies.Migrations
                         .IsRequired();
 
                     b.Navigation("IdentityUser");
+                });
+
+            modelBuilder.Entity("Super_Cartes_Infinies.Models.Card", b =>
+                {
+                    b.Navigation("CardPowers");
                 });
 
             modelBuilder.Entity("Super_Cartes_Infinies.Models.MatchPlayerData", b =>

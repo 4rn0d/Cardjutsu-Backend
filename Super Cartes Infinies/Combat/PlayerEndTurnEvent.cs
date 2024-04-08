@@ -10,7 +10,7 @@ namespace Super_Cartes_Infinies.Combat
 
         public int PlayerId { get; set; }
         // L'évènement lorsqu'un joueur termine son tour
-        public PlayerEndTurnEvent(Match match, MatchPlayerData currentPlayerData, MatchPlayerData opposingPlayerData)
+        public PlayerEndTurnEvent(Match match, MatchPlayerData currentPlayerData, MatchPlayerData opposingPlayerData, int nbMana)
         {
             
             this.PlayerId = currentPlayerData.PlayerId;
@@ -20,7 +20,7 @@ namespace Super_Cartes_Infinies.Combat
 
             this.Events.Add(new CombatEvent(match, currentPlayerData, opposingPlayerData));
 
-            this.Events.Add(new PlayerStartTurnEvent(opposingPlayerData, 3)); //hardcoded mana -- unable to retrieve manaAmount from matchconfigservice
+            this.Events.Add(new PlayerStartTurnEvent(opposingPlayerData, nbMana)); //hardcoded mana -- unable to retrieve manaAmount from matchconfigservice
             
             //this.Events.Add(new CombatEvent(currentPlayerData, opposingPlayerData));
         }

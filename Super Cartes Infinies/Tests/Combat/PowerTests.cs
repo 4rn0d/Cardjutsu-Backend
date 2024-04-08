@@ -38,7 +38,7 @@ namespace Tests.Services
             _currentPlayerData.BattleField.Add(_playableCardA);
             _opposingPlayerData.BattleField.Add(_playableCardB);
 
-            var playerTurnEvent = new PlayerEndTurnEvent(_match, _currentPlayerData, _opposingPlayerData);
+            var playerTurnEvent = new PlayerEndTurnEvent(_match, _currentPlayerData, _opposingPlayerData, NB_MANA_PER_TURN);
 
             Assert.AreEqual(_currentPlayerData.PlayerId, playerTurnEvent.PlayerId);
 
@@ -65,7 +65,7 @@ namespace Tests.Services
             _currentPlayerData.BattleField.Add(_playableCardA);
             _opposingPlayerData.BattleField.Add(_playableCardB);
 
-            var playerTurnEvent = new PlayerEndTurnEvent(_match, _currentPlayerData, _opposingPlayerData);
+            var playerTurnEvent = new PlayerEndTurnEvent(_match, _currentPlayerData, _opposingPlayerData, NB_MANA_PER_TURN);
 
             Assert.AreEqual(_currentPlayerData.PlayerId, playerTurnEvent.PlayerId);
 
@@ -94,7 +94,7 @@ namespace Tests.Services
             _currentPlayerData.BattleField.Add(_playableCardA);
             _opposingPlayerData.BattleField.Add(_playableCardB);
 
-            var playerTurnEvent = new PlayerEndTurnEvent(_match, _currentPlayerData, _opposingPlayerData);
+            var playerTurnEvent = new PlayerEndTurnEvent(_match, _currentPlayerData, _opposingPlayerData, NB_MANA_PER_TURN);
 
             Assert.AreEqual(_currentPlayerData.PlayerId, playerTurnEvent.PlayerId);
 
@@ -141,7 +141,7 @@ namespace Tests.Services
 
             _opposingPlayerData.BattleField.Add(_playableCardB);
 
-            var playerTurnEvent = new PlayerEndTurnEvent(_match, _currentPlayerData, _opposingPlayerData);
+            var playerTurnEvent = new PlayerEndTurnEvent(_match, _currentPlayerData, _opposingPlayerData, NB_MANA_PER_TURN);
 
             Assert.AreEqual(_currentPlayerData.PlayerId, playerTurnEvent.PlayerId);
 
@@ -189,7 +189,7 @@ namespace Tests.Services
 
             int manaPerRoundConf = 3; //HARDCODED
 
-            var playerTurnEvent = new PlayerEndTurnEvent(_match, _currentPlayerData, _opposingPlayerData);
+            var playerTurnEvent = new PlayerEndTurnEvent(_match, _currentPlayerData, _opposingPlayerData, NB_MANA_PER_TURN);
 
             Assert.AreEqual(_currentPlayerData.PlayerId, playerTurnEvent.PlayerId);
 
@@ -224,7 +224,7 @@ namespace Tests.Services
 
             int manaPerRoundConf = 3; //HARDCODED
 
-            var playerTurnEvent = new PlayerEndTurnEvent(_match, _currentPlayerData, _opposingPlayerData);
+            var playerTurnEvent = new PlayerEndTurnEvent(_match, _currentPlayerData, _opposingPlayerData, NB_MANA_PER_TURN);
 
             Assert.AreEqual(_currentPlayerData.PlayerId, playerTurnEvent.PlayerId);
 
