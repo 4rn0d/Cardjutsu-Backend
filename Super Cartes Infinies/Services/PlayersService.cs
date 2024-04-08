@@ -57,7 +57,8 @@ namespace Super_Cartes_Infinies.Services
             }
 
             //ajuster la liste des cards pour les standards
-            ownedCards = ownedCards.Take(5).ToList();
+            Config config = _context.Config.First();
+            ownedCards = ownedCards.Take(config.NbCardsStart).ToList();
 
             //Deck
             Deck deck = new Deck()

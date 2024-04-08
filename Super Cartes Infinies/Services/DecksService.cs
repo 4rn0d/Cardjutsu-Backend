@@ -25,21 +25,12 @@ namespace Super_Cartes_Infinies.Services
 
         public async Task<List<Deck>> GetDecks(Player player)
         {
-            //string Id = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            //IdentityUser? user = _context.Users.Find(Id);
-            //if (_context.Decks == null)
-            //{
-            //    return NotFound();
-            //}
-
-            //Player player = await _context.Players.Where(p => p.IdentityUserId == user.Id).FirstAsync();
-            //string userId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            //IdentityUser user = _context.Users.Find(userId);
-            //Player player = _context.Players.SingleOrDefault(p => p.IdentityUserId == user.Id);
-
+           
             List<Deck> decks = await _context.Decks.Where(d => d.PlayerId == player.Id).ToListAsync();
             return decks;
         }
+
+
         public async Task<bool> DeleteDeck(int id)
         {
             Deck? deck = await db.Decks.Where(p=>p.Id==id).FirstOrDefaultAsync();
@@ -51,6 +42,14 @@ namespace Super_Cartes_Infinies.Services
                     await db.SaveChangesAsync();
                     return true;
                 }
+                else
+                {
+                    throw new Exception("Impossible de supprimer un deck courrant");
+                }
+            }
+            else
+            {
+                throw new Exception("Deck is null");
             }
             return false;
 
@@ -58,10 +57,8 @@ namespace Super_Cartes_Infinies.Services
         }
         public async Task<Deck> MakeCurrentDeck(int deckId, Player player)
         {
-            //string userId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            //IdentityUser user = _context.Users.Find(userId);
-            //Player player = await _context.Players.FirstOrDefaultAsync(p => p.IdentityUserId == user.Id);
-            List<Deck> decks = await this.GetDecks(player);
+            
+            List<Deck> decks = await _context.Decks.Where(p=>p.PlayerId == player.Id).ToListAsync();
             
             Deck? deckCurrent =  decks.Where(p => p.IsCurrentDeck == true).FirstOrDefault();
             Deck? existingDeck =  decks.Where(p=>p.Id==deckId).FirstOrDefault();
@@ -85,10 +82,7 @@ namespace Super_Cartes_Infinies.Services
         }
         public async Task<Deck> PostDeck(DeckCardDTO deckDTO, Player player)
         {
-            //string userId =  _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            //IdentityUser user = _context.Users.Find(userId);
-            //Player player = _context.Players.SingleOrDefault(p => p.IdentityUserId == user.Id);
-
+          
             if (player.Decks.Where(x=>x.DeckName == deckDTO.Deck.DeckName).Any())
             {
                 throw new Exception("Deux decks ne peuvent pas avoir le meme nom");
@@ -107,7 +101,9 @@ namespace Super_Cartes_Infinies.Services
 
                 }
                 deck.OwnedCards = ownedCards;
+
                 _context.Decks.Add(deck);
+            player.Decks.Add(deck);
                 await db.SaveChangesAsync();
 
             return deck;
@@ -138,6 +134,25 @@ namespace Super_Cartes_Infinies.Services
                 throw new Exception("La carte existe dans le deck");
             }
             deck?.OwnedCards.Add(ownedCard);
+            await db.SaveChangesAsync();
+            return deck;
+
+        }
+
+        public async Task<Deck> DeleteCardDuDeck(Player player, int id, Card card)
+        {
+            Deck deck = player.Decks.Where(p => p.Id == id).FirstOrDefault();
+
+            if (deck == null)
+            {
+                throw new Exception("Deck is not found");
+            }
+            OwnedCard? cardDelete = deck.OwnedCards.Where(p => p.CardId == card.Id).FirstOrDefault();
+            if (cardDelete == null)
+            {
+                throw new Exception("Le deck ne contient pas cette carte");
+            }
+            _context.Decks.Where(p => p.Id == deck.Id).FirstOrDefault().OwnedCards.Remove(cardDelete);
             await db.SaveChangesAsync();
             return deck;
 

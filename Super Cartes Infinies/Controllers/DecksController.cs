@@ -30,17 +30,7 @@ namespace Super_Cartes_Infinies.Controllers
             _decksService = DecksService;
         }
 
-        // GET: api/Decks
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Deck>>> GetDecks()
-        {
-          if (_context.Decks == null)
-          {
-              return NotFound();
-          }
-          List<Deck> decks = await _context.Decks.ToListAsync();
-            return decks;
-        }
+      
 
         [HttpGet]
         public ActionResult<Config> GetConfigDecks()
@@ -79,36 +69,7 @@ namespace Super_Cartes_Infinies.Controllers
             return decks;
         }
 
-        // PUT: api/Decks/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutDeck(int id, Deck deck)
-        {
-            if (id != deck.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(deck).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!DeckExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
+     
 
         // POST: api/Decks
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -205,10 +166,21 @@ namespace Super_Cartes_Infinies.Controllers
             return Ok();
         }
 
-        private bool DeckExists(int id)
+        [HttpPost("{id}")]
+        public async Task<IActionResult> DeleteCardDuDeck(int id, Card card)
         {
-            return (_context.Decks?.Any(e => e.Id == id)).GetValueOrDefault();
+         
+
+            string Id = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            IdentityUser? user = _context.Users.Find(Id);
+            Player player = await _context.Players.Where(p => p.IdentityUserId == user.Id).FirstAsync();
+            Deck deck= await _decksService.DeleteCardDuDeck(player, id, card);
+            // faire 4 test 
+           
+            return Ok();
         }
+
+     
 
         [HttpPost("{id}")]
         public async Task<ActionResult<Deck>> AjouterCarte(int id, Card card)
@@ -216,10 +188,7 @@ namespace Super_Cartes_Infinies.Controllers
             string Id = User.FindFirstValue(ClaimTypes.NameIdentifier);
             IdentityUser? user = _context.Users.Find(Id);
             Player player = await _context.Players.Where(p => p.IdentityUserId == user.Id).FirstAsync();
-            if (_context.Decks == null)
-            {
-                return Problem("Entity set 'ApplicationDbContext.Decks'  is null.");
-            }
+         
 
             try
             {
