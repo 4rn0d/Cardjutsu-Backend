@@ -37,7 +37,6 @@ namespace Super_Cartes_Infinies.Services
             List<OwnedCard> ownedCards = new List<OwnedCard>();
             cards = _StartingCardsService.GetStartingCards();
             foreach (Card card in cards) {
-
                 OwnedCard ownedCard = new OwnedCard()
                 {
                     Id = 0,
@@ -52,8 +51,8 @@ namespace Super_Cartes_Infinies.Services
                     
                 }
                 _context.OwnedCards.Add(ownedCard);
-
                 
+
             }
 
             //ajuster la liste des cards pour les standards
@@ -74,6 +73,7 @@ namespace Super_Cartes_Infinies.Services
             {
                 _context.Decks.Add(deck);
                 player.Decks.Add(deck);
+                
                 _context.SaveChanges();
             }
             catch (Exception e)

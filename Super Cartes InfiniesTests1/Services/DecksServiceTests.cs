@@ -77,7 +77,7 @@ namespace Super_Cartes_Infinies.Services.Tests
                 new Deck {Id=1, DeckName = "Cart", IsCurrentDeck = false, OwnedCards = ownedCards.Where(oc => oc.CardId == 1 || oc.CardId == 2).ToList(), PlayerId = 1 },
                 new Deck {Id=2, DeckName = "Coffee", IsCurrentDeck = true, OwnedCards = ownedCards.Where(oc => oc.CardId == 3 || oc.CardId == 4 || oc.CardId == 5).ToList(), PlayerId = 1 }
             };
-            
+
 
             db.AddRange(decks);
 
@@ -92,7 +92,8 @@ namespace Super_Cartes_Infinies.Services.Tests
             };
             db.AddRange(player);
 
-            Config config = new Config() {
+            Config config = new Config()
+            {
                 Id = 1,
                 ManaPerRound = 1,
                 NbCardsStart = 5,
@@ -151,8 +152,8 @@ namespace Super_Cartes_Infinies.Services.Tests
                 Exception e = await Assert.ThrowsExceptionAsync<Exception>(() => service.DeleteDeck(5));
                 Assert.AreEqual("Deck is null", e.Message);
             }).Wait();
-           
-           
+
+
         }
         [TestMethod()]
         public void DeleteDeckCourantTest()
@@ -511,7 +512,7 @@ namespace Super_Cartes_Infinies.Services.Tests
             Card card = db.Cards.Where(x => x.Id == 1).FirstOrDefault();
             Deck deck = db.Decks.Where(x => x.Id == 1).FirstOrDefault();
             service.DeleteCardDuDeck(db.Players.First(), deck.Id, card);
-            
+
 
             Card Cardexiste = db.OwnedCards.Where(x => x.Card.Id == card.Id).FirstOrDefault().Card;
             Assert.AreSame(card, Cardexiste);
@@ -526,20 +527,164 @@ namespace Super_Cartes_Infinies.Services.Tests
             PlayersService playersService = new PlayersService(db, startingCardsService);
             DecksService service = new DecksService(db, httpContextAccessor);
 
-            IdentityUser identityUser = new IdentityUser() {
-             Id = "4ad47bf7-dcf4-4e03-ae0b-e7eb5ad6221f",
-             Email = "niki@gmail.com",
-             UserName = "niki@gmail.com",
-              
+            IdentityUser identityUser = new IdentityUser()
+            {
+                Id = "4ad47bf7-dcf4-4e03-ae0b-e7eb5ad6221f",
+                Email = "niki@gmail.com",
+                UserName = "niki@gmail.com",
+
             };
             playersService.CreatePlayer(identityUser);
             Config config = db.Config.First();
-            Player playerATester = db.Players.Where(x=>x.IdentityUserId == identityUser.Id).FirstOrDefault();
+            Player playerATester = db.Players.Where(x => x.IdentityUserId == identityUser.Id).FirstOrDefault();
             Assert.AreEqual(config.NbCardsStart, playerATester.Decks.First().OwnedCards.Count());
             Assert.AreEqual("Depart", playerATester.Decks.First().DeckName);
 
         }
 
+
+
+
+        [TestMethod()]
+        public void PostDeckNomManquantTest()
+        {
+            using ApplicationDbContext db = new ApplicationDbContext(options);
+            IHttpContextAccessor httpContextAccessor = new HttpContextAccessor();
+            StartingCardsService startingCardsService = new StartingCardsService(db);
+            PlayersService playersService = new PlayersService(db, startingCardsService);
+            DecksService service = new DecksService(db, httpContextAccessor);
+
+            Deck deckAjouter = new Deck()
+            {
+                Id = 3,
+                DeckName = "",
+                IsCurrentDeck = false,
+                OwnedCards = new List<OwnedCard>(),
+                PlayerId = db.Players.First().Id,
+
+            };
+            List<Card> cards = new List<Card>()
+            {
+                 new Card
+            {
+                Id = 1,
+                Name = "Cart Surfer",
+                Attack = 3,
+                Health = 3,
+                Cost = 3,
+                Colour = "Blue",
+                ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/0/0b/CART_SURFER_card_image.png"
+            }, new Card
+            {
+                Id = 2,
+                Name = "Coffee Shop",
+                Attack = 2,
+                Health = 3,
+                Cost = 3,
+                Colour = "Green",
+                ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/b/b2/COFFEE_SHOP_card_image.png"
+            }, new Card
+            {
+                Id = 3,
+                Name = "Astro Barrier",
+                Attack = 8,
+                Health = 3,
+                Cost = 3,
+                Colour = "Green",
+                ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/2/22/ASTRO_BARRIER_card_image.png"
+            }, new Card
+            {
+                Id = 4,
+                Name = "Hot Chocolate",
+                Attack = 3,
+                Health = 3,
+                Cost = 3,
+                Colour = "Orange",
+                ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/3/3d/HOT_CHOCOLATE_card_image.png"
+            }, new Card
+            {
+                Id = 5,
+                Name = "Landing Pad",
+                Attack = 4,
+                Health = 3,
+                Cost = 3,
+                Colour = "Violet",
+                ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/d/d2/LANDING_PAD_card_image.png"
+            }
+
+            };
+
+            DeckCardDTO DeckCardDTO = new DeckCardDTO()
+            {
+                Deck = deckAjouter,
+                cards = cards
+            };
+            Task.Run(async () =>
+            {
+                Exception e = await Assert.ThrowsExceptionAsync<Exception>(() => service.PostDeck(DeckCardDTO, db.Players.First()));
+                Assert.AreEqual("Nom du deck manquant", e.Message);
+            }).Wait();
+
+
+
+        }
+
+        [TestMethod]
+        public void PostDeckCardManquantTest()
+        {
+            using ApplicationDbContext db = new ApplicationDbContext(options);
+            IHttpContextAccessor httpContextAccessor = new HttpContextAccessor();
+            StartingCardsService startingCardsService = new StartingCardsService(db);
+            PlayersService playersService = new PlayersService(db, startingCardsService);
+            DecksService service = new DecksService(db, httpContextAccessor);
+
+            Deck deckAjouter = new Deck()
+            {
+                Id = 3,
+                DeckName = "decll",
+                IsCurrentDeck = false,
+                OwnedCards = new List<OwnedCard>(),
+                PlayerId = db.Players.First().Id,
+
+            };
+            List<Card> cards = new List<Card>()
+            {
+
+
+            };
+
+            DeckCardDTO DeckCardDTO = new DeckCardDTO()
+            {
+                Deck = deckAjouter,
+                cards = cards
+            };
+            Task.Run(async () =>
+            {
+                Exception e = await Assert.ThrowsExceptionAsync<Exception>(() => service.PostDeck(DeckCardDTO, db.Players.First()));
+                Assert.AreEqual("Cards manquant", e.Message);
+            }).Wait();
+
+
+
+        }
+
+        [TestMethod()]
+        public void ConfigurationDeckTest()
+        {
+            using ApplicationDbContext db = new ApplicationDbContext(options);
+            IHttpContextAccessor httpContextAccessor = new HttpContextAccessor();
+            StartingCardsService startingCardsService = new StartingCardsService(db);
+            PlayersService playersService = new PlayersService(db, startingCardsService);
+            DecksService service = new DecksService(db, httpContextAccessor);
+
+            Config config = db.Config.First();
+
+            Config configTest = service.ConfigurationDeck();
+
+            Assert.AreEqual(config.NbCardsStart, configTest.NbCardsStart);
+            Assert.AreEqual(config.NbCarteParDeck , configTest.NbCarteParDeck);
+            Assert.AreEqual(config.NbDecks, configTest.NbDecks);
+        }
     }
 
 }

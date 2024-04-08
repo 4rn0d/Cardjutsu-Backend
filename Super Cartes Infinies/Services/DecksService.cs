@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Super_Cartes_Infinies.Data;
 using Super_Cartes_Infinies.Models;
 using Super_Cartes_Infinies.Models.Dtos;
@@ -87,7 +88,16 @@ namespace Super_Cartes_Infinies.Services
             {
                 throw new Exception("Deux decks ne peuvent pas avoir le meme nom");
             }
-            
+
+            if (deckDTO.Deck.DeckName.IsNullOrEmpty())
+            {
+                throw new Exception("Nom du deck manquant");
+            }
+
+            if (deckDTO.cards.Count == 0)
+            {
+                throw new Exception("Cards manquant");
+            }
                 Deck deck = new Deck();
                 deck.DeckName = deckDTO.Deck.DeckName;
                 deck.IsCurrentDeck = deckDTO.Deck.IsCurrentDeck;
@@ -103,7 +113,7 @@ namespace Super_Cartes_Infinies.Services
                 deck.OwnedCards = ownedCards;
 
                 _context.Decks.Add(deck);
-            player.Decks.Add(deck);
+                player.Decks.Add(deck);
                 await db.SaveChangesAsync();
 
             return deck;
