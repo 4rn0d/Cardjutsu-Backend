@@ -10,9 +10,22 @@ namespace Super_Cartes_Infinies.Combat
         public int LosingPlayerId { get; set; }
 
 
-        public PlayerDeathEvent(MatchPlayerData losingPlayerData, MatchPlayerData winningPlayerData) 
+        public PlayerDeathEvent(Match match,MatchPlayerData losingPlayerData, MatchPlayerData winningPlayerData) 
         { 
             //set winner and loser
+            match.IsMatchCompleted = true;
+            WinningPlayerId = winningPlayerData.PlayerId;
+            LosingPlayerId = losingPlayerData.PlayerId;
+
+            if(winningPlayerData == match.PlayerDataA)
+            {
+                match.WinnerUserId = match.UserAId;
+            }
+            else
+            {
+                match.WinnerUserId = match.UserBId;
+            }
+
         }
     }
 }

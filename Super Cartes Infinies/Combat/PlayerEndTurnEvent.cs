@@ -18,10 +18,11 @@ namespace Super_Cartes_Infinies.Combat
 
             match.IsPlayerATurn = !match.IsPlayerATurn;
 
+            this.Events.Add(new CombatEvent(match, currentPlayerData, opposingPlayerData));
 
             this.Events.Add(new PlayerStartTurnEvent(opposingPlayerData, 3)); //hardcoded mana -- unable to retrieve manaAmount from matchconfigservice
             
-            this.Events.Add(new CombatEvent(currentPlayerData, opposingPlayerData));
+            //this.Events.Add(new CombatEvent(currentPlayerData, opposingPlayerData));
         }
 
     }

@@ -11,13 +11,11 @@ namespace Super_Cartes_Infinies.Combat
         {
             PlayableCard playedcard = currentPlayerData.Hand.Where(c => c.Id == playableCardId).FirstOrDefault();
 
-            currentPlayerData.BattleField.Add(playedcard);
-
             if (currentPlayerData.Mana - playedcard.Card.Cost <0)
             {
                 throw new Exception("Le joueur n'a pas assez de mana pour jouer la carte");
             }
-
+            currentPlayerData.BattleField.Add(playedcard);
             currentPlayerData.Mana -= playedcard.Card.Cost;
 
 

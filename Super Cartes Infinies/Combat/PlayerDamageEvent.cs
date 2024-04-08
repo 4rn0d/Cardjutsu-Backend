@@ -9,7 +9,7 @@ namespace Super_Cartes_Infinies.Combat
 
         public int Damage { get; set; }
 
-        public PlayerDamageEvent(MatchPlayerData attackedPlayerData, int damage, MatchPlayerData attackingPlayerData) 
+        public PlayerDamageEvent(Match match, MatchPlayerData attackedPlayerData, int damage, MatchPlayerData attackingPlayerData) 
         {
 
             this.Events = new List<MatchEvent>();
@@ -20,7 +20,7 @@ namespace Super_Cartes_Infinies.Combat
 
             if(attackedPlayerData.Health <= 0)
             {
-                this.Events.Add(new PlayerDeathEvent(attackedPlayerData, attackingPlayerData));
+                this.Events.Add(new PlayerDeathEvent(match, attackedPlayerData, attackingPlayerData));
             }
         }
 

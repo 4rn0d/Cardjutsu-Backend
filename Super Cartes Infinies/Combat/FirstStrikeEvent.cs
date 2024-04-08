@@ -4,16 +4,12 @@ namespace Super_Cartes_Infinies.Combat
 {
     public class FirstStrikeEvent : MatchEvent
     {
-        public FirstStrikeEvent(MatchPlayerData playerData, PlayableCard playableCard, int amountAttack) 
+        public FirstStrikeEvent(MatchPlayerData playerDataAttacked, PlayableCard playableCardAttacked, int damage) 
         {
             this.Events = new List<MatchEvent> { };
 
-            this.Events.Add(new CardDamageEvent(playerData, playableCard, playableCard.Attack));
+            this.Events.Add(new CardDamageEvent(playerDataAttacked, playableCardAttacked, damage));
 
-            if (playableCard.Health == 0) //if enemyCard is ded
-            {
-                this.Events.Add(new CardDeathEvent(playerData, playableCard));
-            }
         }
 
     }

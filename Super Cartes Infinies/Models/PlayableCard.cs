@@ -26,15 +26,20 @@ namespace Super_Cartes_Infinies.Models
 		{
 			// Return true if the Card has that power
 
-			List<CardPower> powerList = new List<CardPower>(Card.CardPowers);
-
-			foreach (CardPower power in powerList)
+			if(Card.CardPowers != null && Card.CardPowers.Count > 0)
 			{
-				if(power.Power.Id == powerId)
-				{
-					return true;
-				}
-			}
+                List<CardPower> powerList = new List<CardPower>(Card.CardPowers);
+
+                foreach (CardPower power in powerList)
+                {
+                    if (power.Power.Id == powerId)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+			
 
 			return false;
 		}
