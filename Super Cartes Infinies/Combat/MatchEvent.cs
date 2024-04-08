@@ -12,6 +12,7 @@ namespace Super_Cartes_Infinies.Combat
     [JsonDerivedType(typeof(CardDeathEvent), typeDiscriminator: "CardDeath")]
     [JsonDerivedType(typeof(FirstStrikeEvent), typeDiscriminator: "FirstStrike")]
     [JsonDerivedType(typeof(HealEvent), typeDiscriminator: "Heal")]
+    [JsonDerivedType(typeof(ThiefEvent), typeDiscriminator: "Thief")]
     [JsonDerivedType(typeof(PlayerDamageEvent), typeDiscriminator: "PlayerDamage")]
     [JsonDerivedType(typeof(PlayerDeathEvent), typeDiscriminator: "PlayerDeath")]
     [JsonDerivedType(typeof(ThornsEvent), typeDiscriminator: "Thorns")]

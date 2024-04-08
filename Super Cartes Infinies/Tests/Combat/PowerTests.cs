@@ -162,6 +162,77 @@ namespace Tests.Services
             Assert.AreEqual(1, _opposingPlayerData.BattleField.Count);
             Assert.AreEqual(0, _opposingPlayerData.Graveyard.Count);
         }
+
+        [TestMethod]
+        public void StealWithinEnemyManaLimit()
+        {
+            Power stealPower = new Power
+            {
+                Id = Power.THIEF_ID
+            };
+
+            CardPower cardPower = new CardPower
+            {
+                Power = stealPower,
+                Card = _cardB,
+                Value = 1
+            };
+
+            _cardB.CardPowers = new List<CardPower> { cardPower };
+            _opposingPlayerData.Mana = 3;
+            _currentPlayerData.Mana = 3;
+
+            _currentPlayerData.BattleField.Add(_playableCardB);
+
+            int initialManaEnemy = _opposingPlayerData.Mana;
+            int initialManaCurrent = _currentPlayerData.Mana;
+
+            int manaPerRoundConf = 3; //HARDCODED
+
+            var playerTurnEvent = new PlayerEndTurnEvent(_match, _currentPlayerData, _opposingPlayerData);
+
+            Assert.AreEqual(_currentPlayerData.PlayerId, playerTurnEvent.PlayerId);
+
+            Assert.AreEqual(initialManaEnemy - cardPower.Value + manaPerRoundConf, _opposingPlayerData.Mana); //It checks AFTER we regained mana the following round
+            Assert.AreEqual(initialManaCurrent + cardPower.Value, _currentPlayerData.Mana);
+        }
+
+        [TestMethod]
+        public void StealOutsideEnemyManaLimit()
+        {
+            Power stealPower = new Power
+            {
+                Id = Power.THIEF_ID
+            };
+
+            CardPower cardPower = new CardPower
+            {
+                Power = stealPower,
+                Card = _cardB,
+                Value = 4
+            };
+            _cardB.CardPowers = new List<CardPower> { cardPower };
+
+            _opposingPlayerData.Mana = 3;
+            _currentPlayerData.Mana = 3;
+
+            _currentPlayerData.BattleField.Add(_playableCardB);
+
+            int initialManaEnemy = _opposingPlayerData.Mana;
+
+            int initialManaCurrent = _currentPlayerData.Mana;
+
+            int manaPerRoundConf = 3; //HARDCODED
+
+            var playerTurnEvent = new PlayerEndTurnEvent(_match, _currentPlayerData, _opposingPlayerData);
+
+            Assert.AreEqual(_currentPlayerData.PlayerId, playerTurnEvent.PlayerId);
+
+            Assert.AreEqual(manaPerRoundConf, _opposingPlayerData.Mana); //It checks AFTER we regained mana the following round
+            Assert.AreEqual(initialManaCurrent + initialManaEnemy, _currentPlayerData.Mana);
+
+
+        }
     }
 }
 

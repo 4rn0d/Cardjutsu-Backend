@@ -113,7 +113,12 @@ namespace Super_Cartes_Infinies.Combat
                 //ADD PLAYERDAMAGEEVENT TO EVENTS WITH ENEMY PLAYER
                 this.Events.Add(new PlayerDamageEvent(match, opposingPlayerData, activatedCard.Attack, currentPlayerData));
             }
-            
+
+            if (activatedCard.HasPower(Power.THIEF_ID))
+            {
+                this.Events.Add(new ThiefEvent(currentPlayerData, activatedCard, opposingPlayerData));
+            }
+
         }
     }
 }
