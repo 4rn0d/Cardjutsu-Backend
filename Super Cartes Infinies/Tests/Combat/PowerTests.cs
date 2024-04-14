@@ -21,7 +21,7 @@ namespace Tests.Services
         {
             Power firstStrikePower = new Power
             {
-                Id = Power.FIRST_STRIKE_ID
+                PowerId = Power.FIRST_STRIKE_ID
             };
 
             CardPower cardPower = new CardPower
@@ -51,7 +51,7 @@ namespace Tests.Services
         {
             Power firstStrikePower = new Power
             {
-                Id = Power.FIRST_STRIKE_ID
+                PowerId = Power.FIRST_STRIKE_ID
             };
 
             CardPower cardPower = new CardPower
@@ -79,7 +79,7 @@ namespace Tests.Services
         {
             Power thornsPower = new Power
             {
-                Id = Power.THORNS_ID
+                PowerId = Power.THORNS_ID
             };
 
             // On donne le pouvoir Thorn au défenseur
@@ -115,7 +115,7 @@ namespace Tests.Services
         {
             Power healPower = new Power
             {
-                Id = Power.HEAL_ID
+                PowerId = Power.HEAL_ID
             };
 
             // On donne le pouvoir Heal à l'attaquant
@@ -168,7 +168,7 @@ namespace Tests.Services
         {
             Power stealPower = new Power
             {
-                Id = Power.THIEF_ID
+                PowerId = Power.THIEF_ID
             };
 
             CardPower cardPower = new CardPower
@@ -202,7 +202,7 @@ namespace Tests.Services
         {
             Power stealPower = new Power
             {
-                Id = Power.THIEF_ID
+                PowerId = Power.THIEF_ID
             };
 
             CardPower cardPower = new CardPower
