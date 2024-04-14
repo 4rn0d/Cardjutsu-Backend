@@ -154,7 +154,9 @@ namespace Super_Cartes_Infinies.Services
                 opposingPlayerData = match.PlayerDataA;
             }
 
-            var playerTurnEvent = new PlayerEndTurnEvent(match, currentPlayerData, opposingPlayerData, _matchConfigurationService);
+            var playerTurnEvent = new PlayerEndTurnEvent(match, currentPlayerData, opposingPlayerData, _matchConfigurationService.GetNbManaPerTurn());
+
+
 
             await db.SaveChangesAsync();
 
