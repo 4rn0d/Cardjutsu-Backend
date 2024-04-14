@@ -32,27 +32,31 @@ namespace Super_Cartes_Infinies.Services
         }
 
 
-        public async Task<bool> DeleteDeck(int id)
+        public async Task<bool> DeleteDeck(int id, Player player)
         {
-            Deck? deck = await db.Decks.Where(p=>p.Id==id).FirstOrDefaultAsync();
-            if (deck != null)
+            if (player.Decks.Where(x=>x.Id == id).Any())
             {
-                if (deck.IsCurrentDeck != true)
-                {
-                   db.Decks.Remove(deck);
-                    await db.SaveChangesAsync();
-                    return true;
-                }
-                else
-                {
-                    throw new Exception("Impossible de supprimer un deck courrant");
-                }
+                Deck? deck = player.Decks.Where(p => p.Id == id).FirstOrDefault();
+               
+                    if (deck.IsCurrentDeck != true)
+                    {
+                        db.Decks.Remove(deck);
+                        await db.SaveChangesAsync();
+                        return true;
+                    }
+                    else
+                    {
+                        throw new Exception("Impossible de supprimer un deck courrant");
+                    }
+               
+              
             }
             else
             {
-                throw new Exception("Deck is null");
+                throw new Exception("Ce deck n'existe pas");
             }
-            return false;
+
+           
 
 
         }
@@ -138,14 +142,25 @@ namespace Super_Cartes_Infinies.Services
         
        public async Task<Deck> AjouterCarte(Player player, int id, Card card)
         {
-            OwnedCard ownedCard = _context.OwnedCards.Where(w => w.CardId == card.Id).FirstOrDefault();
-            Deck? deck = player.Decks.Where(p => p.Id == id).FirstOrDefault();
-            if (deck.OwnedCards.Where(p=>p.CardId == card.Id).Any()) {
-                throw new Exception("La carte existe dans le deck");
+            List<OwnedCard>? listOwnedCard = await _context.OwnedCards.Where(w => w.PlayerId == player.Id).ToListAsync();
+            OwnedCard? ownedCard = listOwnedCard.FirstOrDefault(p => p.CardId == card.Id);
+            if (ownedCard != null)
+            {
+                Deck? deck = player.Decks.Where(p => p.Id == id).FirstOrDefault();
+
+                if (deck.OwnedCards.Where(p => p.CardId == card.Id).Any())
+                {
+                    throw new Exception("La carte existe dans le deck");
+                }
+                deck?.OwnedCards.Add(ownedCard);
+                await db.SaveChangesAsync();
+                return deck;
             }
-            deck?.OwnedCards.Add(ownedCard);
-            await db.SaveChangesAsync();
-            return deck;
+            else
+            {
+                throw new Exception("Cette carte n'existe pas chez le player");
+            }
+            
 
         }
 

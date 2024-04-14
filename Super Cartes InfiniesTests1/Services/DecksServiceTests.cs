@@ -51,8 +51,13 @@ namespace Super_Cartes_Infinies.Services.Tests
                 new Card { Id = 4, Name = "Hot Chocolate", Attack = 3, Health = 3, Cost = 3, Colour = "Orange", ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/3/3d/HOT_CHOCOLATE_card_image.png" },
                 new Card { Id = 5, Name = "Landing Pad", Attack = 4, Health = 3, Cost = 3, Colour = "Violet", ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/d/d2/LANDING_PAD_card_image.png" }
              };
+            List<Card> cards2 = new List<Card> {
+                new Card { Id = 6, Name = "Cart Surfer", Attack = 3, Health = 3, Cost = 3, Colour = "Blue", ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/0/0b/CART_SURFER_card_image.png" },
+                
+             };
 
             db.AddRange(cards);
+            db.AddRange(cards2);
 
             // Ajoutez les OwnedCards
             List<OwnedCard> ownedCards = new List<OwnedCard>();
@@ -60,8 +65,13 @@ namespace Super_Cartes_Infinies.Services.Tests
             {
                 ownedCards.Add(new OwnedCard { PlayerId = 1, CardId = card.Id });
             }
+            List<OwnedCard> ownedCards2 = new List<OwnedCard>();
 
-            db.AddRange(ownedCards);
+            foreach (var card in cards2)
+            {
+                ownedCards2.Add(new OwnedCard { Id = 6, CardId = card.Id });
+            }
+            db.AddRange(ownedCards2);
 
             //Card start pour test player 
             List<CardStart> CardsStarts = new List<CardStart>();
@@ -90,6 +100,8 @@ namespace Super_Cartes_Infinies.Services.Tests
                 IdentityUser = new IdentityUser() { }
 
             };
+          
+
             db.AddRange(player);
 
             Config config = new Config()
@@ -131,12 +143,12 @@ namespace Super_Cartes_Infinies.Services.Tests
             DecksService service = new DecksService(db, httpContextAccessor);
             Deck? deckNotNull = db.Decks.Where(x => x.Id == 1).FirstOrDefault();
             Assert.IsNotNull(deckNotNull);
-            service.DeleteDeck(1);
+            service.DeleteDeck(1, db.Players.First());
             Deck? deckNull = db.Decks.Where(x => x.Id == 1).FirstOrDefault();
             Assert.IsNull(deckNull);
         }
         [TestMethod()]
-        public void DeleteDeckNullTest()
+        public void DeleteDeckQuiAppartientPasTest()
         {
             using ApplicationDbContext db = new ApplicationDbContext(options);
             IHttpContextAccessor httpContextAccessor = new HttpContextAccessor();
@@ -149,8 +161,8 @@ namespace Super_Cartes_Infinies.Services.Tests
 
             Task.Run(async () =>
             {
-                Exception e = await Assert.ThrowsExceptionAsync<Exception>(() => service.DeleteDeck(5));
-                Assert.AreEqual("Deck is null", e.Message);
+                Exception e = await Assert.ThrowsExceptionAsync<Exception>(() => service.DeleteDeck(5, db.Players.First()));
+                Assert.AreEqual("Ce deck n'existe pas", e.Message);
             }).Wait();
 
 
@@ -169,7 +181,7 @@ namespace Super_Cartes_Infinies.Services.Tests
 
             Task.Run(async () =>
             {
-                Exception e = await Assert.ThrowsExceptionAsync<Exception>(() => service.DeleteDeck(deckCourant.Id));
+                Exception e = await Assert.ThrowsExceptionAsync<Exception>(() => service.DeleteDeck(deckCourant.Id, db.Players.First()));
                 Assert.AreEqual("Impossible de supprimer un deck courrant", e.Message);
             }).Wait();
         }
@@ -187,7 +199,7 @@ namespace Super_Cartes_Infinies.Services.Tests
             Task.Run(async () =>
             {
                 List<Deck> decks = await service.GetDecks(db.Players.First());
-                Assert.AreEqual(5, db.Cards.Count());
+                Assert.AreEqual(2, decks.Count());
             }).Wait();
         }
 
@@ -235,7 +247,7 @@ namespace Super_Cartes_Infinies.Services.Tests
         }
 
         [TestMethod()]
-        public void AjouterCardDeck()
+        public void AjouterCardDeckTest()
         {
 
             using ApplicationDbContext db = new ApplicationDbContext(options);
@@ -256,7 +268,7 @@ namespace Super_Cartes_Infinies.Services.Tests
 
         }
         [TestMethod()]
-        public void AjouterMemeCardDeck()
+        public void AjouterMemeCardDeckTest()
         {
 
             using ApplicationDbContext db = new ApplicationDbContext(options);
@@ -275,6 +287,28 @@ namespace Super_Cartes_Infinies.Services.Tests
             {
                 Exception e = await Assert.ThrowsExceptionAsync<Exception>(() => service.AjouterCarte(db.Players.First(), 1, cardAjouter));
                 Assert.AreEqual("La carte existe dans le deck", e.Message);
+            }).Wait();
+        }
+        [TestMethod()]
+        public void AjouterMauvaiseCardDansDeckTest()
+        {
+
+            using ApplicationDbContext db = new ApplicationDbContext(options);
+            IHttpContextAccessor httpContextAccessor = new HttpContextAccessor();
+            StartingCardsService startingCardsService = new StartingCardsService(db);
+            PlayersService playersService = new PlayersService(db, startingCardsService);
+            DecksService service = new DecksService(db, httpContextAccessor);
+
+            //test ajouter card
+            Deck? deckTest = db.Decks.Where(x => x.Id == 1).FirstOrDefault();
+            Card cardAjouter = db.Cards.Where(x => x.Id == 6).FirstOrDefault();
+
+
+
+            Task.Run(async () =>
+            {
+                Exception e = await Assert.ThrowsExceptionAsync<Exception>(() => service.AjouterCarte(db.Players.First(), 1, cardAjouter));
+                Assert.AreEqual("Cette carte n'existe pas chez le player", e.Message);
             }).Wait();
         }
         [TestMethod()]
@@ -629,7 +663,7 @@ namespace Super_Cartes_Infinies.Services.Tests
 
         }
 
-        [TestMethod]
+        [TestMethod()]
         public void PostDeckCardManquantTest()
         {
             using ApplicationDbContext db = new ApplicationDbContext(options);
@@ -647,11 +681,8 @@ namespace Super_Cartes_Infinies.Services.Tests
                 PlayerId = db.Players.First().Id,
 
             };
-            List<Card> cards = new List<Card>()
-            {
-
-
-            };
+            List<Card> cards = new List<Card>();
+           
 
             DeckCardDTO DeckCardDTO = new DeckCardDTO()
             {

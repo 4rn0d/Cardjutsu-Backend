@@ -161,8 +161,10 @@ namespace Super_Cartes_Infinies.Controllers
             {
                 return NotFound();
             }
-          
-           bool re =await _decksService.DeleteDeck(id); //je retourne un bool car je dois mettre un await ou sinon System.ObjectDisposedException.
+            string Id = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            IdentityUser? user = _context.Users.Find(Id);
+            Player player = await _context.Players.Where(p => p.IdentityUserId == user.Id).FirstAsync();
+            bool re =await _decksService.DeleteDeck(id, player); //je retourne un bool car je dois mettre un await ou sinon System.ObjectDisposedException.
             return Ok();
         }
 
