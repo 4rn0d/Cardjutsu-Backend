@@ -31,6 +31,12 @@ namespace Super_Cartes_Infinies.Controllers
         {
             return Ok(_cardsService.GetPlayersCards());
         }
+
+        [HttpGet("{id}")]
+        public ActionResult<Card> GetCardPowers(int id)
+        {
+            return Ok(_cardsService.GetCardPowers(id));
+        }
       
     }
 }

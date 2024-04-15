@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Super_Cartes_Infinies.Services.Interfaces;
 
@@ -18,6 +19,7 @@ namespace Super_Cartes_Infinies.Models
         public string Colour { get; set; }
         public string ImageUrl { get; set; } = "";
         [ValidateNever]
+        [JsonIgnore]
         public virtual List<CardPower>? CardPowers { get; set; }
       
     }

@@ -60,6 +60,16 @@ namespace Super_Cartes_Infinies.Services
 
            
         }
+        public IEnumerable<CardPower> GetCardPowers(int cardId)
+        {
+            Card card = _dbContext.Cards.Where(c => c.Id == cardId).FirstOrDefault();
+            if (card.CardPowers == null)
+            {
+                return new List<CardPower>();
+            }
+
+            return card.CardPowers;
+        }
     }
 }
 

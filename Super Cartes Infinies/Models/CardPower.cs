@@ -1,4 +1,7 @@
-﻿namespace Super_Cartes_Infinies.Models
+﻿using Newtonsoft.Json;
+using Super_Cartes_Infinies.Migrations;
+
+namespace Super_Cartes_Infinies.Models
 {
     public class CardPower
     {
