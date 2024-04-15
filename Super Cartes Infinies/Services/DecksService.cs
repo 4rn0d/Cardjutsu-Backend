@@ -129,11 +129,8 @@ namespace Super_Cartes_Infinies.Services
         //Envoyer la valeur des config pour max deck et max card
         public Config ConfigurationDeck()
         {
-           Config config = _context.Config.First();
-            if (config == null)
-            {
-                return null;
-            }
+           Config? config = _context.Config.FirstOrDefault();
+           
             return config;
 
 
@@ -152,6 +149,7 @@ namespace Super_Cartes_Infinies.Services
                 {
                     throw new Exception("La carte existe dans le deck");
                 }
+
                 deck?.OwnedCards.Add(ownedCard);
                 await db.SaveChangesAsync();
                 return deck;
