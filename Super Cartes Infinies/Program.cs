@@ -33,7 +33,11 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 
 
-builder.Services.AddSignalR();
+builder.Services.AddSignalR(hubOptions => {
+    hubOptions.EnableDetailedErrors = true;
+    hubOptions.KeepAliveInterval = TimeSpan.FromSeconds(10);
+    hubOptions.HandshakeTimeout = TimeSpan.FromSeconds(5);
+});
 
 builder.Services.AddControllersWithViews()
     .AddJsonOptions(options =>

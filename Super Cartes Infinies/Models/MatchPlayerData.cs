@@ -1,4 +1,5 @@
-﻿using Super_Cartes_Infinies.Services.Interfaces;
+﻿using System.Text.Json.Serialization;
+using Super_Cartes_Infinies.Services.Interfaces;
 
 namespace Super_Cartes_Infinies.Models
 {
@@ -44,6 +45,7 @@ namespace Super_Cartes_Infinies.Models
         public int PlayerId { get; set; }
 
         // TODO: Il faut ordonner correctement toutes ces listes/stacks qui pourraient avoir un ordre différent quand on les obtient de la BD (mettre des indexes partout...)
+        [JsonIgnore]
         public virtual List<PlayableCard> CardsPile { get; set; }
         public virtual List<PlayableCard> Hand { get; set; }
 
