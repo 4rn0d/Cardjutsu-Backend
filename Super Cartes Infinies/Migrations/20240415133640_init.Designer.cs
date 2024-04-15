@@ -12,8 +12,8 @@ using Super_Cartes_Infinies.Data;
 namespace Super_Cartes_Infinies.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240406181140_ConfigDecks")]
-    partial class ConfigDecks
+    [Migration("20240415133640_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -172,37 +172,37 @@ namespace Super_Cartes_Infinies.Migrations
                         {
                             Id = "User1Id",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "4df3a45d-923f-4ebf-b191-55b0eb65ebe6",
+                            ConcurrencyStamp = "82aae080-64a8-4610-bac9-d0905836a140",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "251afb8f-33e2-48ea-b07c-5797ea3cbc4c",
+                            SecurityStamp = "c65b536a-79c9-4236-a88a-711a77c273a4",
                             TwoFactorEnabled = false
                         },
                         new
                         {
                             Id = "User2Id",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d4d6d316-a684-43b7-8824-ff19eee3b724",
+                            ConcurrencyStamp = "4af3cbd5-1edf-4c04-8dac-cd0f5770b3aa",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "2cd9c74b-b8de-4e6d-96ee-256c3f179b6c",
+                            SecurityStamp = "19ff5d36-995c-44e2-804c-f5b228858d27",
                             TwoFactorEnabled = false
                         },
                         new
                         {
                             Id = "11111111-1111-1111-1111-111111111111",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "63753295-3676-4b89-aaea-94bdc6cc9044",
+                            ConcurrencyStamp = "9a9f7ade-b12b-48f1-85e4-5d3b5a730d5c",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEN+ZGhRTkCZSzPBqFNFA59COyAgCL5N9mXzhnl/9GeBhTDHT5i388EPo7m+sHLGphA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEOu/cV/ZtbrQu0wUuwMIE8EWb0WrWdSXBypnAuLfA2Ak7TvSwgeSMe8C3AT/pVuZ6Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "2e9730f0-07cd-4499-8bef-cece83bc1e42",
+                            SecurityStamp = "45679162-f32b-4741-b919-bda922c185fd",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         });
@@ -706,6 +706,9 @@ namespace Super_Cartes_Infinies.Migrations
                     b.Property<int>("NbCardsStart")
                         .HasColumnType("int");
 
+                    b.Property<int>("NbCarteParDeck")
+                        .HasColumnType("int");
+
                     b.Property<int>("NbDecks")
                         .HasColumnType("int");
 
@@ -719,7 +722,8 @@ namespace Super_Cartes_Infinies.Migrations
                             Id = 1,
                             ManaPerRound = 3,
                             NbCardsStart = 4,
-                            NbDecks = 0
+                            NbCarteParDeck = 5,
+                            NbDecks = 3
                         });
                 });
 
@@ -933,6 +937,9 @@ namespace Super_Cartes_Infinies.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("HasValue")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Icone")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -944,6 +951,32 @@ namespace Super_Cartes_Infinies.Migrations
                     b.HasKey("PowerId");
 
                     b.ToTable("Power");
+
+                    b.HasData(
+                        new
+                        {
+                            PowerId = 1,
+                            Description = "First Strike permet à une carte d’attaquer en « premier » et de ne pas recevoir de dégât si elle tue la carte de l’adversaire.",
+                            HasValue = false,
+                            Icone = "https://leagueofitems.com/images/runes/256/8369.webp",
+                            Name = "First Strike"
+                        },
+                        new
+                        {
+                            PowerId = 2,
+                            Description = "Lorsqu’une carte défend, elle inflige X de dégâts AVANT de recevoir des dégâts. Si l’attaquant est tué par ces dégâts, l’attaque s’arrête et le défenseur ne reçoit pas de dégâts.",
+                            HasValue = true,
+                            Icone = "https://leagueofitems.com/images/items/128/3075.webp",
+                            Name = "Thorns"
+                        },
+                        new
+                        {
+                            PowerId = 3,
+                            Description = "Soigne les cartes alliées de X incluant elle-même AVANT d’attaquer (mais les cartes ne peuvent pas avoir plus de health qu’au départ.)",
+                            HasValue = true,
+                            Icone = "https://cdnb.artstation.com/p/assets/images/images/059/650/103/large/mackenzie-miller-healthpotion.jpg?1676863888",
+                            Name = "Heal"
+                        });
                 });
 
             modelBuilder.Entity("DeckOwnedCard", b =>
