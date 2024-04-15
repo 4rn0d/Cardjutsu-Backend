@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Super_Cartes_Infinies.Data;
 
@@ -11,9 +12,11 @@ using Super_Cartes_Infinies.Data;
 namespace Super_Cartes_Infinies.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240414233700_addHasPower")]
+    partial class addHasPower
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -154,37 +157,37 @@ namespace Super_Cartes_Infinies.Migrations
                         {
                             Id = "User1Id",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "10ffb2d5-a9f0-4f0f-9c72-bea8f3b92177",
+                            ConcurrencyStamp = "61e5f136-8110-449d-af93-cbf6994e1234",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "8977ad99-d797-47ee-a490-799aa9a403ea",
+                            SecurityStamp = "5eaee0dc-1c1b-48c6-9ee7-924b00b4e69a",
                             TwoFactorEnabled = false
                         },
                         new
                         {
                             Id = "User2Id",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "693b8ef1-a24d-4e9e-ad86-9618d60270f0",
+                            ConcurrencyStamp = "5a24314a-ab35-49f0-853f-6628cafd79ab",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "f5eb97f7-1d7a-4774-86b6-99002fece9c3",
+                            SecurityStamp = "644391cb-bf5a-4173-9a4b-f2a9cb265532",
                             TwoFactorEnabled = false
                         },
                         new
                         {
                             Id = "11111111-1111-1111-1111-111111111111",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ef586cf9-f672-4ca8-b993-c5e48b72249e",
+                            ConcurrencyStamp = "fac97da2-1f73-4744-9b09-a8df341b8f53",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEGG/2ZhhEDdRRT14ikfdNDVQOIgV2J+Ys3uNJwxlkq0+hI7mNC46ugu2vzI8UI52aQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAELdI1fJ3tnz3Sv7S7/+I6pWlHjzFJrUw5s9Ym076XjtTDJXm4unbz3LqHe18QgWiwA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "47a0ab1e-337d-4696-adf5-906834a24d5e",
+                            SecurityStamp = "1de7ad15-fd4d-4789-8164-52c8e7c7d075",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         });
@@ -300,6 +303,9 @@ namespace Super_Cartes_Infinies.Migrations
                     b.Property<int>("Cost")
                         .HasColumnType("int");
 
+                    b.Property<bool>("HasPowers")
+                        .HasColumnType("bit");
+
                     b.Property<int>("Health")
                         .HasColumnType("int");
 
@@ -327,6 +333,7 @@ namespace Super_Cartes_Infinies.Migrations
                             Attack = 3,
                             Colour = "Blue",
                             Cost = 3,
+                            HasPowers = false,
                             Health = 3,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/0/0b/CART_SURFER_card_image.png",
                             Name = "Cart Surfer"
@@ -337,6 +344,7 @@ namespace Super_Cartes_Infinies.Migrations
                             Attack = 2,
                             Colour = "Green",
                             Cost = 3,
+                            HasPowers = false,
                             Health = 3,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/b/b2/COFFEE_SHOP_card_image.png",
                             Name = "Coffee Shop"
@@ -347,6 +355,7 @@ namespace Super_Cartes_Infinies.Migrations
                             Attack = 8,
                             Colour = "Green",
                             Cost = 3,
+                            HasPowers = false,
                             Health = 3,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/2/22/ASTRO_BARRIER_card_image.png",
                             Name = "Astro Barrier"
@@ -357,6 +366,7 @@ namespace Super_Cartes_Infinies.Migrations
                             Attack = 3,
                             Colour = "Orange",
                             Cost = 3,
+                            HasPowers = false,
                             Health = 3,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/3/3d/HOT_CHOCOLATE_card_image.png",
                             Name = "Hot Chocolate"
@@ -367,6 +377,7 @@ namespace Super_Cartes_Infinies.Migrations
                             Attack = 4,
                             Colour = "Violet",
                             Cost = 3,
+                            HasPowers = false,
                             Health = 3,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/d/d2/LANDING_PAD_card_image.png",
                             Name = "Landing Pad"
@@ -377,6 +388,7 @@ namespace Super_Cartes_Infinies.Migrations
                             Attack = 6,
                             Colour = "Violet",
                             Cost = 3,
+                            HasPowers = false,
                             Health = 4,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/5/57/PIZZA_CHEF_card_image.png",
                             Name = "Pizza Chef"
@@ -387,6 +399,7 @@ namespace Super_Cartes_Infinies.Migrations
                             Attack = 2,
                             Colour = "Red",
                             Cost = 3,
+                            HasPowers = false,
                             Health = 3,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/b/b5/PAINT_BY_LETTERS_card_image.png",
                             Name = "Paint by Letters"
@@ -397,6 +410,7 @@ namespace Super_Cartes_Infinies.Migrations
                             Attack = 7,
                             Colour = "Red",
                             Cost = 3,
+                            HasPowers = false,
                             Health = 3,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/3/30/MINE_card_image.png",
                             Name = "Mine"
@@ -407,6 +421,7 @@ namespace Super_Cartes_Infinies.Migrations
                             Attack = 2,
                             Colour = "Yellow",
                             Cost = 1,
+                            HasPowers = false,
                             Health = 1,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/a/a5/CONSTRUCTION_WORKER_card_image.png",
                             Name = "Construction Worker"
@@ -417,6 +432,7 @@ namespace Super_Cartes_Infinies.Migrations
                             Attack = 5,
                             Colour = "Yellow",
                             Cost = 3,
+                            HasPowers = false,
                             Health = 3,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/1/13/JET_PACK_ADVENTURE_card_image.png",
                             Name = "Jetpack Adventure"
@@ -427,6 +443,7 @@ namespace Super_Cartes_Infinies.Migrations
                             Attack = 3,
                             Colour = "Blue",
                             Cost = 3,
+                            HasPowers = false,
                             Health = 3,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/f/f2/GIFT_SHOP_card_image.png",
                             Name = "Gift Shop"
@@ -437,6 +454,7 @@ namespace Super_Cartes_Infinies.Migrations
                             Attack = 2,
                             Colour = "Green",
                             Cost = 3,
+                            HasPowers = false,
                             Health = 3,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/7/72/HIKING_IN_THE_FOREST_card_image.png",
                             Name = "Hiking in the Forest"
@@ -447,6 +465,7 @@ namespace Super_Cartes_Infinies.Migrations
                             Attack = 5,
                             Colour = "Green",
                             Cost = 3,
+                            HasPowers = false,
                             Health = 3,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/a/a6/RESCUE_SQUAD_card_image.png",
                             Name = "Rescue Squad"
@@ -457,6 +476,7 @@ namespace Super_Cartes_Infinies.Migrations
                             Attack = 3,
                             Colour = "Orange",
                             Cost = 4,
+                            HasPowers = false,
                             Health = 3,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/b/b3/PET_SHOP_card_image.png",
                             Name = "Pet Shop"
@@ -467,6 +487,7 @@ namespace Super_Cartes_Infinies.Migrations
                             Attack = 4,
                             Colour = "Violet",
                             Cost = 3,
+                            HasPowers = false,
                             Health = 3,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/c/c3/SKI_VILLAGE_card_image.png",
                             Name = "Ski Village"
@@ -477,6 +498,7 @@ namespace Super_Cartes_Infinies.Migrations
                             Attack = 8,
                             Colour = "Violet",
                             Cost = 3,
+                            HasPowers = false,
                             Health = 3,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/f/f4/ICE_HOCKEY_card_image.png",
                             Name = "Ice Hockey"
@@ -487,6 +509,7 @@ namespace Super_Cartes_Infinies.Migrations
                             Attack = 2,
                             Colour = "Red",
                             Cost = 5,
+                            HasPowers = false,
                             Health = 8,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/c/c1/SKI_HILL_card_image.png",
                             Name = "Ski Hill"
@@ -497,6 +520,7 @@ namespace Super_Cartes_Infinies.Migrations
                             Attack = 6,
                             Colour = "Red",
                             Cost = 3,
+                            HasPowers = false,
                             Health = 3,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/f/f5/SNOWBALL_FIGHT_card_image.png",
                             Name = "Snowball Fight"
@@ -507,6 +531,7 @@ namespace Super_Cartes_Infinies.Migrations
                             Attack = 2,
                             Colour = "Yellow",
                             Cost = 3,
+                            HasPowers = false,
                             Health = 3,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/1/13/SNOW_FORTS_card_image.png",
                             Name = "Snow Forts"
@@ -517,6 +542,7 @@ namespace Super_Cartes_Infinies.Migrations
                             Attack = 7,
                             Colour = "Yellow",
                             Cost = 3,
+                            HasPowers = false,
                             Health = 2,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/9/97/SOCCER_card_image.png",
                             Name = "Soccer"
@@ -527,6 +553,7 @@ namespace Super_Cartes_Infinies.Migrations
                             Attack = 3,
                             Colour = "Blue",
                             Cost = 3,
+                            HasPowers = false,
                             Health = 3,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/7/77/BEACH_card_image.png",
                             Name = "Beach"
@@ -537,6 +564,7 @@ namespace Super_Cartes_Infinies.Migrations
                             Attack = 5,
                             Colour = "Blue",
                             Cost = 4,
+                            HasPowers = false,
                             Health = 3,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/1/1a/FOOTBALL_card_image.png",
                             Name = "Football"
@@ -547,6 +575,7 @@ namespace Super_Cartes_Infinies.Migrations
                             Attack = 2,
                             Colour = "Green",
                             Cost = 2,
+                            HasPowers = false,
                             Health = 9,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/f/f0/BASEBALL_card_image.png",
                             Name = "Baseball"
@@ -557,6 +586,7 @@ namespace Super_Cartes_Infinies.Migrations
                             Attack = 8,
                             Colour = "Green",
                             Cost = 3,
+                            HasPowers = false,
                             Health = 3,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/5/52/EMERALD_PRINCESS_card_image.png",
                             Name = "Emerald Princess"
@@ -567,6 +597,7 @@ namespace Super_Cartes_Infinies.Migrations
                             Attack = 3,
                             Colour = "Orange",
                             Cost = 3,
+                            HasPowers = false,
                             Health = 3,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/6/6b/BEAN_COUNTERS_card_image.png",
                             Name = "Bean Counters"
@@ -577,6 +608,7 @@ namespace Super_Cartes_Infinies.Migrations
                             Attack = 4,
                             Colour = "Violet",
                             Cost = 2,
+                            HasPowers = false,
                             Health = 2,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/e/e8/MANHOLE_COVER_card_image.png",
                             Name = "Manhole Cover"
@@ -881,9 +913,6 @@ namespace Super_Cartes_Infinies.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("HasValue")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Icone")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -901,7 +930,6 @@ namespace Super_Cartes_Infinies.Migrations
                         {
                             PowerId = 1,
                             Description = "First Strike permet à une carte d’attaquer en « premier » et de ne pas recevoir de dégât si elle tue la carte de l’adversaire.",
-                            HasValue = false,
                             Icone = "https://leagueofitems.com/images/runes/256/8369.webp",
                             Name = "First Strike"
                         },
@@ -909,7 +937,6 @@ namespace Super_Cartes_Infinies.Migrations
                         {
                             PowerId = 2,
                             Description = "Lorsqu’une carte défend, elle inflige X de dégâts AVANT de recevoir des dégâts. Si l’attaquant est tué par ces dégâts, l’attaque s’arrête et le défenseur ne reçoit pas de dégâts.",
-                            HasValue = true,
                             Icone = "https://leagueofitems.com/images/items/128/3075.webp",
                             Name = "Thorns"
                         },
@@ -917,7 +944,6 @@ namespace Super_Cartes_Infinies.Migrations
                         {
                             PowerId = 3,
                             Description = "Soigne les cartes alliées de X incluant elle-même AVANT d’attaquer (mais les cartes ne peuvent pas avoir plus de health qu’au départ.)",
-                            HasValue = true,
                             Icone = "https://cdnb.artstation.com/p/assets/images/images/059/650/103/large/mackenzie-miller-healthpotion.jpg?1676863888",
                             Name = "Heal"
                         });

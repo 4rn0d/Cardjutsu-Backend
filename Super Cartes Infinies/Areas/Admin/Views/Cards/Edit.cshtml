@@ -1,4 +1,5 @@
-﻿@model Super_Cartes_Infinies.Models.Card
+﻿@using SQLitePCL
+@model Super_Cartes_Infinies.Models.Card
 
 @{
     ViewData["Title"] = "Edit";
@@ -73,7 +74,7 @@
             <form asp-action="RemovePowers" asp-route-cardId="@Model.CardPowers[i].Card.Id" asp-route-cardPowerId="@i">
                 <br/>
                 <div class="form-group" style="display: flex;justify-content: space-between;border: 1px solid #ced4da; padding: 5px;border-radius: .25rem;">
-                    @if (@Model.CardPowers[i].Power.PowerId == 1)
+                    @if (!@Model.CardPowers[i].Power.HasValue)
                     {
                         <span><b>Power :</b> <u>@Model.CardPowers[i].Power.Name</u></span>
                     }

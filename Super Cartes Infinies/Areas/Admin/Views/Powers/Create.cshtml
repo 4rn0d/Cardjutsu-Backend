@@ -29,6 +29,14 @@
                 <span asp-validation-for="Icone" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="HasValue" class="control-label"></label>
+                <select class="form-control" asp-for="HasValue">
+                    <option value="False">No</option>
+                    <option value="True">Yes</option>
+                </select>
+                <span asp-validation-for="HasValue" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
