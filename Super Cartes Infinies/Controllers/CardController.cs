@@ -31,5 +31,6 @@ namespace Super_Cartes_Infinies.Controllers
         {
             return Ok(_cardsService.GetPlayersCards());
         }
+      
     }
 }

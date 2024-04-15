@@ -4,7 +4,7 @@ using Super_Cartes_Infinies.Services.Interfaces;
 
 namespace Super_Cartes_Infinies.Models
 {
-    public class Card:IModel
+	public class Card:IModel
 	{
 		public Card() { }
 
@@ -18,8 +18,9 @@ namespace Super_Cartes_Infinies.Models
         public string Colour { get; set; }
         public string ImageUrl { get; set; } = "";
         [ValidateNever]
-        public virtual List<CardPower> CardPowers { get; set; }
-
+        public virtual List<CardPower>? CardPowers { get; set; }
+      
     }
+
 }
 

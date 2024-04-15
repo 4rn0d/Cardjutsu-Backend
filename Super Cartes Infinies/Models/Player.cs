@@ -7,17 +7,19 @@ using Super_Cartes_Infinies.Services.Interfaces;
 namespace Super_Cartes_Infinies.Models
 {
 	public class Player : IModel
-    {
+	{
 		public Player()
 		{
 		}
 
 		public int Id { get; set; }
-        public string Name { get; set; }
-        public string IdentityUserId { get; set; }
+		public string Name { get; set; }
+		public string IdentityUserId { get; set; }
 		[JsonIgnore]
 		public virtual IdentityUser IdentityUser { get; set; }
 		public virtual List<Card> OwnedCards { get; set;}
-    }
+		[ValidateNever]
+		public virtual List<Deck> Decks { get; set; }
+	}
 }
 

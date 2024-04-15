@@ -59,7 +59,7 @@ namespace Super_Cartes_Infinies.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,NbCardsStart,ManaPerRound")] Config config)
+        public async Task<IActionResult> Create([Bind("Id,NbCardsStart,ManaPerRound,NbDecks,NbCarteParDeck")] Config config)
         {
             if (ModelState.IsValid)
             {
@@ -91,7 +91,7 @@ namespace Super_Cartes_Infinies.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,NbCardsStart,ManaPerRound")] Config config)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,NbCardsStart,ManaPerRound,NbDecks,NbCarteParDeck")] Config config)
         {
             if (id != config.Id)
             {

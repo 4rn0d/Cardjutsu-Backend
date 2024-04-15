@@ -23,6 +23,16 @@
                 <span asp-validation-for="ManaPerRound" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="NbDecks" class="control-label"></label>
+                <input asp-for="NbDecks" class="form-control" />
+                <span asp-validation-for="NbDecks" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NbCarteParDeck" class="control-label"></label>
+                <input asp-for="NbCarteParDeck" class="form-control" />
+                <span asp-validation-for="NbCarteParDeck" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>

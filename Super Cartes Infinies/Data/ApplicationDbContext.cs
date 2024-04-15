@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Super_Cartes_Infinies.Models;
+using System.Reflection.Emit;
 
 namespace Super_Cartes_Infinies.Data;
 
@@ -18,6 +19,7 @@ public class ApplicationDbContext : IdentityDbContext
     {
         base.OnModelCreating(builder);
 
+        
         builder.Entity<Card>().HasData(Seed.SeedCards());
         builder.Entity<Player>().HasData(Seed.SeedTestPlayers());
         builder.Entity<IdentityUser>().HasData(Seed.SeedTestUsers());
@@ -27,7 +29,8 @@ public class ApplicationDbContext : IdentityDbContext
         builder.Entity<CardStart>().HasData(Seed.SeedCardStarts());
         
         builder.Entity<IdentityUser>().HasData(Seed.SeedUsers());
-        builder.Entity<IdentityRole>().HasData(Seed.SeedRoles());         
+        builder.Entity<IdentityRole>().HasData(Seed.SeedRoles());      
+        
         builder.Entity<IdentityUserRole<string>>().HasData(Seed.SeedUserRoles());
 
         // Lorsque le modèle de données se complexifient, il faut éventuellement utiliser Fluent API
@@ -43,6 +46,13 @@ public class ApplicationDbContext : IdentityDbContext
             .HasOne(m => m.PlayerDataB)
             .WithMany()
             .OnDelete(DeleteBehavior.NoAction);
+
+        //DECKPLAYER
+        builder.Entity<Deck>()
+        .HasOne(e => e.Player)
+        .WithMany()
+        .OnDelete(DeleteBehavior.NoAction); // <--
+
         // Fin de Fluent API
     }
 
@@ -51,6 +61,7 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet<Player> Players { get; set; } = default!;
 
     public DbSet<Match> Matches { get; set; } = default!;
+    public DbSet<Deck> Decks { get; set; } = default!;
 
     public DbSet<OwnedCard> OwnedCards { get; set; } = default!;
 
