@@ -53,5 +53,10 @@
     <_ContentIncludedByDefault Remove="Views\CardsTEST\Details.cshtml" />
     <_ContentIncludedByDefault Remove="Views\CardsTEST\Edit.cshtml" />
     <_ContentIncludedByDefault Remove="Views\CardsTEST\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="Areas\Admin\Views\Power\Create.cshtml" />
+    <_ContentIncludedByDefault Remove="Areas\Admin\Views\Power\Delete.cshtml" />
+    <_ContentIncludedByDefault Remove="Areas\Admin\Views\Power\Details.cshtml" />
+    <_ContentIncludedByDefault Remove="Areas\Admin\Views\Power\Edit.cshtml" />
+    <_ContentIncludedByDefault Remove="Areas\Admin\Views\Power\Index.cshtml" />
   </ItemGroup>
 </Project>

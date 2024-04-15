@@ -1,7 +1,10 @@
-﻿@model Super_Cartes_Infinies.Models.Card
+﻿@using SQLitePCL
+@model Super_Cartes_Infinies.Models.Card
 
 @{
     ViewData["Title"] = "Edit";
+    var powerId = ViewData["PowerId"];
+    var value = ViewData["Value"];
 }
 
 <h1>Edit</h1>
@@ -10,38 +13,79 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
+        <h4>Edit Card</h4>
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="Id"/>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
+                <input asp-for="Name" class="form-control"/>
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Attack" class="control-label"></label>
-                <input asp-for="Attack" class="form-control" />
+                <input asp-for="Attack" class="form-control"/>
                 <span asp-validation-for="Attack" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Health" class="control-label"></label>
-                <input asp-for="Health" class="form-control" />
+                <input asp-for="Health" class="form-control"/>
                 <span asp-validation-for="Health" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Cost" class="control-label"></label>
-                <input asp-for="Cost" class="form-control" />
+                <input asp-for="Cost" class="form-control"/>
                 <span asp-validation-for="Cost" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ImageUrl" class="control-label"></label>
-                <input asp-for="ImageUrl" class="form-control" />
+                <input asp-for="ImageUrl" class="form-control"/>
                 <span asp-validation-for="ImageUrl" class="text-danger"></span>
             </div>
+            <br/>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-primary"/>
             </div>
         </form>
+    </div>
+    <div class="col-md-4">
+        <h4>Add Power</h4>
+        <form asp-action="AddPower" asp-route-cardId="@Model.Id">
+            <div class="form-group">
+                <label asp-for="@powerId" class="control-label">Power</label>
+                <select asp-for="@powerId" class ="form-control" asp-items="ViewBag.PowerList">
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Value</label>
+                <input asp-for="@value" class="form-control" value="1" type="number" min="1" max="5"/>
+                <span asp-validation-for="@value" class="text-danger"></span>
+            </div>
+            <br/>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary"/>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-4">
+        <h4>Remove Power</h4>
+        @for (int i = 0; i < @Model.CardPowers.Count; i++)
+        {
+            <form asp-action="RemovePowers" asp-route-cardId="@Model.CardPowers[i].Card.Id" asp-route-cardPowerId="@i">
+                <br/>
+                <div class="form-group" style="display: flex;justify-content: space-between;border: 1px solid #ced4da; padding: 5px;border-radius: .25rem;">
+                    @if (!@Model.CardPowers[i].Power.HasValue)
+                    {
+                        <span><b>Power :</b> <u>@Model.CardPowers[i].Power.Name</u></span>
+                    }
+                    else
+                    {
+                        <span><b>Power :</b> <u>@Model.CardPowers[i].Power.Name</u> <b>Value :</b> <u>@Model.CardPowers[i].Value</u></span>
+                    }
+                    <input type="submit" value="Delete" class="btn btn-danger"/>
+                </div>
+            </form>
+        }
     </div>
 </div>
 

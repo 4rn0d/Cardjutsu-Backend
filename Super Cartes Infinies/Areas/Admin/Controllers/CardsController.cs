@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis.Differencing;
 using Microsoft.EntityFrameworkCore;
 using Super_Cartes_Infinies.Data;
 using Super_Cartes_Infinies.Models;
@@ -67,6 +68,12 @@ namespace Super_Cartes_Infinies.Areas.Admin.Controllers
             {
                 return NotFound();
             }
+            ViewData["PowerList"] = new SelectList(_context.Power, "PowerId", "Name");
+            CardPower cardPower = new CardPower();
+            cardPower.Power = new Power();
+            ViewData["CardPower"] = cardPower;
+            ViewData["PowerId"] = 0;
+            ViewData["Value"] = 0;
             return View(card);
         }
 
@@ -145,6 +152,51 @@ namespace Super_Cartes_Infinies.Areas.Admin.Controllers
         private bool CardExists(int id)
         {
           return (_context.Cards?.Any(e => e.Id == id)).GetValueOrDefault();
+        }
+
+        public async Task<IActionResult> RemovePowers(int cardId, int cardPowerId)
+        {
+            Card card;
+            card = _context.Cards.Where(c => c.Id == cardId).First();
+
+            card.CardPowers.RemoveAt(cardPowerId);
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Edit), card);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddPower(int cardId, int powerId, int value)
+        {
+            Card card;
+            card = _context.Cards.Where(c => c.Id == cardId).First();
+            if (card.CardPowers == null)
+            {
+                card.CardPowers = new List<CardPower>();
+            }
+
+            int score = 0;
+            for (int i = 0; i < card.CardPowers.Count; i++)
+            {
+                if (card.CardPowers[i].Power.PowerId != powerId)
+                {
+                    score++;
+                }
+            }
+
+            if (score == card.CardPowers.Count)
+            {
+                CardPower cardPower = new CardPower();
+                cardPower.Power = _context.Power.Where(p => p.PowerId == powerId).First();
+                cardPower.Value = value;
+                cardPower.Card = card;
+
+                card.CardPowers.Add(cardPower);
+            }
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Edit), card);
         }
     }
 }

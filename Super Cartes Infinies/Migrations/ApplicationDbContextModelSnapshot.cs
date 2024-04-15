@@ -169,37 +169,37 @@ namespace Super_Cartes_Infinies.Migrations
                         {
                             Id = "User1Id",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "abe7792a-6c9f-47ba-a74e-fceeac7c4232",
+                            ConcurrencyStamp = "82aae080-64a8-4610-bac9-d0905836a140",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "cc8ee375-84c9-425e-aa78-e5d5a996d766",
+                            SecurityStamp = "c65b536a-79c9-4236-a88a-711a77c273a4",
                             TwoFactorEnabled = false
                         },
                         new
                         {
                             Id = "User2Id",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e7fb09ff-a835-4a61-89d6-15ef747e989c",
+                            ConcurrencyStamp = "4af3cbd5-1edf-4c04-8dac-cd0f5770b3aa",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "61a920e2-22b1-410e-bafb-0f918bb3fbd7",
+                            SecurityStamp = "19ff5d36-995c-44e2-804c-f5b228858d27",
                             TwoFactorEnabled = false
                         },
                         new
                         {
                             Id = "11111111-1111-1111-1111-111111111111",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ff445df3-0d0e-4bc7-a36e-2437606d31e9",
+                            ConcurrencyStamp = "9a9f7ade-b12b-48f1-85e4-5d3b5a730d5c",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEHgXce56s3b8KQoCYvCWs2DSIri2y8OR5JL0Rmq3JMSuEz6k8BQrqf1wSZLckHbxfQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEOu/cV/ZtbrQu0wUuwMIE8EWb0WrWdSXBypnAuLfA2Ak7TvSwgeSMe8C3AT/pVuZ6Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "6ba4afe0-74db-475b-bfcc-93c0228cc486",
+                            SecurityStamp = "45679162-f32b-4741-b919-bda922c185fd",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         });
@@ -934,6 +934,9 @@ namespace Super_Cartes_Infinies.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("HasValue")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Icone")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -945,6 +948,32 @@ namespace Super_Cartes_Infinies.Migrations
                     b.HasKey("PowerId");
 
                     b.ToTable("Power");
+
+                    b.HasData(
+                        new
+                        {
+                            PowerId = 1,
+                            Description = "First Strike permet à une carte d’attaquer en « premier » et de ne pas recevoir de dégât si elle tue la carte de l’adversaire.",
+                            HasValue = false,
+                            Icone = "https://leagueofitems.com/images/runes/256/8369.webp",
+                            Name = "First Strike"
+                        },
+                        new
+                        {
+                            PowerId = 2,
+                            Description = "Lorsqu’une carte défend, elle inflige X de dégâts AVANT de recevoir des dégâts. Si l’attaquant est tué par ces dégâts, l’attaque s’arrête et le défenseur ne reçoit pas de dégâts.",
+                            HasValue = true,
+                            Icone = "https://leagueofitems.com/images/items/128/3075.webp",
+                            Name = "Thorns"
+                        },
+                        new
+                        {
+                            PowerId = 3,
+                            Description = "Soigne les cartes alliées de X incluant elle-même AVANT d’attaquer (mais les cartes ne peuvent pas avoir plus de health qu’au départ.)",
+                            HasValue = true,
+                            Icone = "https://cdnb.artstation.com/p/assets/images/images/059/650/103/large/mackenzie-miller-healthpotion.jpg?1676863888",
+                            Name = "Heal"
+                        });
                 });
 
             modelBuilder.Entity("DeckOwnedCard", b =>
