@@ -320,7 +320,15 @@ namespace Super_Cartes_Infinies.Data
                 Icone = "https://cdnb.artstation.com/p/assets/images/images/059/650/103/large/mackenzie-miller-healthpotion.jpg?1676863888",
                 HasValue = true
             };
-            return new Power[] { power1, power2, power3 };
+            Power power4 = new Power()
+            {
+                PowerId = 4,
+                Name = "Thief",
+                Description = "Vole le mana de l'adversaire",
+                Icone = "https://cdn-icons-png.flaticon.com/512/843/843332.png",
+                HasValue = false
+            };
+            return new Power[] { power1, power2, power3, power4 };
         }
 
         public static Config[] SeedConfigs()
