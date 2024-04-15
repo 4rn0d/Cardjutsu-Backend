@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
+using Super_Cartes_Infinies.Combat;
 using Super_Cartes_Infinies.Data;
 using Super_Cartes_Infinies.Models;
 using Super_Cartes_Infinies.Models.Dtos;
@@ -89,5 +90,12 @@ public class MatchHub : Hub
     public static string CreateGroup(int matchId)
     {
         return "Match " + matchId;
+    }
+
+    public async Task PlayCard(int matchId, int playableCardId)
+    {
+        string matchGroup = CreateGroup(matchId);
+        var playCardEvent = await _matchesService.PlayCard(CurentUser.Id, matchId, playableCardId);
+        await Clients.Group(matchGroup).SendAsync("PlayCard", playCardEvent);
     }
 }

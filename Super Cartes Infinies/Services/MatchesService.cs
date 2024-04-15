@@ -196,6 +196,44 @@ namespace Super_Cartes_Infinies.Services
 
             return JsonSerializer.Serialize(playerTurnEvent as MatchEvent);
         }
+
+        public async Task<string> PlayCard(string userId, int matchId, int playableCardId)
+        {
+            Match? match = await db.Matches.FindAsync(matchId);
+
+            if (match == null)
+                throw new Exception("Impossible de trouver le match");
+
+            if (match.IsMatchCompleted)
+                throw new Exception("Le match est déjà terminé");
+
+            if (match.UserAId != userId && match.UserBId != userId)
+                throw new Exception("Le joueur n'est pas dans ce match");
+
+            if ((match.UserAId == userId) != match.IsPlayerATurn)
+                throw new Exception("Ce n'est pas le tour de ce joueur");
+
+            MatchPlayerData currentPlayerData;
+            MatchPlayerData opposingPlayerData;
+
+            if (match.UserAId == userId)
+            {
+                currentPlayerData = match.PlayerDataA;
+                opposingPlayerData = match.PlayerDataB;
+            }
+            else
+            {
+                currentPlayerData = match.PlayerDataB;
+                opposingPlayerData = match.PlayerDataA;
+            }
+
+            var playCardEvent = new PlayCardEvent(currentPlayerData, opposingPlayerData, playableCardId);
+
+            await db.SaveChangesAsync();
+
+            return JsonSerializer.Serialize(playCardEvent as MatchEvent);
+        }
     }
+
 }
 
