@@ -17,8 +17,8 @@ namespace Super_Cartes_Infinies.Models
         public string Colour { get; set; }
         public string ImageUrl { get; set; } = "";
         [ValidateNever]
-        public virtual List<CardPower> CardPowers { get; set; }
-
+        public virtual List<CardPower>? CardPowers { get; set; }
+      
     }
 
 }

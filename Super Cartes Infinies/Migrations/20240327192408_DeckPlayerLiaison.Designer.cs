@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Super_Cartes_Infinies.Data;
 
@@ -11,9 +12,11 @@ using Super_Cartes_Infinies.Data;
 namespace Super_Cartes_Infinies.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240327192408_DeckPlayerLiaison")]
+    partial class DeckPlayerLiaison
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,12 +33,12 @@ namespace Super_Cartes_Infinies.Migrations
                     b.Property<int>("OwnedCardsId")
                         .HasColumnType("int");
 
-                    b.Property<int>("decksId")
+                    b.Property<int>("decksDeckId")
                         .HasColumnType("int");
 
-                    b.HasKey("OwnedCardsId", "decksId");
+                    b.HasKey("OwnedCardsId", "decksDeckId");
 
-                    b.HasIndex("decksId");
+                    b.HasIndex("decksDeckId");
 
                     b.ToTable("DeckOwnedCard");
                 });
@@ -169,37 +172,37 @@ namespace Super_Cartes_Infinies.Migrations
                         {
                             Id = "User1Id",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "abe7792a-6c9f-47ba-a74e-fceeac7c4232",
+                            ConcurrencyStamp = "602fd9fe-f3d7-4bde-aad2-bcb351e2e6a9",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "cc8ee375-84c9-425e-aa78-e5d5a996d766",
+                            SecurityStamp = "7b592246-d79d-40a7-b20d-220515d2b814",
                             TwoFactorEnabled = false
                         },
                         new
                         {
                             Id = "User2Id",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e7fb09ff-a835-4a61-89d6-15ef747e989c",
+                            ConcurrencyStamp = "7435800f-b18c-455c-813e-8815988cb919",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "61a920e2-22b1-410e-bafb-0f918bb3fbd7",
+                            SecurityStamp = "8394472c-1c7f-4a03-867f-0cbafa3da8ad",
                             TwoFactorEnabled = false
                         },
                         new
                         {
                             Id = "11111111-1111-1111-1111-111111111111",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ff445df3-0d0e-4bc7-a36e-2437606d31e9",
+                            ConcurrencyStamp = "ffe2af2e-304a-4602-b105-8958d324f20a",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEHgXce56s3b8KQoCYvCWs2DSIri2y8OR5JL0Rmq3JMSuEz6k8BQrqf1wSZLckHbxfQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEHhXE7CGgyBzy9KhjlZq+dQZCXKQCYc86j4jqkulmXxWLPfqwNh9W9cSm8B1OkZG+g==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "6ba4afe0-74db-475b-bfcc-93c0228cc486",
+                            SecurityStamp = "43b3bb97-ca19-4961-b2a2-fb1d65eff566",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         });
@@ -703,12 +706,6 @@ namespace Super_Cartes_Infinies.Migrations
                     b.Property<int>("NbCardsStart")
                         .HasColumnType("int");
 
-                    b.Property<int>("NbCarteParDeck")
-                        .HasColumnType("int");
-
-                    b.Property<int>("NbDecks")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.ToTable("Config");
@@ -718,19 +715,17 @@ namespace Super_Cartes_Infinies.Migrations
                         {
                             Id = 1,
                             ManaPerRound = 3,
-                            NbCardsStart = 4,
-                            NbCarteParDeck = 5,
-                            NbDecks = 3
+                            NbCardsStart = 4
                         });
                 });
 
             modelBuilder.Entity("Super_Cartes_Infinies.Models.Deck", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("DeckId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DeckId"));
 
                     b.Property<string>("DeckName")
                         .IsRequired()
@@ -745,7 +740,7 @@ namespace Super_Cartes_Infinies.Migrations
                     b.Property<int?>("PlayerId1")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("DeckId");
 
                     b.HasIndex("PlayerId");
 
@@ -957,7 +952,7 @@ namespace Super_Cartes_Infinies.Migrations
 
                     b.HasOne("Super_Cartes_Infinies.Models.Deck", null)
                         .WithMany()
-                        .HasForeignKey("decksId")
+                        .HasForeignKey("decksDeckId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

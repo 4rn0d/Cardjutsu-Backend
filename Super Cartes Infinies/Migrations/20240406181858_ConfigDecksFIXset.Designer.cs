@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Super_Cartes_Infinies.Data;
 
@@ -11,9 +12,11 @@ using Super_Cartes_Infinies.Data;
 namespace Super_Cartes_Infinies.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240406181858_ConfigDecksFIXset")]
+    partial class ConfigDecksFIXset
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -169,37 +172,37 @@ namespace Super_Cartes_Infinies.Migrations
                         {
                             Id = "User1Id",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "abe7792a-6c9f-47ba-a74e-fceeac7c4232",
+                            ConcurrencyStamp = "a238c81c-e9b4-428d-8d29-e0d7d28e1968",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "cc8ee375-84c9-425e-aa78-e5d5a996d766",
+                            SecurityStamp = "9b32e817-acff-405e-8138-6e93151847d8",
                             TwoFactorEnabled = false
                         },
                         new
                         {
                             Id = "User2Id",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e7fb09ff-a835-4a61-89d6-15ef747e989c",
+                            ConcurrencyStamp = "00b0d7d7-1e69-4dc9-86b4-bd5d7da81aa8",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "61a920e2-22b1-410e-bafb-0f918bb3fbd7",
+                            SecurityStamp = "490ad87c-4164-4de3-8832-60096a88aaed",
                             TwoFactorEnabled = false
                         },
                         new
                         {
                             Id = "11111111-1111-1111-1111-111111111111",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ff445df3-0d0e-4bc7-a36e-2437606d31e9",
+                            ConcurrencyStamp = "5515313e-ac3a-4e19-a807-f5f004c887e9",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEHgXce56s3b8KQoCYvCWs2DSIri2y8OR5JL0Rmq3JMSuEz6k8BQrqf1wSZLckHbxfQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEO1cTvh+4g5FCZhjpdmYZFzxaYQ0+pqSluLGpNWNZcbTLjP1/DsgbHIZ9H/jnX3TCA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "6ba4afe0-74db-475b-bfcc-93c0228cc486",
+                            SecurityStamp = "6edfccba-b794-4753-83df-a167a6b1d78a",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         });
@@ -719,8 +722,8 @@ namespace Super_Cartes_Infinies.Migrations
                             Id = 1,
                             ManaPerRound = 3,
                             NbCardsStart = 4,
-                            NbCarteParDeck = 5,
-                            NbDecks = 3
+                            NbCarteParDeck = 0,
+                            NbDecks = 0
                         });
                 });
 

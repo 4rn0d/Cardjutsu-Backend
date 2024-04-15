@@ -303,6 +303,8 @@ namespace Super_Cartes_Infinies.Data
                     Id = 1,
                     NbCardsStart = 4,
                     ManaPerRound = 3,
+                    NbCarteParDeck = 5,
+                    NbDecks = 3,
                 }
             };
         }
@@ -383,6 +385,7 @@ namespace Super_Cartes_Infinies.Data
                 }
             };
         }
+
     }
 }
 
