@@ -44,8 +44,8 @@ namespace Super_Cartes_Infinies.Models
         public virtual Player Player { get; set; }
         public int PlayerId { get; set; }
 
-        // TODO: Il faut ordonner correctement toutes ces listes/stacks qui pourraient avoir un ordre différent quand on les obtient de la BD (mettre des indexes partout...)
-        [JsonIgnore]
+  //      // TODO: Il faut ordonner correctement toutes ces listes/stacks qui pourraient avoir un ordre différent quand on les obtient de la BD (mettre des indexes partout...)
+  //[JsonIgnore]
         public virtual List<PlayableCard> CardsPile { get; set; }
         public virtual List<PlayableCard> Hand { get; set; }
 
