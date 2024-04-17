@@ -26,7 +26,7 @@ namespace Super_Cartes_Infinies.Combat
 
                     if (!hasFS)
                     {
-                        NormalFight(enemy, enemyCard, attacked, attackedCard);
+                        NormalFight(attacked, attackedCard, enemy, enemyCard);
                     }
                 }
 
