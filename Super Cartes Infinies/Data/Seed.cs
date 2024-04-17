@@ -26,7 +26,7 @@ namespace Super_Cartes_Infinies.Data
                     Id = 2,
                     Name = "Coffee Shop",
                     Attack = 2,
-                    Health = 3,
+                    Health = 4,
                     Cost = 3,
                     Colour = "Green",
                     ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/b/b2/COFFEE_SHOP_card_image.png"
@@ -34,35 +34,35 @@ namespace Super_Cartes_Infinies.Data
                 {
                     Id = 3,
                     Name = "Astro Barrier",
-                    Attack = 8,
-                    Health = 3,
-                    Cost = 3,
+                    Attack = 2,
+                    Health = 1,
+                    Cost = 1,
                     Colour = "Green",
                     ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/2/22/ASTRO_BARRIER_card_image.png"
                 }, new Card
                 {
                     Id = 4,
                     Name = "Hot Chocolate",
-                    Attack = 3,
-                    Health = 3,
-                    Cost = 3,
+                    Attack = 7,
+                    Health = 6,
+                    Cost = 4,
                     Colour = "Orange",
                     ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/3/3d/HOT_CHOCOLATE_card_image.png"
                 }, new Card
                 {
                     Id = 5,
                     Name = "Landing Pad",
-                    Attack = 4,
-                    Health = 3,
-                    Cost = 3,
+                    Attack = 8,
+                    Health = 8,
+                    Cost = 5,
                     Colour = "Violet",
                     ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/d/d2/LANDING_PAD_card_image.png"
                 }, new Card
                 {
                     Id = 6,
                     Name = "Pizza Chef",
-                    Attack = 6,
-                    Health = 4,
+                    Attack = 4,
+                    Health = 2,
                     Cost = 3,
                     Colour = "Violet",
                     ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/5/57/PIZZA_CHEF_card_image.png"
@@ -70,36 +70,36 @@ namespace Super_Cartes_Infinies.Data
                 {
                     Id = 7,
                     Name = "Paint by Letters",
-                    Attack = 2,
+                    Attack = 6,
                     Health = 3,
-                    Cost = 3,
+                    Cost = 4,
                     Colour = "Red",
                     ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/b/b5/PAINT_BY_LETTERS_card_image.png"
                 }, new Card
                 {
                     Id = 8,
                     Name = "Mine",
-                    Attack = 7,
-                    Health = 3,
-                    Cost = 3,
+                    Attack = 1,
+                    Health = 9,
+                    Cost = 2,
                     Colour = "Red",
                     ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/3/30/MINE_card_image.png"
                 }, new Card
                 {
                     Id = 9,
                     Name = "Construction Worker",
-                    Attack = 2,
-                    Health = 1,
-                    Cost = 1,
+                    Attack = 4,
+                    Health = 2,
+                    Cost = 2,
                     Colour = "Yellow",
                     ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/a/a5/CONSTRUCTION_WORKER_card_image.png"
                 }, new Card
                 {
                     Id = 10,
                     Name = "Jetpack Adventure",
-                    Attack = 5,
-                    Health = 3,
-                    Cost = 3,
+                    Attack = 6,
+                    Health = 1,
+                    Cost = 2,
                     Colour = "Yellow",
                     ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/1/13/JET_PACK_ADVENTURE_card_image.png"
                 }, new Card
@@ -116,7 +116,7 @@ namespace Super_Cartes_Infinies.Data
                     Id = 12,
                     Name = "Hiking in the Forest",
                     Attack = 2,
-                    Health = 3,
+                    Health = 4,
                     Cost = 3,
                     Colour = "Green",
                     ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/7/72/HIKING_IN_THE_FOREST_card_image.png"
@@ -124,17 +124,17 @@ namespace Super_Cartes_Infinies.Data
                 {
                     Id = 13,
                     Name = "Rescue Squad",
-                    Attack = 5,
-                    Health = 3,
-                    Cost = 3,
+                    Attack = 2,
+                    Health = 1,
+                    Cost = 1,
                     Colour = "Green",
                     ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/a/a6/RESCUE_SQUAD_card_image.png"
                 }, new Card
                 {
                     Id = 14,
                     Name = "Pet Shop",
-                    Attack = 3,
-                    Health = 3,
+                    Attack = 7,
+                    Health = 6,
                     Cost = 4,
                     Colour = "Orange",
                     ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/b/b3/PET_SHOP_card_image.png"
@@ -142,17 +142,17 @@ namespace Super_Cartes_Infinies.Data
                 {
                     Id = 15,
                     Name = "Ski Village",
-                    Attack = 4,
-                    Health = 3,
-                    Cost = 3,
+                    Attack = 8,
+                    Health = 8,
+                    Cost = 5,
                     Colour = "Violet",
                     ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/c/c3/SKI_VILLAGE_card_image.png"
                 }, new Card
                 {
                     Id = 16,
                     Name = "Ice Hockey",
-                    Attack = 8,
-                    Health = 3,
+                    Attack = 4,
+                    Health = 2,
                     Cost = 3,
                     Colour = "Violet",
                     ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/f/f4/ICE_HOCKEY_card_image.png"
@@ -160,36 +160,36 @@ namespace Super_Cartes_Infinies.Data
                 {
                     Id = 17,
                     Name = "Ski Hill",
-                    Attack = 2,
-                    Health = 8,
-                    Cost = 5,
+                    Attack = 6,
+                    Health = 3,
+                    Cost = 4,
                     Colour = "Red",
                     ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/c/c1/SKI_HILL_card_image.png"
                 }, new Card
                 {
                     Id = 18,
                     Name = "Snowball Fight",
-                    Attack = 6,
-                    Health = 3,
-                    Cost = 3,
+                    Attack = 1,
+                    Health = 9,
+                    Cost = 2,
                     Colour = "Red",
                     ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/f/f5/SNOWBALL_FIGHT_card_image.png"
                 }, new Card
                 {
                     Id = 19,
                     Name = "Snow Forts",
-                    Attack = 2,
-                    Health = 3,
-                    Cost = 3,
+                    Attack = 4,
+                    Health = 2,
+                    Cost = 2,
                     Colour = "Yellow",
                     ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/1/13/SNOW_FORTS_card_image.png"
                 }, new Card
                 {
                     Id = 20,
                     Name = "Soccer",
-                    Attack = 7,
-                    Health = 2,
-                    Cost = 3,
+                    Attack = 6,
+                    Health = 1,
+                    Cost = 2,
                     Colour = "Yellow",
                     ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/9/97/SOCCER_card_image.png"
                 }, new Card
@@ -205,9 +205,9 @@ namespace Super_Cartes_Infinies.Data
                 {
                     Id = 22,
                     Name = "Football",
-                    Attack = 5,
-                    Health = 3,
-                    Cost = 4,
+                    Attack = 2,
+                    Health = 4,
+                    Cost = 3,
                     Colour = "Blue",
                     ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/1/1a/FOOTBALL_card_image.png"
                 }, new Card
@@ -215,26 +215,26 @@ namespace Super_Cartes_Infinies.Data
                     Id = 23,
                     Name = "Baseball",
                     Attack = 2,
-                    Health = 9,
-                    Cost = 2,
+                    Health = 1,
+                    Cost = 1,
                     Colour = "Green",
                     ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/f/f0/BASEBALL_card_image.png"
                 }, new Card
                 {
                     Id = 24,
                     Name = "Emerald Princess",
-                    Attack = 8,
-                    Health = 3,
-                    Cost = 3,
+                    Attack = 7,
+                    Health = 6,
+                    Cost = 4,
                     Colour = "Green",
                     ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/5/52/EMERALD_PRINCESS_card_image.png"
                 }, new Card
                 {
                     Id = 25,
                     Name = "Bean Counters",
-                    Attack = 3,
-                    Health = 3,
-                    Cost = 3,
+                    Attack = 8,
+                    Health = 8,
+                    Cost = 5,
                     Colour = "Orange",
                     ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/6/6b/BEAN_COUNTERS_card_image.png"
                 }, new Card
@@ -243,7 +243,7 @@ namespace Super_Cartes_Infinies.Data
                     Name = "Manhole Cover",
                     Attack = 4,
                     Health = 2,
-                    Cost = 2,
+                    Cost = 3,
                     Colour = "Violet",
                     ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/e/e8/MANHOLE_COVER_card_image.png"
                 }
