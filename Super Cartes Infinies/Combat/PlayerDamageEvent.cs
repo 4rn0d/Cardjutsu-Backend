@@ -7,16 +7,19 @@ namespace Super_Cartes_Infinies.Combat
 
         public int PlayerId { get; set; }
 
+        public int AttackingCardId { get; set; }
+
         public int Damage { get; set; }
 
-        public PlayerDamageEvent(Match match, MatchPlayerData attackedPlayerData, int damage, MatchPlayerData attackingPlayerData) 
+        public PlayerDamageEvent(Match match, MatchPlayerData attackedPlayerData, PlayableCard attackingCard, MatchPlayerData attackingPlayerData)
         {
 
             this.Events = new List<MatchEvent>();
             this.PlayerId = attackedPlayerData.PlayerId;
-            this.Damage = damage;
+            this.AttackingCardId = attackingCard.Id;
+            this.Damage = attackingCard.Attack;
 
-            attackedPlayerData.Health -= damage;
+            attackedPlayerData.Health -= attackingCard.Attack;
 
             if(attackedPlayerData.Health <= 0)
             {

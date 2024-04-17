@@ -17,7 +17,7 @@ namespace Super_Cartes_Infinies.Combat
             {
                 //this.Events.Add(new ThornsEvent(currentPlayerData,activatedCard, enemyCard.GetPowerValue(Power.THORNS_ID)));
 
-                this.Events.Add(new ThornsEvent(attacked, attackedCard, enemyCard.GetPowerValue(Power.THORNS_ID)));
+                this.Events.Add(new ThornsEvent(attacked, attackedCard, enemyCard));
 
 
                 if (attackedCard.Health > 0)
@@ -45,11 +45,11 @@ namespace Super_Cartes_Infinies.Combat
 
             if (attackerCard.HasPower(Power.FIRST_STRIKE_ID)) // if current card has first strike
             {
-               this.Events.Add(new FirstStrikeEvent(attacked, attackedCard, attackerCard.Attack));
+               this.Events.Add(new FirstStrikeEvent(attacked, attackedCard, attackerCard));
 
                 if (attackedCard.Health > 0)
                 {
-                    this.Events.Add(new CardDamageEvent(attacker, attackerCard, attackedCard.Attack));
+                    this.Events.Add(new CardDamageEvent(attacker, attackerCard, attackedCard));
                 }
 
                 return true;
@@ -63,8 +63,8 @@ namespace Super_Cartes_Infinies.Combat
         public void NormalFight(MatchPlayerData enemy, PlayableCard enemyCard, MatchPlayerData current, PlayableCard currentCard)
         {
             
-            this.Events.Add(new CardDamageEvent(current, currentCard, enemyCard.Attack));
-            this.Events.Add(new CardDamageEvent(enemy, enemyCard, currentCard.Attack));
+            this.Events.Add(new CardDamageEvent(current, currentCard, enemyCard));
+            this.Events.Add(new CardDamageEvent(enemy, enemyCard, currentCard));
         }
 
         
@@ -111,7 +111,7 @@ namespace Super_Cartes_Infinies.Combat
             else
             {
                 //ADD PLAYERDAMAGEEVENT TO EVENTS WITH ENEMY PLAYER
-                this.Events.Add(new PlayerDamageEvent(match, opposingPlayerData, activatedCard.Attack, currentPlayerData));
+                this.Events.Add(new PlayerDamageEvent(match, opposingPlayerData, activatedCard, currentPlayerData));
             }
 
             if (activatedCard.HasPower(Power.THIEF_ID))
