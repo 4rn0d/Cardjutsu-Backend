@@ -4,8 +4,14 @@ namespace Super_Cartes_Infinies.Combat
 {
     public class HealEvent : MatchEvent
     {
-        public HealEvent(MatchPlayerData playerData, int healAmount) 
+        public int PlayerId { get; set; }
+        public int PlayableCardId { get; set; }
+        public HealEvent(MatchPlayerData playerData, PlayableCard playableCard)
         {
+
+            this.PlayerId = playerData.PlayerId;
+            this.PlayableCardId = playableCard.Id;
+            int healAmount = playableCard.GetPowerValue(Power.HEAL_ID);
             foreach (PlayableCard pc in playerData.BattleField)
             {
                 if (pc.Health + healAmount <= pc.Card.Health)

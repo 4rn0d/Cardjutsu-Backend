@@ -90,8 +90,7 @@ namespace Super_Cartes_Infinies.Combat
 
             if (activatedCard.HasPower(Power.HEAL_ID)) //if current card has healing
             {
-                int amountHeal = activatedCard.GetPowerValue(Power.HEAL_ID);
-                this.Events.Add(new HealEvent(currentPlayerData, amountHeal));
+                this.Events.Add(new HealEvent(currentPlayerData, activatedCard));
             }
             
 
