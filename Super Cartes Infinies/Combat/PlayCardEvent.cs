@@ -17,12 +17,12 @@ namespace Super_Cartes_Infinies.Combat
 
             if (currentPlayerData.Mana - playedcard.Card.Cost >= 0)
             {
-                PlayerId = currentPlayerData.PlayerId;
-                PlayableCardId = playedcard.Id;
-                Mana = currentPlayerData.Mana - playedcard.Card.Cost;
                 currentPlayerData.BattleField.Add(playedcard);
                 currentPlayerData.Hand.Remove(playedcard);
                 currentPlayerData.Mana -= playedcard.Card.Cost;
+                PlayerId = currentPlayerData.PlayerId;
+                PlayableCardId = playedcard.Id;
+                Mana = currentPlayerData.Mana;
             }
             else
             {

@@ -25,7 +25,6 @@ namespace Super_Cartes_Infinies.Combat
             {
                 match.WinnerUserId = match.UserBId;
             }
-
         }
     }
 }
