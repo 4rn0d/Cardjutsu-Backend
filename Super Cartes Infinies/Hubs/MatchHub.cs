@@ -52,7 +52,10 @@ public class MatchHub : Hub
         {
             string matchGroup = CreateGroup(joiningMatchData.Match.Id);
             await Groups.AddToGroupAsync(Context.ConnectionId, matchGroup);
-            await Groups.AddToGroupAsync(joiningMatchData.OtherPlayerConnectionId, matchGroup);
+            if (joiningMatchData.OtherPlayerConnectionId != null)
+            {
+                await Groups.AddToGroupAsync(joiningMatchData.OtherPlayerConnectionId, matchGroup);
+            }
 
             // TODO
             await Clients.Group(matchGroup).SendAsync("GetMatchData", joiningMatchData);
