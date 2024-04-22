@@ -40,6 +40,7 @@ namespace Super_Cartes_Infinies.Models
         public int Id { get; set; }
 		public int Health { get; set; }
         public int Mana { get; set; }
+       
 
         public virtual Player Player { get; set; }
         public int PlayerId { get; set; }
@@ -51,12 +52,17 @@ namespace Super_Cartes_Infinies.Models
             // Retourner les cartes dans l'ordre de l'Index
             return BattleField.OrderBy(x => x.OrdreId).ToList();
         }
+
         public void AddCardToBattleField(PlayableCard playableCard)
         {
             // Ajouter la carte au BattleField et lui donner le bon index (En fonction du nombre de cartes déjà sur le BattleField)
             int nbdeCarte = BattleField.Count;
-            playableCard.OrdreId = nbdeCarte+1;
-            //Save the modif ?
+            playableCard.OrdreId = nbdeCarte + 1;
+            BattleField.Add(playableCard);
+            GetOrderedBattleField();
+
+
+
 
         }
         public void RemoveCardFromBattleField(PlayableCard playableCard)
@@ -70,6 +76,13 @@ namespace Super_Cartes_Infinies.Models
                 {
                     card.OrdreId--;
                 }
+            }
+
+            foreach (var card in BattleField) {
+                int index = 0;
+                card.OrdreId = index;
+                index++;
+            
             }
             //Save the modif
         }
