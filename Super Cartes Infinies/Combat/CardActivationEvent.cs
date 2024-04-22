@@ -43,11 +43,11 @@ namespace Super_Cartes_Infinies.Combat
         public bool FirstStrike(MatchPlayerData attacked, PlayableCard attackedCard, PlayableCard attackerCard, MatchPlayerData attacker)
         {
 
-            if (attackerCard.HasPower(Power.FIRST_STRIKE_ID)) // if current card has first strike
+            if (attackedCard.HasPower(Power.FIRST_STRIKE_ID)) // if current card has first strike
             {
                this.Events.Add(new FirstStrikeEvent(attacked, attackedCard, attackerCard));
 
-                if (attackedCard.Health > 0)
+                if (attackerCard.Health > 0)
                 {
                     this.Events.Add(new CardDamageEvent(attacker, attackerCard, attackedCard));
                 }

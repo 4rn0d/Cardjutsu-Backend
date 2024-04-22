@@ -12,7 +12,7 @@ namespace Super_Cartes_Infinies.Combat
             this.PlayableCardId = playableCardAttacked.Id;
             this.PlayerId = playerDataAttacked.PlayerId;
 
-            this.Events.Add(new CardDamageEvent(playerDataAttacked, playableCardAttacked, opposingCard));
+            this.Events.Add(new CardDamageEvent(playerDataAttacked, opposingCard, playableCardAttacked));
 
         }
 
