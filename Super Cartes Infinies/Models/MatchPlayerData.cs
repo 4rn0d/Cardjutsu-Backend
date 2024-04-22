@@ -70,16 +70,8 @@ namespace Super_Cartes_Infinies.Models
             // Retirer la carte du BattleField
             BattleField.Remove(playableCard);
             // Atention: Il faut mettre les autres cartes du BattleField à jour!
-            foreach (var card in BattleField)
-            {
-                if (playableCard.OrdreId < card.OrdreId)
-                {
-                    card.OrdreId--;
-                }
-            }
-
             foreach (var card in BattleField) {
-                int index = 0;
+                int index = 1;
                 card.OrdreId = index;
                 index++;
             
