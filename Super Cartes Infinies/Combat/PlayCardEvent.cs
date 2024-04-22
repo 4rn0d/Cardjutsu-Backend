@@ -11,18 +11,21 @@ namespace Super_Cartes_Infinies.Combat
         public int PlayableCardId { get; set; }
         public int PlayerId { get; set; }
         public int Mana {get; set;}
+        public int OrderId { get; set;}
          public PlayCardEvent(MatchPlayerData currentPlayerData, MatchPlayerData opposingPlayerData, int playableCardId)
         {
             PlayableCard playedcard = currentPlayerData.Hand.Where(c => c.Id == playableCardId).FirstOrDefault();
 
             if (currentPlayerData.Mana - playedcard.Card.Cost >= 0)
             {
-                currentPlayerData.BattleField.Add(playedcard);
+                currentPlayerData.AddCardToBattleField(playedcard);//pour mettre le order des index
                 currentPlayerData.Hand.Remove(playedcard);
                 currentPlayerData.Mana -= playedcard.Card.Cost;
                 PlayerId = currentPlayerData.PlayerId;
                 PlayableCardId = playedcard.Id;
                 Mana = currentPlayerData.Mana;
+                OrderId = playedcard.OrdreId;
+               
             }
             else
             {

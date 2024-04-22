@@ -16,7 +16,7 @@ namespace Super_Cartes_Infinies.Combat
             this.PlayerId = playerData.PlayerId;
             this.PlayableCardId = playableCard.Id;
 
-            playerData.BattleField.Remove(playableCard);
+            playerData.RemoveCardFromBattleField(playableCard);
             playerData.Graveyard.Add(playableCard);
         }
     }
