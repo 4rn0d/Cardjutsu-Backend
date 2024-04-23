@@ -8,6 +8,9 @@ using Super_Cartes_Infinies.Data;
 using Super_Cartes_Infinies.Models;
 using Super_Cartes_Infinies.Models.Dtos;
 using Super_Cartes_Infinies.Services;
+using static Microsoft.ApplicationInsights.MetricDimensionNames.TelemetryContext;
+using System.Security.Claims;
+using System.Numerics;
 
 namespace Super_Cartes_Infinies.Hubs;
 
@@ -47,7 +50,7 @@ public class MatchHub : Hub
     {
 
         JoiningMatchData joiningMatchData = await _matchesService.JoinMatch(CurentUser.Id, 0, Context.ConnectionId, null);
-
+        
         if(joiningMatchData != null)
         {
             string matchGroup = CreateGroup(joiningMatchData.Match.Id);
@@ -100,5 +103,81 @@ public class MatchHub : Hub
         string matchGroup = CreateGroup(matchId);
         var playCardEvent = await _matchesService.PlayCard(CurentUser.Id, matchId, playableCardId);
         await Clients.Group(matchGroup).SendAsync("PlayCard", playCardEvent);
+    }
+
+    //messagerie 
+    //TODO : AJOUT SERVICE
+
+    //Quand un joueur se connect au match et a messagerie
+    public async Task JoueurSeConnectChat(int matchId)
+    {
+        string matchGroup = CreateGroup(matchId);
+        Player player = await _context.Players.Where(p => p.IdentityUserId == CurentUser.Id).FirstAsync();
+        Match match = _context.Matches.Where(p => p.Id == matchId).FirstOrDefault();
+        String messageText = "Le joueur " + player.Name.ToString() + " s'est connecter";
+        Message newMessage = new Message
+        {
+            MessageText = messageText,
+            MatchId = matchId,
+            PlayerId = player.Id
+        };
+
+
+        match.Messages.Add(newMessage);
+        _context.Messages.Add(newMessage);
+        //SaveChanges
+        await this.UpdateMessagerie(matchId);
+
+
+    }
+    //Quand un joueur se deconnect au match et a messagerie
+    public async Task JoueurSeDeconnectChat(int matchId)
+    {
+        string matchGroup = CreateGroup(matchId);
+        Player player = await _context.Players.Where(p => p.IdentityUserId == CurentUser.Id).FirstAsync();
+        Match match = _context.Matches.Where(p => p.Id == matchId).FirstOrDefault();
+        String messageText = "Le joueur " + player.Name.ToString() + " s'est deconnecter";
+        Message newMessage = new Message
+        {
+            MessageText = messageText,
+            MatchId = matchId,
+            PlayerId = player.Id
+        };
+
+        
+        match.Messages.Add(newMessage);
+        _context.Messages.Add(newMessage);
+        //SaveChanges
+       await this.UpdateMessagerie(matchId);
+
+    }
+
+
+    //Envoie tout les message :: UPDATE 
+    public async Task UpdateMessagerie(int matchId)
+    {
+        string matchGroup = CreateGroup(matchId);
+        List<Message> messages = await _context.Messages.ToListAsync();
+        await Clients.Group(matchGroup).SendAsync("GetMessagerie", messages);
+
+    }
+
+    //Envoyer un message text 
+    public async Task SendMessage(string MessageText, int matchId)
+    {
+        //string Id = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        IdentityUser? user = CurentUser;
+        Player player = await _context.Players.Where(p => p.IdentityUserId == user.Id).FirstAsync();
+        String fullMessage= player.Name.ToString()+" said: " + MessageText;
+        Message newMessage = new Message {
+            MessageText = fullMessage,
+            MatchId = matchId,
+            PlayerId = player.Id
+        };
+        Match match = _context.Matches.Where(p => p.Id == matchId).FirstOrDefault();
+        match.Messages.Add(newMessage);
+        _context.Messages.Add(newMessage);
+        _context.SaveChanges();
+        await this.UpdateMessagerie(matchId);
     }
 }

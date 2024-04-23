@@ -1,4 +1,6 @@
 ﻿using System.Text.Json;
+using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Super_Cartes_Infinies.Combat;
 using Super_Cartes_Infinies.Services.Interfaces;
 
@@ -38,6 +40,9 @@ namespace Super_Cartes_Infinies.Models
         public string UserBId { get; set; }
         public virtual MatchPlayerData PlayerDataA { get; set; }
         public virtual MatchPlayerData PlayerDataB { get; set; }
+
+        [JsonIgnore]
+        public virtual List<Message> Messages { get; set; } = new List<Message>();
     }
 }
 

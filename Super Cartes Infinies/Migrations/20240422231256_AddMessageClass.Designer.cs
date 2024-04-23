@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Super_Cartes_Infinies.Data;
 
@@ -11,9 +12,11 @@ using Super_Cartes_Infinies.Data;
 namespace Super_Cartes_Infinies.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240422231256_AddMessageClass")]
+    partial class AddMessageClass
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -169,37 +172,37 @@ namespace Super_Cartes_Infinies.Migrations
                         {
                             Id = "User1Id",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "1ced06ca-12a2-43ad-a48f-0f4d18fb6e19",
+                            ConcurrencyStamp = "25badfcc-0296-4203-b562-300513a9feee",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "3dc2c0d0-c161-4826-b217-184ac55ea583",
+                            SecurityStamp = "c9546142-8323-479d-a898-87d33e408c58",
                             TwoFactorEnabled = false
                         },
                         new
                         {
                             Id = "User2Id",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a57fba9f-5e47-4cc4-99c0-e9405b287f72",
+                            ConcurrencyStamp = "0a1743c9-fbb0-4209-9e25-9c1f05e9460d",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "f55e97e4-6a69-43a8-90c7-f0c26b556ac0",
+                            SecurityStamp = "cfbccf0c-1491-47b4-9ba2-9ada6f4ae9cd",
                             TwoFactorEnabled = false
                         },
                         new
                         {
                             Id = "11111111-1111-1111-1111-111111111111",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9a6a4302-12ed-4a32-900b-a3737ac80c7f",
+                            ConcurrencyStamp = "50a254b3-543e-4002-b839-bc0bdddb6764",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAECnx/WJjZx87cKqsdVZUUPu2VfHvkj87iBvlccE3SiLlCeHMllfY/AaVWeZ5hB7K8w==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEGPHU2KHHAuq9Gd+k7o4CeZJUf41lIfiv2b1DrZ6BaOVBMx+CI7/llIEd+2hD/lSOA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "464495d5-376f-4b2c-b193-324cca8ee5d5",
+                            SecurityStamp = "e162fb23-08a3-41c6-abbb-2fb6d34e45cd",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         });
@@ -818,33 +821,6 @@ namespace Super_Cartes_Infinies.Migrations
                     b.ToTable("MatchPlayersData");
                 });
 
-            modelBuilder.Entity("Super_Cartes_Infinies.Models.Message", b =>
-                {
-                    b.Property<int>("MessageId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MessageId"));
-
-                    b.Property<int>("MatchId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("MessageText")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PlayerId")
-                        .HasColumnType("int");
-
-                    b.HasKey("MessageId");
-
-                    b.HasIndex("MatchId");
-
-                    b.HasIndex("PlayerId");
-
-                    b.ToTable("Messages");
-                });
-
             modelBuilder.Entity("Super_Cartes_Infinies.Models.OwnedCard", b =>
                 {
                     b.Property<int>("Id")
@@ -1162,25 +1138,6 @@ namespace Super_Cartes_Infinies.Migrations
                     b.Navigation("Player");
                 });
 
-            modelBuilder.Entity("Super_Cartes_Infinies.Models.Message", b =>
-                {
-                    b.HasOne("Super_Cartes_Infinies.Models.Match", "Match")
-                        .WithMany("Messages")
-                        .HasForeignKey("MatchId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Super_Cartes_Infinies.Models.Player", "Player")
-                        .WithMany()
-                        .HasForeignKey("PlayerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Match");
-
-                    b.Navigation("Player");
-                });
-
             modelBuilder.Entity("Super_Cartes_Infinies.Models.OwnedCard", b =>
                 {
                     b.HasOne("Super_Cartes_Infinies.Models.Card", "Card")
@@ -1241,11 +1198,6 @@ namespace Super_Cartes_Infinies.Migrations
             modelBuilder.Entity("Super_Cartes_Infinies.Models.Card", b =>
                 {
                     b.Navigation("CardPowers");
-                });
-
-            modelBuilder.Entity("Super_Cartes_Infinies.Models.Match", b =>
-                {
-                    b.Navigation("Messages");
                 });
 
             modelBuilder.Entity("Super_Cartes_Infinies.Models.MatchPlayerData", b =>
