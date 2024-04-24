@@ -40,6 +40,39 @@ namespace Super_Cartes_Infinies.Tests.Combat
 
             Assert.AreEqual(baseAttack + cardPower.Value, _playableCardA.Attack);
         }
+
+        [TestMethod]
+        public void ChaosTest()
+        {
+            Power chaosPower = new Power
+            {
+                PowerId = Power.CHAOS_ID
+            };
+
+            CardPower cardPower = new CardPower
+            {
+                Power = chaosPower,
+                Card = _cardA
+            };
+
+            _cardA.CardPowers = new List<CardPower> { cardPower };
+
+            _currentPlayerData.BattleField.Add(_playableCardA);
+            _opposingPlayerData.BattleField.Add(_playableCardB);
+
+
+            int cardABaseAttack = _cardA.Attack;
+            int cardABaseHealth = _cardA.Health;
+            int cardBBaseAttack = _cardB.Attack;
+            int cardBBaseHealth = _cardB.Health;
+
+            var playerEndTurnEvent = new PlayerEndTurnEvent(_match, _currentPlayerData, _opposingPlayerData, NB_MANA_PER_TURN);
+
+            Assert.AreEqual(cardABaseAttack, _playableCardA.Health);
+            Assert.AreEqual(cardABaseHealth, _playableCardA.Attack);
+            Assert.AreEqual(cardBBaseAttack, _playableCardB.Health);
+            Assert.AreEqual(cardBBaseHealth, _playableCardB.Attack);
+        }
     }
 }
 
