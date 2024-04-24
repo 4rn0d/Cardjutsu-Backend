@@ -119,7 +119,8 @@ public class MatchHub : Hub
         {
             MessageText = messageText,
             MatchId = matchId,
-            PlayerId = player.Id
+            PlayerId = player.Id,
+            IsMessage = false
         };
 
 
@@ -141,7 +142,8 @@ public class MatchHub : Hub
         {
             MessageText = messageText,
             MatchId = matchId,
-            PlayerId = player.Id
+            PlayerId = player.Id,
+            IsMessage = false
         };
 
         
@@ -168,16 +170,31 @@ public class MatchHub : Hub
     {
         IdentityUser? user = CurentUser;
         Player player = await _context.Players.Where(p => p.IdentityUserId == user.Id).FirstAsync();
-        String fullMessage= player.Name.ToString()+" said: " + MessageText;
+        
         Message newMessage = new Message {
-            MessageText = fullMessage,
+            MessageText = MessageText,
             MatchId = matchId,
-            PlayerId = player.Id
+            PlayerId = player.Id,
+            IsMessage = true
         };
         Match match = _context.Matches.Where(p => p.Id == matchId).FirstOrDefault();
         match.Messages.Add(newMessage);
         _context.Messages.Add(newMessage);
         _context.SaveChanges();
         await this.UpdateMessagerie(matchId);
+    }
+
+    public async Task MutePlayer(string PlayerName, int matchId)
+    {
+        IdentityUser? user = CurentUser;
+        Player currentPlayer = await _context.Players.Where(p => p.IdentityUserId == user.Id).FirstAsync();
+        Player mutePlayer = await _context.Players.Where(p => p.Name == PlayerName).FirstAsync();
+
+        currentPlayer.MutedPlayers.Add(mutePlayer);
+        _context.SaveChanges();
+        await Clients.Caller.SendAsync("ListMutedPlayer", currentPlayer.MutedPlayers.ToList());
+        await this.UpdateMessagerie(matchId);
+        
+
     }
 }

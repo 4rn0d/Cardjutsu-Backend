@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Super_Cartes_Infinies.Data;
 
@@ -11,9 +12,11 @@ using Super_Cartes_Infinies.Data;
 namespace Super_Cartes_Infinies.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240424194215_AjoutIsMessage")]
+    partial class AjoutIsMessage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -169,37 +172,37 @@ namespace Super_Cartes_Infinies.Migrations
                         {
                             Id = "User1Id",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "fc951cba-ab62-4de5-ab2c-95ed6698febe",
+                            ConcurrencyStamp = "15392c19-6f86-4960-8dbb-ffaf9499953f",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "9a580031-76ab-415b-b94f-91987f289b35",
+                            SecurityStamp = "f1f35ed4-9e27-48d8-bdf1-83bb56a08944",
                             TwoFactorEnabled = false
                         },
                         new
                         {
                             Id = "User2Id",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "04ab95ba-9384-4532-86cd-d599f8f38404",
+                            ConcurrencyStamp = "a8d27578-5d50-4138-9a50-3a55489a4425",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "0cafa479-e95b-42d6-8281-f64a2bdc17c0",
+                            SecurityStamp = "7b314359-86d9-4382-a9af-51ec0b3edc3b",
                             TwoFactorEnabled = false
                         },
                         new
                         {
                             Id = "11111111-1111-1111-1111-111111111111",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "04f4826d-f7ea-4be2-bf95-7c998eafbf24",
+                            ConcurrencyStamp = "2119a8a7-955e-477b-99ac-5b5620c986cb",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEAXwDs1FUy6Qv7W4nZWNM1ggi3NpCGzzSLP2UZom1XXLQth5KfTUZJ96KbfqPLTmSQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEPdpwy8/yHZp2WgnE0G3rh9TCkZP8sJMX0S6Ibwicq8jdwt4VMKmv9CnXulhJyAO0w==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "4b3ff335-17ce-4b72-a7b4-d326c84616c1",
+                            SecurityStamp = "732fccd4-a694-4a3c-8e89-55b300a61927",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         });
@@ -934,14 +937,9 @@ namespace Super_Cartes_Infinies.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("PlayerId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("IdentityUserId");
-
-                    b.HasIndex("PlayerId");
 
                     b.ToTable("Players");
 
@@ -1243,10 +1241,6 @@ namespace Super_Cartes_Infinies.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Super_Cartes_Infinies.Models.Player", null)
-                        .WithMany("MutedPlayers")
-                        .HasForeignKey("PlayerId");
-
                     b.Navigation("IdentityUser");
                 });
 
@@ -1274,8 +1268,6 @@ namespace Super_Cartes_Infinies.Migrations
             modelBuilder.Entity("Super_Cartes_Infinies.Models.Player", b =>
                 {
                     b.Navigation("Decks");
-
-                    b.Navigation("MutedPlayers");
 
                     b.Navigation("OwnedCards");
                 });

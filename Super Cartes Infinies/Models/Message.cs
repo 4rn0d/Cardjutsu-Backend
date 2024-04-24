@@ -7,6 +7,8 @@ namespace Super_Cartes_Infinies.Models
     {
         public int MessageId { get; set; }
         public string MessageText { get; set; }
+        //si cest un message d'un user = true, si déconnection/connection du user = false; Facilite dans angular
+        public bool IsMessage { get; set; }
 
         [ValidateNever]
         public virtual Player Player { get; set; }

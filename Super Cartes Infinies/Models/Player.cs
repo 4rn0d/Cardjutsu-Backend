@@ -21,6 +21,10 @@ namespace Super_Cartes_Infinies.Models
 		[ValidateNever]
 		[JsonIgnore]
 		public virtual List<Deck> Decks { get; set; }
-	}
+
+	
+        [JsonIgnore]
+        public virtual List<Player> MutedPlayers { get; set; }
+    }
 }
 
