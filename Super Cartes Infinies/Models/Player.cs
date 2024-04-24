@@ -15,6 +15,7 @@ namespace Super_Cartes_Infinies.Models
 		public int Id { get; set; }
 		public string Name { get; set; }
 		public string IdentityUserId { get; set; }
+		public int EloScore { get; set; }
 		[JsonIgnore]
 		public virtual IdentityUser IdentityUser { get; set; }
 		public virtual List<Card> OwnedCards { get; set;}

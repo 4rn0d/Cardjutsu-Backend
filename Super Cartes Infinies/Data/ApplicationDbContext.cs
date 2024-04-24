@@ -21,8 +21,9 @@ public class ApplicationDbContext : IdentityDbContext
 
         
         builder.Entity<Card>().HasData(Seed.SeedCards());
-        builder.Entity<Player>().HasData(Seed.SeedTestPlayers());
-        builder.Entity<IdentityUser>().HasData(Seed.SeedTestUsers());
+        builder.Entity<Player>().HasData(Seed.SeedPlayer());
+        //builder.Entity<Player>().HasData(Seed.SeedTestPlayers());
+        //builder.Entity<IdentityUser>().HasData(Seed.SeedTestUsers());
         builder.Entity<Power>().HasData(Seed.SeedPower());
 
         builder.Entity<Config>().HasData(Seed.SeedConfigs());

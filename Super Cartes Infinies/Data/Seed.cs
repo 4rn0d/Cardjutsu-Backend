@@ -267,9 +267,139 @@ namespace Super_Cartes_Infinies.Data
                 PasswordHash = hasher.HashPassword(null, "Passw0rd!"),
                 LockoutEnabled = true
             };
+            IdentityUser player1 = new IdentityUser
+            {
+                Id = "11111111-1111-1111-1111-111111111112",
+                UserName = "player1@aol.com",
+                Email = "player1@aol.com",
+                // La comparaison d'identity se fait avec les versions normalisés
+                NormalizedEmail = "PLAYER1@AOL.COM",
+                NormalizedUserName = "PLAYER1@AOL.COM",
+                EmailConfirmed = true,
+                // On encrypte le mot de passe
+                PasswordHash = hasher.HashPassword(null, "Passw0rd!"),
+                LockoutEnabled = true
+            };
+            IdentityUser player2 = new IdentityUser
+            {
+                Id = "11111111-1111-1111-1111-111111111113",
+                UserName = "player2@aol.com",
+                Email = "player2@aol.com",
+                // La comparaison d'identity se fait avec les versions normalisés
+                NormalizedEmail = "PLAYER2@AOL.COM",
+                NormalizedUserName = "PLAYER2@AOL.COM",
+                EmailConfirmed = true,
+                // On encrypte le mot de passe
+                PasswordHash = hasher.HashPassword(null, "Passw0rd!"),
+                LockoutEnabled = true
+            };
+            IdentityUser player3 = new IdentityUser
+            {
+                Id = "11111111-1111-1111-1111-111111111114",
+                UserName = "player3@aol.com",
+                Email = "player3@aol.com",
+                // La comparaison d'identity se fait avec les versions normalisés
+                NormalizedEmail = "PLAYER3@AOL.COM",
+                NormalizedUserName = "PLAYER3@AOL.COM",
+                EmailConfirmed = true,
+                // On encrypte le mot de passe
+                PasswordHash = hasher.HashPassword(null, "Passw0rd!"),
+                LockoutEnabled = true
+            };
+            IdentityUser player4 = new IdentityUser
+            {
+                Id = "11111111-1111-1111-1111-111111111115",
+                UserName = "player4@aol.com",
+                Email = "player4@aol.com",
+                // La comparaison d'identity se fait avec les versions normalisés
+                NormalizedEmail = "PLAYER4@AOL.COM",
+                NormalizedUserName = "PLAYER4@AOL.COM",
+                EmailConfirmed = true,
+                // On encrypte le mot de passe
+                PasswordHash = hasher.HashPassword(null, "Passw0rd!"),
+                LockoutEnabled = true
+            };
+            IdentityUser player5 = new IdentityUser
+            {
+                Id = "11111111-1111-1111-1111-111111111116",
+                UserName = "player5@aol.com",
+                Email = "player5@aol.com",
+                // La comparaison d'identity se fait avec les versions normalisés
+                NormalizedEmail = "PLAYER5@AOL.COM",
+                NormalizedUserName = "PLAYER5@AOL.COM",
+                EmailConfirmed = true,
+                // On encrypte le mot de passe
+                PasswordHash = hasher.HashPassword(null, "Passw0rd!"),
+                LockoutEnabled = true
+            };
+            IdentityUser player6 = new IdentityUser
+            {
+                Id = "11111111-1111-1111-1111-111111111117",
+                UserName = "player6@aol.com",
+                Email = "player6@aol.com",
+                // La comparaison d'identity se fait avec les versions normalisés
+                NormalizedEmail = "PLAYER6@AOL.COM",
+                NormalizedUserName = "PLAYER6@AOL.COM",
+                EmailConfirmed = true,
+                // On encrypte le mot de passe
+                PasswordHash = hasher.HashPassword(null, "Passw0rd!"),
+                LockoutEnabled = true
+            };
+            IdentityUser player7 = new IdentityUser
+            {
+                Id = "11111111-1111-1111-1111-111111111118",
+                UserName = "player7@aol.com",
+                Email = "player7@aol.com",
+                // La comparaison d'identity se fait avec les versions normalisés
+                NormalizedEmail = "PLAYER7@AOL.COM",
+                NormalizedUserName = "PLAYER7@AOL.COM",
+                EmailConfirmed = true,
+                // On encrypte le mot de passe
+                PasswordHash = hasher.HashPassword(null, "Passw0rd!"),
+                LockoutEnabled = true
+            };
+            IdentityUser player8 = new IdentityUser
+            {
+                Id = "11111111-1111-1111-1111-111111111119",
+                UserName = "player8@aol.com",
+                Email = "player8@aol.com",
+                // La comparaison d'identity se fait avec les versions normalisés
+                NormalizedEmail = "PLAYER8@AOL.COM",
+                NormalizedUserName = "PLAYER8@AOL.COM",
+                EmailConfirmed = true,
+                // On encrypte le mot de passe
+                PasswordHash = hasher.HashPassword(null, "Passw0rd!"),
+                LockoutEnabled = true
+            };
+            IdentityUser player9 = new IdentityUser
+            {
+                Id = "11111111-1111-1111-1111-111111111120",
+                UserName = "player9@aol.com",
+                Email = "player9@aol.com",
+                // La comparaison d'identity se fait avec les versions normalisés
+                NormalizedEmail = "PLAYER9@AOL.COM",
+                NormalizedUserName = "PLAYER9@AOL.COM",
+                EmailConfirmed = true,
+                // On encrypte le mot de passe
+                PasswordHash = hasher.HashPassword(null, "Passw0rd!"),
+                LockoutEnabled = true
+            };
+            IdentityUser player10 = new IdentityUser
+            {
+                Id = "11111111-1111-1111-1111-111111111121",
+                UserName = "player10@aol.com",
+                Email = "player10@aol.com",
+                // La comparaison d'identity se fait avec les versions normalisés
+                NormalizedEmail = "PLAYER10@AOL.COM",
+                NormalizedUserName = "PLAYER10@AOL.COM",
+                EmailConfirmed = true,
+                // On encrypte le mot de passe
+                PasswordHash = hasher.HashPassword(null, "Passw0rd!"),
+                LockoutEnabled = true
+            };
 
 
-            return new IdentityUser[] { admin };
+            return new IdentityUser[] { admin, player1, player2, player3, player4, player5, player6, player7, player8, player9, player10 };
         }
 
         public static IdentityRole[] SeedRoles()
@@ -292,6 +422,81 @@ namespace Super_Cartes_Infinies.Data
                 UserId = "11111111-1111-1111-1111-111111111111"
             };
             return new IdentityUserRole<string>[] { userAdmin };
+        }
+
+        public static Player[] SeedPlayer()
+        {
+            Player p1 = new Player()
+            {
+                Id = 1,
+                Name = "Pro player",
+                IdentityUserId = "11111111-1111-1111-1111-111111111112",
+                EloScore = 2000
+            };
+            Player p2 = new Player()
+            {
+                Id = 2,
+                Name = "iWhiff",
+                IdentityUserId = "11111111-1111-1111-1111-111111111113",
+                EloScore = 750
+            };
+            Player p3 = new Player()
+            {
+                Id = 3,
+                Name = "GertrudeTTV",
+                IdentityUserId = "11111111-1111-1111-1111-111111111114",
+                EloScore = 1970
+            };
+            Player p4 = new Player()
+            {
+                Id = 4,
+                Name = "Noob",
+                IdentityUserId = "11111111-1111-1111-1111-111111111115",
+                EloScore = 600
+            };
+            Player p5 = new Player()
+            {
+                Id = 5,
+                Name = "moomz",
+                IdentityUserId = "11111111-1111-1111-1111-111111111116",
+                EloScore = 1000
+            };
+            Player p6 = new Player()
+            {
+                Id = 6,
+                Name = "pipo",
+                IdentityUserId = "11111111-1111-1111-1111-111111111117",
+                EloScore = 800
+            };
+            Player p7 = new Player()
+            {
+                Id = 7,
+                Name = "GLT",
+                IdentityUserId = "11111111-1111-1111-1111-111111111118",
+                EloScore = 1070
+            };
+            Player p8 = new Player()
+            {
+                Id = 8,
+                Name = "Wooo",
+                IdentityUserId = "11111111-1111-1111-1111-111111111119",
+                EloScore = 1400
+            };
+            Player p9 = new Player()
+            {
+                Id = 9,
+                Name = "Hibou",
+                IdentityUserId = "11111111-1111-1111-1111-111111111120",
+                EloScore = 1500
+            };
+            Player p10 = new Player()
+            {
+                Id = 10,
+                Name = "P10",
+                IdentityUserId = "11111111-1111-1111-1111-111111111121",
+                EloScore = 1630
+            };
+            return new Player[] { p1, p2, p3, p4, p5, p6, p7, p8, p9, p10 };
         }
 
         public static Power[] SeedPower()
@@ -389,39 +594,39 @@ namespace Super_Cartes_Infinies.Data
             };
         }
 
-        public static IdentityUser[] SeedTestUsers()
-        {
-            return new IdentityUser[] {
-                new IdentityUser()
-                {
-                    Id = "User1Id"
+        //public static IdentityUser[] SeedTestUsers()
+        //{
+        //    return new IdentityUser[] {
+        //        new IdentityUser()
+        //        {
+        //            Id = "User1Id"
 
-                },
-                new IdentityUser
-                {
-                    Id = "User2Id"
-                }
-            };
-        }
+        //        },
+        //        new IdentityUser
+        //        {
+        //            Id = "User2Id"
+        //        }
+        //    };
+        //}
 
-        public static Player[] SeedTestPlayers()
-        {
-            return new Player[] {
-                new Player
-                {
-                    Id = 1,
-                    Name = "Test player 1",
-                    IdentityUserId = "User1Id"
+        //public static Player[] SeedTestPlayers()
+        //{
+        //    return new Player[] {
+        //        new Player
+        //        {
+        //            Id = 1,
+        //            Name = "Test player 1",
+        //            IdentityUserId = "User1Id"
 
-                },
-                new Player
-                {
-                    Id = 2,
-                    Name = "Test player 2",
-                    IdentityUserId = "User2Id"
-                }
-            };
-        }
+        //        },
+        //        new Player
+        //        {
+        //            Id = 2,
+        //            Name = "Test player 2",
+        //            IdentityUserId = "User2Id"
+        //        }
+        //    };
+        //}
 
     }
 }
