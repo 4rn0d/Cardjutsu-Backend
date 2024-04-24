@@ -73,6 +73,33 @@ namespace Super_Cartes_Infinies.Tests.Combat
             Assert.AreEqual(cardBBaseAttack, _playableCardB.Health);
             Assert.AreEqual(cardBBaseHealth, _playableCardB.Attack);
         }
+
+        [TestMethod]
+        public void ResurectTest()
+        {
+            Power chaosPower = new Power
+            {
+                PowerId = Power.CHAOS_ID
+            };
+
+            CardPower cardPower = new CardPower
+            {
+                Power = chaosPower,
+                Card = _cardA
+            };
+
+            _cardA.CardPowers = new List<CardPower> { cardPower };
+
+            _currentPlayerData.BattleField.Add(_playableCardA);
+            _currentPlayerData.Graveyard.Add(_playableCardB);
+
+            _opposingPlayerData.BattleField.Add(_playableCardC);
+
+            var playerEndTurnEvent = new PlayerEndTurnEvent(_match, _currentPlayerData, _opposingPlayerData, NB_MANA_PER_TURN);
+
+            Assert.AreEqual(true, _currentPlayerData.BattleField.Contains(_playableCardB));
+            Assert.AreEqual(1, _playableCardB.Health);
+        }
     }
 }
 
