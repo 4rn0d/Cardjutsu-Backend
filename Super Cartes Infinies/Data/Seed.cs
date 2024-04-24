@@ -301,7 +301,7 @@ namespace Super_Cartes_Infinies.Data
                 PowerId = 1,
                 Name = "First Strike",
                 Description = "First Strike permet à une carte d’attaquer en « premier » et de ne pas recevoir de dégât si elle tue la carte de l’adversaire.",
-                Icone = "https://leagueofitems.com/images/runes/256/8369.webp",
+                Icon = "https://leagueofitems.com/images/runes/256/8369.webp",
                 HasValue = false
             };
             Power power2 = new Power()
@@ -309,7 +309,7 @@ namespace Super_Cartes_Infinies.Data
                 PowerId = 2,
                 Name = "Thorns",
                 Description = "Lorsqu’une carte défend, elle inflige X de dégâts AVANT de recevoir des dégâts. Si l’attaquant est tué par ces dégâts, l’attaque s’arrête et le défenseur ne reçoit pas de dégâts.",
-                Icone = "https://leagueofitems.com/images/items/128/3075.webp",
+                Icon = "https://leagueofitems.com/images/items/128/3075.webp",
                 HasValue = true
             };
             Power power3 = new Power()
@@ -317,7 +317,7 @@ namespace Super_Cartes_Infinies.Data
                 PowerId = 3,
                 Name = "Heal",
                 Description = "Soigne les cartes alliées de X incluant elle-même AVANT d’attaquer (mais les cartes ne peuvent pas avoir plus de health qu’au départ.)",
-                Icone = "https://cdnb.artstation.com/p/assets/images/images/059/650/103/large/mackenzie-miller-healthpotion.jpg?1676863888",
+                Icon = "https://cdnb.artstation.com/p/assets/images/images/059/650/103/large/mackenzie-miller-healthpotion.jpg?1676863888",
                 HasValue = true
             };
             Power power4 = new Power()
@@ -325,7 +325,7 @@ namespace Super_Cartes_Infinies.Data
                 PowerId = 4,
                 Name = "Thief",
                 Description = "Vole le mana de l'adversaire",
-                Icone = "https://cdn-icons-png.flaticon.com/512/843/843332.png",
+                Icon = "https://cdn-icons-png.flaticon.com/512/843/843332.png",
                 HasValue = false
             };
             return new Power[] { power1, power2, power3, power4 };

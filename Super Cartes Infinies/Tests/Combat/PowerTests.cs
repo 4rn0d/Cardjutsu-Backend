@@ -1,7 +1,8 @@
 ﻿using Super_Cartes_Infinies.Combat;
 using Super_Cartes_Infinies.Models;
+using Tests.Services;
 
-namespace Tests.Services
+namespace Super_Cartes_Infinies.Tests.Combat
 {
     [TestClass]
     public class PowerTests : BaseTests

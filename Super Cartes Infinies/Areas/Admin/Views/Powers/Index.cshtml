@@ -23,7 +23,7 @@
                 @Html.DisplayNameFor(model => model.HasValue)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Icone)
+                @Html.DisplayNameFor(model => model.Icon)
             </th>
             <th></th>
         </tr>
@@ -41,7 +41,7 @@
                 @Html.DisplayFor(modelItem => item.HasValue)
             </td>
             <td>
-                <img alt="Icone" src="@Html.DisplayFor(modelItem => item.Icone)" style="width: 100px"/>
+                <img alt="Icone" src="@Html.DisplayFor(modelItem => item.Icon)" style="width: 100px"/>
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.PowerId">Edit</a> |

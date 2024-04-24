@@ -13,8 +13,8 @@ namespace Tests.Services
 
         protected MatchPlayerData _currentPlayerData, _opposingPlayerData;
         protected Match _match;
-        protected Card _cardA, _cardB;
-        protected PlayableCard _playableCardA, _playableCardB;
+        protected Card _cardA, _cardB, _cardC;
+        protected PlayableCard _playableCardA, _playableCardB, _playableCardC;
 
         public BaseTests()
         {
@@ -70,6 +70,14 @@ namespace Tests.Services
                 Cost = 1
             };
 
+            _cardC = new Card()
+            {
+                Id = 44,
+                Attack = 3,
+                Health = 1,
+                Cost = 1
+            };
+
             _playableCardA = new PlayableCard(_cardA)
             {
                 Id = 1
@@ -77,6 +85,10 @@ namespace Tests.Services
             _playableCardB = new PlayableCard(_cardB)
             {
                 Id = 2
+            };
+            _playableCardC = new PlayableCard(_cardC)
+            {
+                Id = 3
             };
         }
 
