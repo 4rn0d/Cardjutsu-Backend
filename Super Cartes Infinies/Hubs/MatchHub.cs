@@ -125,7 +125,7 @@ public class MatchHub : Hub
 
         match.Messages.Add(newMessage);
         _context.Messages.Add(newMessage);
-        //SaveChanges
+        _context.SaveChanges();
         await this.UpdateMessagerie(matchId);
 
 
@@ -147,8 +147,8 @@ public class MatchHub : Hub
         
         match.Messages.Add(newMessage);
         _context.Messages.Add(newMessage);
-        //SaveChanges
-       await this.UpdateMessagerie(matchId);
+        _context.SaveChanges();
+        await this.UpdateMessagerie(matchId);
 
     }
 
@@ -157,15 +157,15 @@ public class MatchHub : Hub
     public async Task UpdateMessagerie(int matchId)
     {
         string matchGroup = CreateGroup(matchId);
-        List<Message> messages = await _context.Messages.ToListAsync();
-        await Clients.Group(matchGroup).SendAsync("GetMessagerie", messages);
+        Match? match= _context.Matches.Where(x=>x.Id == matchId).SingleOrDefault();
+        List<Message> messageMatch = match.Messages.ToList();
+        await Clients.Group(matchGroup).SendAsync("GetMessagerie", messageMatch);
 
     }
 
     //Envoyer un message text 
     public async Task SendMessage(string MessageText, int matchId)
     {
-        //string Id = User.FindFirstValue(ClaimTypes.NameIdentifier);
         IdentityUser? user = CurentUser;
         Player player = await _context.Players.Where(p => p.IdentityUserId == user.Id).FirstAsync();
         String fullMessage= player.Name.ToString()+" said: " + MessageText;
