@@ -232,6 +232,24 @@ public class MatchHub : Hub
         List<Match> matchList = _context.Matches.Where(x => x.IsMatchCompleted == false).ToList();
         await Clients.Caller.SendAsync("ListMatch", matchList);
     }
+    public async Task RejoindreMatchSpectateur(int idMatch)
+    {
+        
+        List<Match> matchList = _context.Matches.Where(x => x.IsMatchCompleted == false).ToList();
+        Match match = matchList.Where(s=>s.Id == idMatch).First();
+       
+        Player currentPlayer = await _context.Players.Where(p => p.IdentityUserId == CurentUser.Id).FirstAsync();
+        if (match.SpectateurBannis.Contains(currentPlayer))
+        {
+            throw new Exception("Le joueur est bannis");
+        }
+        else
+        {
+            match.Spectateur.Add(currentPlayer);
+            await Clients.Caller.SendAsync("ListMatch", matchList);
+        }
+        
+    }
 
 
 }
