@@ -225,4 +225,13 @@ public class MatchHub : Hub
 
 
     }
+
+    //Spectateur
+    public async Task GetListMatchs()
+    {
+        List<Match> matchList = _context.Matches.Where(x => x.IsMatchCompleted == false).ToList();
+        await Clients.Caller.SendAsync("ListMatch", matchList);
+    }
+
+
 }
