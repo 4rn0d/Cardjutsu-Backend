@@ -161,6 +161,8 @@ public class MatchHub : Hub
         string matchGroup = CreateGroup(matchId);
         Match? match= _context.Matches.Where(x=>x.Id == matchId).SingleOrDefault();
         List<Message> messageMatch = match.Messages.ToList();
+        Player currentPlayer = await _context.Players.Where(p => p.IdentityUserId == CurentUser.Id).FirstAsync();
+        await Clients.Caller.SendAsync("ListMutedPlayer", currentPlayer.MutedPlayers.ToList());
         await Clients.Group(matchGroup).SendAsync("GetMessagerie", messageMatch);
 
     }
@@ -195,6 +197,32 @@ public class MatchHub : Hub
         await Clients.Caller.SendAsync("ListMutedPlayer", currentPlayer.MutedPlayers.ToList());
         await this.UpdateMessagerie(matchId);
         
+
+    }
+    public async Task DemutePlayer(string PlayerName, int matchId)
+    {
+        IdentityUser? user = CurentUser;
+        Player currentPlayer = await _context.Players.Where(p => p.IdentityUserId == user.Id).FirstAsync();
+        Player demutePlayer = await _context.Players.Where(p => p.Name == PlayerName).FirstAsync();
+
+        currentPlayer.MutedPlayers.Remove(demutePlayer);
+        _context.SaveChanges();
+        await Clients.Caller.SendAsync("ListMutedPlayer", currentPlayer.MutedPlayers.ToList());
+        await this.UpdateMessagerie(matchId);
+
+
+    }
+    public async Task BanPlayerDuMatch(string PlayerName, int matchId)
+    {
+        IdentityUser? user = CurentUser;
+        Player currentPlayer = await _context.Players.Where(p => p.IdentityUserId == user.Id).FirstAsync();
+        Player demutePlayer = await _context.Players.Where(p => p.Name == PlayerName).FirstAsync();
+
+        currentPlayer.MutedPlayers.Remove(demutePlayer);
+        _context.SaveChanges();
+        await Clients.Caller.SendAsync("ListMutedPlayer", currentPlayer.MutedPlayers.ToList());
+        await this.UpdateMessagerie(matchId);
+
 
     }
 }
