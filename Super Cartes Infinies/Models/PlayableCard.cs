@@ -23,6 +23,7 @@ namespace Super_Cartes_Infinies.Models
 		public int OrdreId { get; set; }
 		public int Health { get; set; }
 		public int Attack { get; set; }
+		public List<PlayableCardStatus> CardStatuses { get; set; }
 
 		public bool HasPower(int powerId)
 		{
@@ -40,9 +41,6 @@ namespace Super_Cartes_Infinies.Models
                     }
                 }
             }
-
-			
-
 			return false;
 		}
 		public int GetPowerValue(int powerId)
@@ -57,6 +55,36 @@ namespace Super_Cartes_Infinies.Models
 			return Card.CardPowers.Where(p => p.Power.PowerId == powerId).First().Value;
 
         }
+
+		public bool HasStatus(int statusId)
+		{
+			// Return true if the Card has that status
+
+			if(CardStatuses.Count > 0)
+			{
+				List<PlayableCardStatus> statusList = new List<PlayableCardStatus>(CardStatuses);
+
+				foreach (PlayableCardStatus status in statusList)
+				{
+					if (status.Status.Id == statusId)
+					{
+						return true;
+					}
+				}
+			}
+			return false;
+		}
+
+		public int GetStatusValue(int statusId)
+		{
+			// Return the value of that status for that card.
+			// Simply returns 0 if the card doesn't have the status.
+			if (!HasStatus(statusId))
+			{
+				return 0;
+			}
+			return CardStatuses.First(p => p.Status.Id == statusId).Value;
+		}
 	}
 }
 
