@@ -85,6 +85,9 @@ namespace Super_Cartes_Infinies.Models
 			}
 			return CardStatuses.First(p => p.Status.Id == statusId).Value;
 		}
+
+		// TODO : Ajouté IncreaseStatusValue(id, valeur)
+		// TODO : Ajouté DecreaseStatusValue(id, valeur)
 	}
 }
 

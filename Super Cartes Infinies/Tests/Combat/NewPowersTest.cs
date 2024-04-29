@@ -34,6 +34,11 @@ namespace Super_Cartes_Infinies.Tests.Combat
 
             _cardA.CardPowers = new List<CardPower> { cardPower };
 
+            _currentPlayerData.BattleField.Add(_playableCardA);
+            _opposingPlayerData.BattleField.Add(_playableCardB);
+
+            //TODO : ajouter une deuxième cartes au currentPlayer et vérifier
+
             int baseAttack = _cardA.Attack;
 
             var playerEndTurnEvent = new PlayerEndTurnEvent(_match, _currentPlayerData, _opposingPlayerData, NB_MANA_PER_TURN);
@@ -60,6 +65,8 @@ namespace Super_Cartes_Infinies.Tests.Combat
             _currentPlayerData.BattleField.Add(_playableCardA);
             _opposingPlayerData.BattleField.Add(_playableCardB);
 
+
+            //TODO : Ajouter la mort d'une carte qui meurt dans le process
 
             int cardABaseAttack = _cardA.Attack;
             int cardABaseHealth = _cardA.Health;
@@ -95,9 +102,18 @@ namespace Super_Cartes_Infinies.Tests.Combat
 
             _opposingPlayerData.BattleField.Add(_playableCardC);
 
+            //Créer un mock IRandomNumberService
+
+            //Associer au match
+
+            //Setup pour que getRandom retourn 0
+
             var playerEndTurnEvent = new PlayerEndTurnEvent(_match, _currentPlayerData, _opposingPlayerData, NB_MANA_PER_TURN);
 
+
+            // TODO : Vérif que le joueur na pas prit de damage
             Assert.AreEqual(true, _currentPlayerData.BattleField.Contains(_playableCardB));
+            Assert.AreEqual(false, _currentPlayerData.Graveyard.Contains(_playableCardB));
             Assert.AreEqual(1, _playableCardB.Health);
         }
 
@@ -121,9 +137,13 @@ namespace Super_Cartes_Infinies.Tests.Combat
             _currentPlayerData.BattleField.Add(_playableCardA);
             _opposingPlayerData.BattleField.Add(_playableCardB);
 
+            int startingHealthB = _playableCardB.Health;
+
             var playerEndTurnEvent = new PlayerEndTurnEvent(_match, _currentPlayerData, _opposingPlayerData, NB_MANA_PER_TURN);
 
             Assert.IsTrue(_playableCardB.HasStatus(Status.POISONED_ID));
+            Assert.AreEqual(startingHealthB - cardPower.Value, _playableCardB.Health);
+
 
         }
 
@@ -146,10 +166,16 @@ namespace Super_Cartes_Infinies.Tests.Combat
 
             _currentPlayerData.BattleField.Add(_playableCardA);
             _opposingPlayerData.BattleField.Add(_playableCardB);
+            // TODO : Faire en sorte que la carteA meurt et un stun de 1
 
             var playerEndTurnEvent = new PlayerEndTurnEvent(_match, _currentPlayerData, _opposingPlayerData, NB_MANA_PER_TURN);
 
             Assert.IsTrue(_playableCardB.HasStatus(Status.STUNNED_ID));
+
+            var playerEndTurnEvent2 = new PlayerEndTurnEvent(_match, _currentPlayerData, _opposingPlayerData, NB_MANA_PER_TURN);
+
+            //Vérifier quelle ne fait pas de damage
+
 
         }
 
@@ -168,6 +194,10 @@ namespace Super_Cartes_Infinies.Tests.Combat
                 Card = _cardA
             };
 
+            // TODO : IsSpell à true
+
+            _cardA.IsSpell = true;
+
             _cardA.CardPowers = new List<CardPower> { cardPower };
 
             _currentPlayerData.BattleField.Add(_playableCardA);
@@ -175,7 +205,9 @@ namespace Super_Cartes_Infinies.Tests.Combat
 
             int startingHealth = _opposingPlayerData.Health;
 
-            var playerEndTurnEvent = new PlayerEndTurnEvent(_match, _currentPlayerData, _opposingPlayerData, NB_MANA_PER_TURN);
+            //TODO : PlayCardEvent et non EndTurnEvent
+
+            var PlayCardEvent = new PlayCardEvent(_currentPlayerData, _opposingPlayerData, _cardA.Id);
 
             Assert.IsTrue(_currentPlayerData.Graveyard.Contains(_playableCardA));
             Assert.AreEqual( startingHealth - cardPower.Value, _opposingPlayerData.Health);
