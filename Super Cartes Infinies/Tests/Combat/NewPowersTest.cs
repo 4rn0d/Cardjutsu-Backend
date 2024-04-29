@@ -100,6 +100,136 @@ namespace Super_Cartes_Infinies.Tests.Combat
             Assert.AreEqual(true, _currentPlayerData.BattleField.Contains(_playableCardB));
             Assert.AreEqual(1, _playableCardB.Health);
         }
+
+        [TestMethod]
+        public void PoisonStatusTest()
+        {
+            Power poisonPower = new Power
+            {
+                PowerId = Power.POISON_ID
+            };
+
+            CardPower cardPower = new CardPower
+            {
+                Power = poisonPower,
+                Value = 2,
+                Card = _cardA
+            };
+
+            _cardA.CardPowers = new List<CardPower> { cardPower };
+
+            _currentPlayerData.BattleField.Add(_playableCardA);
+            _opposingPlayerData.BattleField.Add(_playableCardB);
+
+            var playerEndTurnEvent = new PlayerEndTurnEvent(_match, _currentPlayerData, _opposingPlayerData, NB_MANA_PER_TURN);
+
+            Assert.AreEqual(true, _playableCardB.HasStatus(Status.POISONED_ID));
+
+        }
+
+        [TestMethod]
+        public void StunStatusTest()
+        {
+            Power stunPower = new Power
+            {
+                PowerId = Power.STUN_ID
+            };
+
+            CardPower cardPower = new CardPower
+            {
+                Power = stunPower,
+                Value = 2,
+                Card = _cardA
+            };
+
+            _cardA.CardPowers = new List<CardPower> { cardPower };
+
+            _currentPlayerData.BattleField.Add(_playableCardA);
+            _opposingPlayerData.BattleField.Add(_playableCardB);
+
+            var playerEndTurnEvent = new PlayerEndTurnEvent(_match, _currentPlayerData, _opposingPlayerData, NB_MANA_PER_TURN);
+
+            Assert.AreEqual(true, _playableCardB.HasStatus(Status.STUNNED_ID));
+
+        }
+
+        [TestMethod]
+        public void LightningStrikeSpellTest()
+        {
+            Power stunPower = new Power
+            {
+                PowerId = Power.LIGHTNING_STRIKE_ID
+            };
+
+            CardPower cardPower = new CardPower
+            {
+                Power = stunPower,
+                Value = 2,
+                Card = _cardA
+            };
+
+            _cardA.CardPowers = new List<CardPower> { cardPower };
+
+            _currentPlayerData.BattleField.Add(_playableCardA);
+            _opposingPlayerData.BattleField.Add(_playableCardB);
+
+            var playerEndTurnEvent = new PlayerEndTurnEvent(_match, _currentPlayerData, _opposingPlayerData, NB_MANA_PER_TURN);
+
+            Assert.AreEqual(true, _playableCardB.HasStatus(Status.STUNNED_ID));
+
+        }
+
+        [TestMethod]
+        public void EarthquakeSpellTest()
+        {
+            Power stunPower = new Power
+            {
+                PowerId = Power.EARTHQUAKE_ID
+            };
+
+            CardPower cardPower = new CardPower
+            {
+                Power = stunPower,
+                Value = 2,
+                Card = _cardA
+            };
+
+            _cardA.CardPowers = new List<CardPower> { cardPower };
+
+            _currentPlayerData.BattleField.Add(_playableCardA);
+            _opposingPlayerData.BattleField.Add(_playableCardB);
+
+            var playerEndTurnEvent = new PlayerEndTurnEvent(_match, _currentPlayerData, _opposingPlayerData, NB_MANA_PER_TURN);
+
+            Assert.AreEqual(true, _playableCardB.HasStatus(Status.STUNNED_ID));
+
+        }
+
+        [TestMethod]
+        public void RandomPainSpellTest()
+        {
+            Power stunPower = new Power
+            {
+                PowerId = Power.RANDOM_PAIN_ID
+            };
+
+            CardPower cardPower = new CardPower
+            {
+                Power = stunPower,
+                Value = 2,
+                Card = _cardA
+            };
+
+            _cardA.CardPowers = new List<CardPower> { cardPower };
+
+            _currentPlayerData.BattleField.Add(_playableCardA);
+            _opposingPlayerData.BattleField.Add(_playableCardB);
+
+            var playerEndTurnEvent = new PlayerEndTurnEvent(_match, _currentPlayerData, _opposingPlayerData, NB_MANA_PER_TURN);
+
+            Assert.AreEqual(true, _playableCardB.HasStatus(Status.STUNNED_ID));
+
+        }
     }
 }
 
