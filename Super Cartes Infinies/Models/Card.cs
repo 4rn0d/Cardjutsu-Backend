@@ -21,6 +21,7 @@ namespace Super_Cartes_Infinies.Models
         [ValidateNever]
         [JsonIgnore]
         public virtual List<CardPower>? CardPowers { get; set; }
+        public bool IsSpell { get; set; }
       
     }
 
