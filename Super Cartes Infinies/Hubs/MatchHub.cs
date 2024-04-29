@@ -216,11 +216,12 @@ public class MatchHub : Hub
     {
         IdentityUser? user = CurentUser;
         Player currentPlayer = await _context.Players.Where(p => p.IdentityUserId == user.Id).FirstAsync();
-        Player demutePlayer = await _context.Players.Where(p => p.Name == PlayerName).FirstAsync();
+        Player BanPlayer = await _context.Players.Where(p => p.Name == PlayerName).FirstAsync();
+        Match match = _context.Matches.Where(p => p.Id == matchId).FirstOrDefault();
 
-        currentPlayer.MutedPlayers.Remove(demutePlayer);
+        match.SpectateurBannis.Add(BanPlayer);
         _context.SaveChanges();
-        await Clients.Caller.SendAsync("ListMutedPlayer", currentPlayer.MutedPlayers.ToList());
+        await Clients.Caller.SendAsync("ListBanPlayer", currentPlayer.MutedPlayers.ToList());
         await this.UpdateMessagerie(matchId);
 
 
@@ -232,6 +233,7 @@ public class MatchHub : Hub
         List<Match> matchList = _context.Matches.Where(x => x.IsMatchCompleted == false).ToList();
         await Clients.Caller.SendAsync("ListMatch", matchList);
     }
+
     public async Task RejoindreMatchSpectateur(int idMatch)
     {
         
@@ -246,6 +248,16 @@ public class MatchHub : Hub
         else
         {
             match.Spectateur.Add(currentPlayer);
+            try
+            {
+                JoiningMatchData joiningMatchData = await _matchesService.JoinMatch(CurentUser.Id, 0, Context.ConnectionId, idMatch);
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+            
             await Clients.Caller.SendAsync("ListMatch", matchList);
         }
         

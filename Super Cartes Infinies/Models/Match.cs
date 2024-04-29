@@ -21,6 +21,7 @@ namespace Super_Cartes_Infinies.Models
             PlayerDataA = new MatchPlayerData(playerA, cards);
             UserBId = playerB.IdentityUserId;
             PlayerDataB = new MatchPlayerData(playerB, cards);
+
         }
 
         public int Id { get; set; }

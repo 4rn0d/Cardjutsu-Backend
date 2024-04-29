@@ -37,6 +37,7 @@ namespace Super_Cartes_Infinies.Services
             Match? match = null;
             Player? playerA = null;
             Player? playerB = null;
+
             string otherPlayerConnectionId = null;
 
             // Le joueur est dans un match en cours
