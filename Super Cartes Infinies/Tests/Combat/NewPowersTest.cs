@@ -123,7 +123,7 @@ namespace Super_Cartes_Infinies.Tests.Combat
 
             var playerEndTurnEvent = new PlayerEndTurnEvent(_match, _currentPlayerData, _opposingPlayerData, NB_MANA_PER_TURN);
 
-            Assert.AreEqual(true, _playableCardB.HasStatus(Status.POISONED_ID));
+            Assert.IsTrue(_playableCardB.HasStatus(Status.POISONED_ID));
 
         }
 
@@ -149,21 +149,21 @@ namespace Super_Cartes_Infinies.Tests.Combat
 
             var playerEndTurnEvent = new PlayerEndTurnEvent(_match, _currentPlayerData, _opposingPlayerData, NB_MANA_PER_TURN);
 
-            Assert.AreEqual(true, _playableCardB.HasStatus(Status.STUNNED_ID));
+            Assert.IsTrue(_playableCardB.HasStatus(Status.STUNNED_ID));
 
         }
 
         [TestMethod]
         public void LightningStrikeSpellTest()
         {
-            Power stunPower = new Power
+            Power lightingStrikePower = new Power
             {
                 PowerId = Power.LIGHTNING_STRIKE_ID
             };
 
             CardPower cardPower = new CardPower
             {
-                Power = stunPower,
+                Power = lightingStrikePower,
                 Value = 2,
                 Card = _cardA
             };
@@ -173,23 +173,26 @@ namespace Super_Cartes_Infinies.Tests.Combat
             _currentPlayerData.BattleField.Add(_playableCardA);
             _opposingPlayerData.BattleField.Add(_playableCardB);
 
+            int startingHealth = _opposingPlayerData.Health;
+
             var playerEndTurnEvent = new PlayerEndTurnEvent(_match, _currentPlayerData, _opposingPlayerData, NB_MANA_PER_TURN);
 
-            Assert.AreEqual(true, _playableCardB.HasStatus(Status.STUNNED_ID));
+            Assert.IsTrue(_currentPlayerData.Graveyard.Contains(_playableCardA));
+            Assert.AreEqual( startingHealth - cardPower.Value, _opposingPlayerData.Health);
 
         }
 
         [TestMethod]
         public void EarthquakeSpellTest()
         {
-            Power stunPower = new Power
+            Power earthquakePower = new Power
             {
                 PowerId = Power.EARTHQUAKE_ID
             };
 
             CardPower cardPower = new CardPower
             {
-                Power = stunPower,
+                Power = earthquakePower,
                 Value = 2,
                 Card = _cardA
             };
@@ -197,25 +200,33 @@ namespace Super_Cartes_Infinies.Tests.Combat
             _cardA.CardPowers = new List<CardPower> { cardPower };
 
             _currentPlayerData.BattleField.Add(_playableCardA);
-            _opposingPlayerData.BattleField.Add(_playableCardB);
+            _currentPlayerData.BattleField.Add(_playableCardB);
+            _opposingPlayerData.BattleField.Add(_playableCardC);
+
+            int startingHealthA = _playableCardA.Health;
+            int startingHealthB = _playableCardB.Health;
+            int startingHealthC = _playableCardC.Health;
 
             var playerEndTurnEvent = new PlayerEndTurnEvent(_match, _currentPlayerData, _opposingPlayerData, NB_MANA_PER_TURN);
 
-            Assert.AreEqual(true, _playableCardB.HasStatus(Status.STUNNED_ID));
+            Assert.IsTrue(_currentPlayerData.Graveyard.Contains(_playableCardA));
+            Assert.AreEqual(startingHealthA - cardPower.Value, _playableCardA.Health);
+            Assert.AreEqual(startingHealthB - cardPower.Value, _playableCardB.Health);
+            Assert.AreEqual(startingHealthC - cardPower.Value, _playableCardC.Health);
 
         }
 
         [TestMethod]
         public void RandomPainSpellTest()
         {
-            Power stunPower = new Power
+            Power randomPainPower = new Power
             {
                 PowerId = Power.RANDOM_PAIN_ID
             };
 
             CardPower cardPower = new CardPower
             {
-                Power = stunPower,
+                Power = randomPainPower,
                 Value = 2,
                 Card = _cardA
             };
@@ -224,10 +235,14 @@ namespace Super_Cartes_Infinies.Tests.Combat
 
             _currentPlayerData.BattleField.Add(_playableCardA);
             _opposingPlayerData.BattleField.Add(_playableCardB);
+            _opposingPlayerData.BattleField.Add(_playableCardC);
+
+            int startingHealthB = _playableCardB.Health;
 
             var playerEndTurnEvent = new PlayerEndTurnEvent(_match, _currentPlayerData, _opposingPlayerData, NB_MANA_PER_TURN);
 
-            Assert.AreEqual(true, _playableCardB.HasStatus(Status.STUNNED_ID));
+            Assert.IsTrue(_currentPlayerData.Graveyard.Contains(_playableCardA));
+            Assert.AreNotEqual<int>(startingHealthB, _playableCardB.Health);
 
         }
     }
