@@ -49,9 +49,9 @@ public class MatchHub : Hub
     public async Task JoinMatch()
     {
 
-        JoiningMatchData joiningMatchData = await _matchesService.JoinMatch(CurentUser.Id, 0, Context.ConnectionId, null);
-        
-        if(joiningMatchData != null)
+        JoiningMatchData joiningMatchData = await _matchesService.JoinMatch(CurentUser.Id, 0, Context.ConnectionId, idMatch);
+
+        if (joiningMatchData != null)
         {
             string matchGroup = CreateGroup(joiningMatchData.Match.Id);
             await Groups.AddToGroupAsync(Context.ConnectionId, matchGroup);
@@ -236,10 +236,19 @@ public class MatchHub : Hub
 
     public async Task RejoindreMatchSpectateur(int idMatch)
     {
-        
         List<Match> matchList = _context.Matches.Where(x => x.IsMatchCompleted == false).ToList();
         Match match = matchList.Where(s=>s.Id == idMatch).First();
-       
+
+        string matchGroup = CreateGroup(idMatch);
+        await Groups.AddToGroupAsync(Context.ConnectionId, matchGroup);
+
+
+
+        JoiningMatchData joiningMatchData = await _matchesService.JoinMatch(CurentUser.Id, 0, Context.ConnectionId, idMatch);
+        joiningMatchData.OtherPlayerConnectionId = Context.ConnectionId;
+
+        await Clients.Group(matchGroup).SendAsync("GetMatchData", joiningMatchData);
+
         Player currentPlayer = await _context.Players.Where(p => p.IdentityUserId == CurentUser.Id).FirstAsync();
         if (match.SpectateurBannis.Contains(currentPlayer))
         {
@@ -248,15 +257,7 @@ public class MatchHub : Hub
         else
         {
             match.Spectateur.Add(currentPlayer);
-            try
-            {
-                JoiningMatchData joiningMatchData = await _matchesService.JoinMatch(CurentUser.Id, 0, Context.ConnectionId, idMatch);
-            }
-            catch (Exception e)
-            {
-
-                throw e;
-            }
+            
             
             await Clients.Caller.SendAsync("ListMatch", matchList);
         }
