@@ -89,6 +89,66 @@ namespace Super_Cartes_Infinies.Services
             return null;
         }
 
+        public async Task<JoiningMatchData?> JoinMatchSpectateur(string userId, int deckId, string? connectionId, int? specificMatchId)
+        {
+            // Vérifier si le match n'a pas déjà été démarré (de façon plus générale, retourner un match courrant si le joueur y participe)
+            IEnumerable<Match> matches = db.Matches.Where(m=>m.Id==specificMatchId);
+
+            if (matches.Count() > 1)
+            {
+                throw new Exception("A player should never be playing 2 matches at the same time!");
+            }
+
+            Match? match = null;
+            Player? playerA = null;
+            Player? playerB = null;
+
+
+            // Le joueur est dans un match en cours
+            if (matches.Count() == 1)
+            {
+                match = matches.First();
+                
+                
+                    playerA = _playersService.GetPlayerFromUserId(match.UserAId);
+                    playerB = _playersService.GetPlayerFromUserId(match.UserBId);
+                
+            }
+            // Si on veut rejoindre un match en particulier, on ne se met pas en file
+            else if (specificMatchId == null)
+            {
+                UsersReadyForAMatch? pairOfUsers = await _waitingUserService.LookForWaitingUser(userId, deckId, connectionId);
+
+                if (pairOfUsers != null)
+                {
+                    playerA = _playersService.GetPlayerFromUserId(pairOfUsers.UserAId);
+                    playerB = _playersService.GetPlayerFromUserId(pairOfUsers.UserBId);
+
+                    // Création d'un nouveau match
+                    IEnumerable<Card> cards = _cardsService.GetAll();
+                    match = new Match(playerA, playerB, cards);
+                   
+
+                    Update(match);
+                }
+            }
+
+            if (match != null)
+            {
+                return new JoiningMatchData
+                {
+                    Match = match,
+                    PlayerA = playerA!,
+                    PlayerB = playerB!,
+                    OtherPlayerConnectionId = null,
+                    // otherPlayerConnectionId est null seulement si c'est une partie qui existait deja
+                    IsStarted = true
+                };
+            }
+
+            return null;
+        }
+
         public async Task<bool> StopJoiningMatch(string userId)
         {
             bool stoppedWaiting = await _waitingUserService.StopWaitingUser(userId);
