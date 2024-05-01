@@ -1,5 +1,7 @@
-﻿using Super_Cartes_Infinies.Combat;
+﻿using Moq;
+using Super_Cartes_Infinies.Combat;
 using Super_Cartes_Infinies.Models;
+using Super_Cartes_Infinies.Services;
 using Tests.Services;
 
 namespace Super_Cartes_Infinies.Tests.Combat
@@ -20,6 +22,7 @@ namespace Super_Cartes_Infinies.Tests.Combat
         [TestMethod]
         public void BoostAttackTest()
         {
+
             Power boostAttackPower = new Power
             {
                 PowerId = Power.BOOST_ATTACK_ID
@@ -84,6 +87,7 @@ namespace Super_Cartes_Infinies.Tests.Combat
         [TestMethod]
         public void ResurectTest()
         {
+
             Power chaosPower = new Power
             {
                 PowerId = Power.CHAOS_ID
@@ -103,10 +107,14 @@ namespace Super_Cartes_Infinies.Tests.Combat
             _opposingPlayerData.BattleField.Add(_playableCardC);
 
             //Créer un mock IRandomNumberService
+            var randomNumberServiceMock = new Mock<IRandomNumberService>();
 
             //Associer au match
+            _match.RandomNumberService = randomNumberServiceMock.Object;
 
             //Setup pour que getRandom retourn 0
+            randomNumberServiceMock.Setup(x => x.GetRandomNumber(It.IsAny<int>(), It.IsAny<int>()))
+                .Returns(0);
 
             var playerEndTurnEvent = new PlayerEndTurnEvent(_match, _currentPlayerData, _opposingPlayerData, NB_MANA_PER_TURN);
 
