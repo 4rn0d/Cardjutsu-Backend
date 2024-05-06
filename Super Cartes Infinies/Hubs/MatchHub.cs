@@ -219,13 +219,24 @@ public class MatchHub : Hub
         Player BanPlayer = await _context.Players.Where(p => p.Name == PlayerName).FirstAsync();
         Match match = _context.Matches.Where(p => p.Id == matchId).FirstOrDefault();
 
-        match.SpectateurBannis.Add(BanPlayer);
-        _context.SaveChanges();
+        bool Estbanis = match.SpectateurBannis.Where(p => p.Id==BanPlayer.Id).Any();
+        if (Estbanis)
+        {
+            throw new Exception("Ce user est deja bannis");
+        }
+        else
+        {
+            match.SpectateurBannis.Add(BanPlayer);
+            _context.SaveChanges();
+        }
+
         await Clients.Caller.SendAsync("ListBanPlayer", currentPlayer.MutedPlayers.ToList());
         await this.UpdateMessagerie(matchId);
 
 
     }
+    
+
 
     //Spectateur
     public async Task GetListMatchs()

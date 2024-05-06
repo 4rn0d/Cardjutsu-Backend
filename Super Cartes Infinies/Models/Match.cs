@@ -45,9 +45,9 @@ namespace Super_Cartes_Infinies.Models
         [JsonIgnore]
         public virtual List<Message> Messages { get; set; } = new List<Message>();
 
-        [JsonIgnore]
+        [ValidateNever]
         public virtual List<Player> Spectateur { get; set; } = new List<Player>();
-        [JsonIgnore]
+        [ValidateNever]
         public virtual List<Player> SpectateurBannis { get; set; } = new List<Player>();
     }
 }
