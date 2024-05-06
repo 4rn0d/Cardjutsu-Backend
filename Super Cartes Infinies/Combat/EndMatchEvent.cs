@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using Super_Cartes_Infinies.Models;
+using Super_Cartes_Infinies.Services;
 
 namespace Super_Cartes_Infinies.Combat
 {
@@ -18,11 +19,27 @@ namespace Super_Cartes_Infinies.Combat
 
             match.IsMatchCompleted = true;
 
+
             string userId;
             if (match.PlayerDataA.PlayerId == winningPlayerData.PlayerId)
+            {
                 userId = match.UserAId;
+                int eloScoreA = match.PlayerDataA.Player.EloScore;
+                int eloScoreB = match.PlayerDataB.Player.EloScore;
+                EloCalculator.CalculateELO(ref eloScoreA, ref eloScoreB, EloCalculator.GameOutcome.Win);
+                match.PlayerDataA.Player.EloScore = eloScoreA;
+                match.PlayerDataB.Player.EloScore = eloScoreB;
+            }
             else
+            {
                 userId = match.UserBId;
+                int eloScoreA = match.PlayerDataA.Player.EloScore;
+                int eloScoreB = match.PlayerDataB.Player.EloScore;
+                EloCalculator.CalculateELO(ref eloScoreA, ref eloScoreB, EloCalculator.GameOutcome.Loss);
+                match.PlayerDataA.Player.EloScore = eloScoreA;
+                match.PlayerDataB.Player.EloScore = eloScoreB;
+            }
+
 
             match.WinnerUserId = userId;
         }
