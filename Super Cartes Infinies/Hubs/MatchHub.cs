@@ -84,6 +84,7 @@ public class MatchHub : Hub
         var surrenderEvent = await _matchesService.Surrender(CurentUser.Id, matchId);
         await Clients.Group(matchGroup).SendAsync("Surrender", surrenderEvent);
         await Groups.RemoveFromGroupAsync(Context.ConnectionId, "Match " + matchId);
+        await GetListMatchs();
     }
 
     public async Task EndTurn(int matchId)
@@ -226,6 +227,10 @@ public class MatchHub : Hub
         }
         else
         {
+          
+            match.Spectateur.Remove(currentPlayer);
+            string matchGroup = CreateGroup(matchId);
+            await Groups.RemoveFromGroupAsync(Context.ConnectionId, matchGroup);
             match.SpectateurBannis.Add(BanPlayer);
             _context.SaveChanges();
         }
@@ -259,7 +264,7 @@ public class MatchHub : Hub
             match.Spectateur.Add(currentPlayer);
             string matchGroup = CreateGroup(idMatch);
             await Groups.AddToGroupAsync(Context.ConnectionId, matchGroup);
-            await Clients.Group(matchGroup).SendAsync("GetMatchData", joiningMatchData);
+            await Clients.Caller.SendAsync("GetMatchData", joiningMatchData);
         }
 
       

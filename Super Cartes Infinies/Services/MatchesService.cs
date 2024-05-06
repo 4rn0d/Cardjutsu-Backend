@@ -94,9 +94,9 @@ namespace Super_Cartes_Infinies.Services
             // Vérifier si le match n'a pas déjà été démarré (de façon plus générale, retourner un match courrant si le joueur y participe)
             IEnumerable<Match> matches = db.Matches.Where(m=>m.Id==specificMatchId);
 
-            if (matches.Count() > 1)
+            if (matches==null)
             {
-                throw new Exception("A player should never be playing 2 matches at the same time!");
+                throw new Exception("Le match n'existe pas ");
             }
 
             Match? match = null;
@@ -105,36 +105,14 @@ namespace Super_Cartes_Infinies.Services
 
 
             // Le joueur est dans un match en cours
-            if (matches.Count() == 1)
+            if (matches != null)
             {
                 match = matches.First();
-                
-                
-                    playerA = _playersService.GetPlayerFromUserId(match.UserAId);
-                    playerB = _playersService.GetPlayerFromUserId(match.UserBId);
-                
-            }
-            // Si on veut rejoindre un match en particulier, on ne se met pas en file
-            else if (specificMatchId == null)
-            {
-                UsersReadyForAMatch? pairOfUsers = await _waitingUserService.LookForWaitingUser(userId, deckId, connectionId);
 
-                if (pairOfUsers != null)
-                {
-                    playerA = _playersService.GetPlayerFromUserId(pairOfUsers.UserAId);
-                    playerB = _playersService.GetPlayerFromUserId(pairOfUsers.UserBId);
 
-                    // Création d'un nouveau match
-                    IEnumerable<Card> cards = _cardsService.GetAll();
-                    match = new Match(playerA, playerB, cards);
-                   
+                playerA = _playersService.GetPlayerFromUserId(match.UserAId);
+                playerB = _playersService.GetPlayerFromUserId(match.UserBId);
 
-                    Update(match);
-                }
-            }
-
-            if (match != null)
-            {
                 return new JoiningMatchData
                 {
                     Match = match,
@@ -145,7 +123,9 @@ namespace Super_Cartes_Infinies.Services
                     IsStarted = true
                 };
             }
+          
 
+           
             return null;
         }
 
