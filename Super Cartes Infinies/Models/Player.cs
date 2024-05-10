@@ -22,7 +22,7 @@ namespace Super_Cartes_Infinies.Models
 		[JsonIgnore]
 		public virtual List<Deck> Decks { get; set; }
 
-	
+		public bool? IsPlayer { get; set; }
         [JsonIgnore]
         public virtual List<Player> MutedPlayers { get; set; }
     }

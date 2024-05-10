@@ -237,7 +237,7 @@ public class MatchHub : Hub
 
         await Clients.Caller.SendAsync("ListBanPlayer", currentPlayer.MutedPlayers.ToList());
         await this.UpdateMessagerie(matchId);
-
+        await Clients.User(BanPlayer.IdentityUser.Id).SendAsync("BanJoueurDuMatch");
 
     }
     
@@ -260,8 +260,11 @@ public class MatchHub : Hub
         }
         else
         {
+
             JoiningMatchData joiningMatchData = await _matchesService.JoinMatchSpectateur(CurentUser.Id, 0, Context.ConnectionId, idMatch);
+            currentPlayer.IsPlayer = false;
             match.Spectateur.Add(currentPlayer);
+            _context.SaveChanges();
             string matchGroup = CreateGroup(idMatch);
             await Groups.AddToGroupAsync(Context.ConnectionId, matchGroup);
             await Clients.Caller.SendAsync("GetMatchData", joiningMatchData);

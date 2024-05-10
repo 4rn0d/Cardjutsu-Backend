@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Super_Cartes_Infinies.Data;
 
@@ -11,9 +12,11 @@ using Super_Cartes_Infinies.Data;
 namespace Super_Cartes_Infinies.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240510173350_AddPlayerSpactateur")]
+    partial class AddPlayerSpactateur
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -169,37 +172,37 @@ namespace Super_Cartes_Infinies.Migrations
                         {
                             Id = "User1Id",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "4c043770-c743-4a63-b1ef-0b20f4ef7e0c",
+                            ConcurrencyStamp = "eaecea87-8da2-47ce-aa8e-b8206222e0df",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5c11cfb8-5edb-47dd-88e0-5aeaffedb3bf",
+                            SecurityStamp = "4a53d8ee-d69f-4c8e-8299-1ab08547807e",
                             TwoFactorEnabled = false
                         },
                         new
                         {
                             Id = "User2Id",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "302114a6-8652-4cb9-a0d0-7c0222de20b2",
+                            ConcurrencyStamp = "bbbb719a-fe51-4c76-a49d-66e8d496580f",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5b81e3cf-3ea4-48fa-a3ee-b212d1effcb5",
+                            SecurityStamp = "e9fc1710-d0d2-4720-a70d-b5690f727b85",
                             TwoFactorEnabled = false
                         },
                         new
                         {
                             Id = "11111111-1111-1111-1111-111111111111",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "88f68929-baa4-4081-a7b3-ec9f210ec7b2",
+                            ConcurrencyStamp = "c1ec98d5-d6df-47f0-9122-a7da91242cc3",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEK1bcydLYLgsUp+WnOSbgbdqpSq57j/pPY9tEGxS5OR6LYYti620BhdIDkQbYEASYQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEKMrGNJxjrWZ1IS0246Ae7FIHYlWsrIxnFLSqFI767oSLo75+yHY4xfPsJelSaYD8Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "9ad0a76f-51d4-4b9f-8c69-4dda71c51f8d",
+                            SecurityStamp = "684126eb-e0c6-4f28-b3dc-fc100492016c",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         });
@@ -930,9 +933,6 @@ namespace Super_Cartes_Infinies.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<bool?>("IsPlayer")
-                        .HasColumnType("bit");
-
                     b.Property<int?>("MatchId")
                         .HasColumnType("int");
 
@@ -963,14 +963,12 @@ namespace Super_Cartes_Infinies.Migrations
                         {
                             Id = 1,
                             IdentityUserId = "User1Id",
-                            IsPlayer = true,
                             Name = "Test player 1"
                         },
                         new
                         {
                             Id = 2,
                             IdentityUserId = "User2Id",
-                            IsPlayer = true,
                             Name = "Test player 2"
                         });
                 });
