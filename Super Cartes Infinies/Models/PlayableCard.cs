@@ -87,7 +87,25 @@ namespace Super_Cartes_Infinies.Models
 		}
 
 		// TODO : Ajouté IncreaseStatusValue(id, valeur)
+		public void IncreaseStatusValue(int id, int value)
+		{
+			// Increase the value of the status by the value
+			if (HasStatus(id))
+			{
+				CardStatuses.First(p => p.Status.Id == id).Value += value;
+			}
+		}
+
 		// TODO : Ajouté DecreaseStatusValue(id, valeur)
+		public void DecreaseStatusValue(int id, int value)
+		{
+			// Increase the value of the status by the value
+			if (HasStatus(id))
+			{
+				CardStatuses.First(p => p.Status.Id == id).Value -= value;
+			}
+		}
+
 	}
 }
 
