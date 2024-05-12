@@ -115,7 +115,7 @@ namespace Super_Cartes_Infinies.Combat
             {
                 this.Events.Add(new HealEvent(currentPlayerData, activatedCard));
             }
-            
+
 
             if (hasEnemyCardSameIndex) // there is enemy card
             {
@@ -127,6 +127,16 @@ namespace Super_Cartes_Infinies.Combat
                 if(!currentFS && !enemyThorns)
                 {
                     NormalFight(opposingPlayerData, enemyCard, currentPlayerData, activatedCard);
+                }
+
+                if (activatedCard.HasPower(Power.POISON_ID))
+                {
+                    this.Events.Add(new PoisonEvent(currentPlayerData, activatedCard, enemyCard));
+                }
+
+                if (enemyCard.HasPower(Power.POISON_ID))
+                {
+                    this.Events.Add(new PoisonEvent(opposingPlayerData, enemyCard, activatedCard));
                 }
 
             }

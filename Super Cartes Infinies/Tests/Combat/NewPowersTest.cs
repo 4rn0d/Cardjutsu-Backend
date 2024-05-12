@@ -147,6 +147,12 @@ namespace Super_Cartes_Infinies.Tests.Combat
                 Card = _cardA
             };
 
+            _playableCardA.Attack = 0;
+            _playableCardB.Attack = 0;
+
+            _playableCardA.CardStatuses = new List<PlayableCardStatus>();
+            _playableCardB.CardStatuses = new List<PlayableCardStatus>();
+
             _cardA.CardPowers = new List<CardPower> { cardPower };
 
             _currentPlayerData.BattleField.Add(_playableCardA);
@@ -190,6 +196,9 @@ namespace Super_Cartes_Infinies.Tests.Combat
             };
 
             _cardA.CardPowers = new List<CardPower> { cardPower };
+
+            _playableCardA.CardStatuses = new List<PlayableCardStatus>();
+            _playableCardB.CardStatuses = new List<PlayableCardStatus>();
 
             _currentPlayerData.BattleField.Add(_playableCardA);
             _opposingPlayerData.BattleField.Add(_playableCardB);
@@ -304,12 +313,10 @@ namespace Super_Cartes_Infinies.Tests.Combat
             _opposingPlayerData.BattleField.Add(_playableCardB);
             _opposingPlayerData.BattleField.Add(_playableCardC);
 
-            int startingHealthB = _playableCardB.Health;
-
             var playerEndTurnEvent = new PlayCardEvent(_currentPlayerData, _opposingPlayerData, _playableCardA.Id);
 
             Assert.IsTrue(_currentPlayerData.Graveyard.Contains(_playableCardA));
-            Assert.AreNotEqual(startingHealthB, _playableCardB.Health);
+            Assert.IsFalse(_currentPlayerData.BattleField.Contains(_playableCardA));
 
             for (int i = 0; i < _opposingPlayerData.BattleField.Count; i++)
             {
