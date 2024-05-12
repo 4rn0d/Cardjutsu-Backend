@@ -116,39 +116,45 @@ namespace Super_Cartes_Infinies.Combat
                 this.Events.Add(new HealEvent(currentPlayerData, activatedCard));
             }
 
-
-            if (hasEnemyCardSameIndex) // there is enemy card
-            {
-                PlayableCard enemyCard = opposingPlayerData.BattleField[indexCardCurrentPlayer];
-
-                bool enemyThorns = Thorns(opposingPlayerData, enemyCard, currentPlayerData, activatedCard);
-                bool currentFS = FirstStrike(opposingPlayerData, enemyCard, activatedCard, currentPlayerData);
-
-                if(!currentFS && !enemyThorns)
-                {
-                    NormalFight(opposingPlayerData, enemyCard, currentPlayerData, activatedCard);
-                }
-
-                if (activatedCard.HasPower(Power.POISON_ID))
-                {
-                    this.Events.Add(new PoisonEvent(currentPlayerData, activatedCard, enemyCard));
-                }
-
-                if (enemyCard.HasPower(Power.POISON_ID))
-                {
-                    this.Events.Add(new PoisonEvent(opposingPlayerData, enemyCard, activatedCard));
-                }
-
-            }
-            else
-            {
-                //ADD PLAYERDAMAGEEVENT TO EVENTS WITH ENEMY PLAYER
-                this.Events.Add(new PlayerDamageEvent(match, opposingPlayerData, activatedCard, currentPlayerData));
-            }
-
             if (activatedCard.HasPower(Power.THIEF_ID))
             {
                 this.Events.Add(new ThiefEvent(currentPlayerData, activatedCard, opposingPlayerData));
+            }
+
+            if (!activatedCard.HasStatus(Status.STUNNED_ID))
+            {
+                if (hasEnemyCardSameIndex) // there is enemy card
+                {
+
+                    PlayableCard enemyCard = opposingPlayerData.BattleField[indexCardCurrentPlayer];
+
+                    bool enemyThorns = Thorns(opposingPlayerData, enemyCard, currentPlayerData, activatedCard);
+                    bool currentFS = FirstStrike(opposingPlayerData, enemyCard, activatedCard, currentPlayerData);
+
+                    if (!currentFS && !enemyThorns)
+                    {
+                        NormalFight(opposingPlayerData, enemyCard, currentPlayerData, activatedCard);
+                    }
+
+                    if (activatedCard.HasPower(Power.POISON_ID))
+                    {
+                        this.Events.Add(new PoisonEvent(currentPlayerData, activatedCard, enemyCard));
+                    }
+
+                    if (enemyCard.HasPower(Power.POISON_ID))
+                    {
+                        this.Events.Add(new PoisonEvent(opposingPlayerData, enemyCard, activatedCard));
+                    }
+
+                    if (activatedCard.HasPower(Power.STUN_ID))
+                    {
+                        this.Events.Add(new StunEvent(currentPlayerData, activatedCard, enemyCard));
+                    }
+                }
+                else
+                {
+                    this.Events.Add(new PlayerDamageEvent(match, opposingPlayerData, activatedCard, currentPlayerData));
+                }
             }
 
         }

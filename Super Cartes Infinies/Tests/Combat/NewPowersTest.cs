@@ -208,10 +208,21 @@ namespace Super_Cartes_Infinies.Tests.Combat
 
             Assert.IsTrue(_playableCardB.HasStatus(Status.STUNNED_ID));
 
+            //Vérifier quelle ne fait pas de damage
+            if (_playableCardB.CardStatuses.Count == 0)
+            {
+                Assert.Fail();
+            }
+            else
+            {
+                Assert.IsTrue(_playableCardB.HasStatus(Status.STUNNED_ID));
+                Assert.AreEqual(cardPower.Value, _playableCardB.GetStatusValue(Status.STUNNED_ID));
+            }
+
             var playerEndTurnEvent2 = new PlayerEndTurnEvent(_match, _currentPlayerData, _opposingPlayerData, NB_MANA_PER_TURN);
 
-            //Vérifier quelle ne fait pas de damage
-
+            Assert.IsTrue(_currentPlayerData.Health > 0);
+            Assert.AreEqual(cardPower.Value - 1, _playableCardB.GetStatusValue(Status.STUNNED_ID));
 
         }
 
