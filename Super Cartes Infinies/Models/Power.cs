@@ -15,7 +15,7 @@ namespace Super_Cartes_Infinies.Models
         public const int THIEF_ID = 4;
         public const int BOOST_ATTACK_ID = 5;
         public const int CHAOS_ID = 6;
-        public const int RESURECT_ID = 7;
+        public const int RESURRECT_ID = 7;
         public const int POISON_ID = 8;
         public const int STUN_ID = 9;
         public const int LIGHTNING_STRIKE_ID = 10;

@@ -99,7 +99,7 @@ namespace Super_Cartes_Infinies.Tests.Combat
 
             Power chaosPower = new Power
             {
-                PowerId = Power.CHAOS_ID
+                PowerId = Power.RESURRECT_ID
             };
 
             CardPower cardPower = new CardPower

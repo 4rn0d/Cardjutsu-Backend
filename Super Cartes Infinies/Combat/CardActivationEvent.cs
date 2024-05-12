@@ -98,6 +98,11 @@ namespace Super_Cartes_Infinies.Combat
                 }
             }
 
+            if (activatedCard.HasPower(Power.RESURRECT_ID))
+            {
+                this.Events.Add(new ResurrectEvent(currentPlayerData, activatedCard, match));
+            }
+
             if (activatedCard.HasPower(Power.BOOST_ATTACK_ID)) //if current card has boost attack
             {
                 foreach (var playableCard in currentPlayerData.BattleField)
@@ -109,11 +114,6 @@ namespace Super_Cartes_Infinies.Combat
             if (activatedCard.HasPower(Power.HEAL_ID)) //if current card has healing
             {
                 this.Events.Add(new HealEvent(currentPlayerData, activatedCard));
-            }
-
-            if (activatedCard.HasPower(Power.LIGHTNING_STRIKE_ID)) //if current card has lightning strike
-            {
-                this.Events.Add(new LightningStrikeEvent(opposingPlayerData, activatedCard));
             }
             
 
