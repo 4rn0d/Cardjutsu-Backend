@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Super_Cartes_Infinies.Services.Interfaces;
 
 namespace Super_Cartes_Infinies.Models
@@ -23,7 +24,7 @@ namespace Super_Cartes_Infinies.Models
 		public int OrdreId { get; set; }
 		public int Health { get; set; }
 		public int Attack { get; set; }
-		public List<PlayableCardStatus> CardStatuses { get; set; }
+		public virtual List<PlayableCardStatus> CardStatuses { get; set; }
 
 		public bool HasPower(int powerId)
 		{

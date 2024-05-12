@@ -51,9 +51,7 @@ public class ApplicationDbContext : IdentityDbContext
         builder.Entity<Deck>()
         .HasOne(e => e.Player)
         .WithMany()
-        .OnDelete(DeleteBehavior.NoAction); // <--
-
-        // Fin de Fluent API
+        .OnDelete(DeleteBehavior.NoAction);
     }
 
     public DbSet<Card> Cards { get; set; } = default!;

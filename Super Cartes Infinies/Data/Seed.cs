@@ -316,7 +316,7 @@ namespace Super_Cartes_Infinies.Data
             {
                 PowerId = 3,
                 Name = "Heal",
-                Description = "Soigne les cartes alliées de X incluant elle-même AVANT d’attaquer (mais les cartes ne peuvent pas avoir plus de health qu’au départ.)",
+                Description = "Soigne les cartes alliées de X incluant elle-même AVANT d’attaquer.",
                 Icon = "https://cdnb.artstation.com/p/assets/images/images/059/650/103/large/mackenzie-miller-healthpotion.jpg?1676863888",
                 HasValue = true
             };
@@ -324,11 +324,76 @@ namespace Super_Cartes_Infinies.Data
             {
                 PowerId = 4,
                 Name = "Thief",
-                Description = "Vole le mana de l'adversaire",
+                Description = "Vole le mana de l'adversaire.",
                 Icon = "https://cdn-icons-png.flaticon.com/512/843/843332.png",
                 HasValue = false
             };
-            return new Power[] { power1, power2, power3, power4 };
+            Power power5 = new Power()
+            {
+                PowerId = 5,
+                Name = "Boost Attack",
+                Description = "Augmente l'attaque des cartes en jeu du joueur.",
+                Icon = "https://static.thenounproject.com/png/3257866-200.png",
+                HasValue = true
+            };
+            Power power6 = new Power()
+            {
+                PowerId = 6,
+                Name = "Chaos",
+                Description = "Inverse l'attaque et la défense de toutes les cartes en jeu.",
+                Icon = "https://cdn-icons-png.flaticon.com/512/5110/5110231.png",
+                HasValue = false
+            };
+            Power power7 = new Power()
+            {
+                PowerId = 7,
+                Name = "Resurect",
+                Description = "Ramène une carte (au hazard) du Graveyard du joueur en jeu. La carte ramené en jeu n'attaque pas tout de suite et a seulement 1 de Health.",
+                Icon = "https://cdn-icons-png.flaticon.com/512/4334/4334125.png",
+                HasValue = false
+            };
+            Power power8 = new Power()
+            {
+                PowerId = 8,
+                Name = "Poison",
+                Description = "Ajoute une valeur de poison à la carte attaquée. Le poison diminue ensuite la vie d’une carte de la valeur du poison à la fin de son activation. Si une carte a déjà une valeur de poison et qu’elle est à nouveau attaquée, la valeur de poison est augmentée.",
+                Icon = "https://cdn-icons-png.flaticon.com/512/3953/3953085.png",
+                HasValue = true
+            };
+            Power power9 = new Power()
+            {
+                PowerId = 9,
+                Name = "Stunned",
+                Description = "Empêche une carte d’agir pendant son activation durant X tours.",
+                Icon = "https://en.tankiwiki.com/images/en/5/53/Icon_Stun.png",
+                HasValue = true
+            };
+            Power power10 = new Power()
+            {
+                PowerId = 10,
+                Name = "Lightning Strike",
+                Description = "Fait X dégâts au joueur adverse.",
+                Icon = "https://static-00.iconduck.com/assets.00/lightning-icon-1676x2048-p46nhgow.png",
+                HasValue = true
+            };
+            Power power11 = new Power()
+            {
+                PowerId = 11,
+                Name = "Earthquake",
+                Description = "Fait X dégâts à TOUTES les cartes en jeu (même les nôtres!).",
+                Icon = "https://cdn-icons-png.flaticon.com/512/3426/3426193.png",
+                HasValue = true
+            };
+            Power power12 = new Power()
+            {
+                PowerId = 12,
+                Name = "Random Pain",
+                Description = "Fait 1 à 6 de dégâts à une carte adverse (au hazard).",
+                Icon = "https://www.svgrepo.com/show/323837/card-random.svg",
+                HasValue = false
+            };
+
+            return new Power[] { power1, power2, power3, power4, power5, power6, power7, power8, power9, power10, power11, power12 };
         }
 
         public static Config[] SeedConfigs()
