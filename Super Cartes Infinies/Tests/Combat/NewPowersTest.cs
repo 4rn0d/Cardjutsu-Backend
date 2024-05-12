@@ -9,9 +9,6 @@ namespace Super_Cartes_Infinies.Tests.Combat
     [TestClass]
     public class NewPowersTest : BaseTests
     {
-        public NewPowersTest()
-        {
-        }
 
         [TestInitialize]
         public void Init()
@@ -43,11 +40,13 @@ namespace Super_Cartes_Infinies.Tests.Combat
 
             int baseAttackA = _cardA.Attack;
             int baseAttackB = _cardB.Attack;
+            int baseAttackC = _cardC.Attack;
 
             var playerEndTurnEvent = new PlayerEndTurnEvent(_match, _currentPlayerData, _opposingPlayerData, NB_MANA_PER_TURN);
 
             Assert.AreEqual(baseAttackA + cardPower.Value, _playableCardA.Attack);
-            Assert.AreEqual(baseAttackB, _playableCardB.Attack);
+            Assert.AreEqual(baseAttackB + cardPower.Value, _playableCardB.Attack);
+            Assert.AreEqual(baseAttackC, _playableCardC.Attack);
         }
 
         [TestMethod]
@@ -222,8 +221,6 @@ namespace Super_Cartes_Infinies.Tests.Combat
                 Card = _cardA
             };
 
-            // TODO : IsSpell à true
-
             _cardA.IsSpell = true;
 
             _cardA.CardPowers = new List<CardPower> { cardPower };
@@ -232,8 +229,6 @@ namespace Super_Cartes_Infinies.Tests.Combat
             _opposingPlayerData.BattleField.Add(_playableCardB);
 
             int startingHealth = _opposingPlayerData.Health;
-
-            //TODO : PlayCardEvent et non EndTurnEvent
 
             var PlayCardEvent = new PlayCardEvent(_currentPlayerData, _opposingPlayerData, _cardA.Id);
 
