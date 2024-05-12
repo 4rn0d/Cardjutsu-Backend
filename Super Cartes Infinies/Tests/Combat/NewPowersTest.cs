@@ -34,6 +34,10 @@ namespace Super_Cartes_Infinies.Tests.Combat
 
             _cardA.CardPowers = new List<CardPower> { cardPower };
 
+            _playableCardA.CardStatuses = new List<PlayableCardStatus>();
+            _playableCardB.CardStatuses = new List<PlayableCardStatus>();
+            _playableCardC.CardStatuses = new List<PlayableCardStatus>();
+
             _currentPlayerData.BattleField.Add(_playableCardA);
             _currentPlayerData.BattleField.Add(_playableCardB);
             _opposingPlayerData.BattleField.Add(_playableCardC);
@@ -75,6 +79,10 @@ namespace Super_Cartes_Infinies.Tests.Combat
 
             _cardA.CardPowers = new List<CardPower> { cardPower };
 
+            _playableCardA.CardStatuses = new List<PlayableCardStatus>();
+            _playableCardB.CardStatuses = new List<PlayableCardStatus>();
+            dyingPlayableCard.CardStatuses = new List<PlayableCardStatus>();
+
             _currentPlayerData.BattleField.Add(_playableCardA);
             _opposingPlayerData.BattleField.Add(_playableCardB);
             _opposingPlayerData.BattleField.Add(dyingPlayableCard);
@@ -109,6 +117,9 @@ namespace Super_Cartes_Infinies.Tests.Combat
             };
 
             _cardA.CardPowers = new List<CardPower> { cardPower };
+
+            _playableCardA.CardStatuses = new List<PlayableCardStatus>();
+            _playableCardB.CardStatuses = new List<PlayableCardStatus>();
 
             _currentPlayerData.BattleField.Add(_playableCardA);
             _currentPlayerData.Graveyard.Add(_playableCardB);
@@ -245,6 +256,9 @@ namespace Super_Cartes_Infinies.Tests.Combat
 
             _cardA.CardPowers = new List<CardPower> { cardPower };
 
+            _playableCardA.CardStatuses = new List<PlayableCardStatus>();
+            _playableCardB.CardStatuses = new List<PlayableCardStatus>();
+
             _currentPlayerData.Hand.Add(_playableCardA);
             _opposingPlayerData.BattleField.Add(_playableCardB);
 
@@ -275,6 +289,10 @@ namespace Super_Cartes_Infinies.Tests.Combat
             _cardA.IsSpell = true;
 
             _cardA.CardPowers = new List<CardPower> { cardPower };
+
+            _playableCardA.CardStatuses = new List<PlayableCardStatus>();
+            _playableCardB.CardStatuses = new List<PlayableCardStatus>();
+            _playableCardC.CardStatuses = new List<PlayableCardStatus>();
 
             _currentPlayerData.Hand.Add(_playableCardA);
             _currentPlayerData.BattleField.Add(_playableCardB);
@@ -319,6 +337,10 @@ namespace Super_Cartes_Infinies.Tests.Combat
             _cardA.IsSpell = true;
 
             _cardA.CardPowers = new List<CardPower> { cardPower };
+
+            _playableCardA.CardStatuses = new List<PlayableCardStatus>();
+            _playableCardB.CardStatuses = new List<PlayableCardStatus>();
+            _playableCardC.CardStatuses = new List<PlayableCardStatus>();
 
             _currentPlayerData.Hand.Add(_playableCardA);
             _opposingPlayerData.BattleField.Add(_playableCardB);

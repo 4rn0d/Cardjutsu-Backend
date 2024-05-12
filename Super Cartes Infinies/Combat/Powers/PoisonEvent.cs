@@ -33,7 +33,7 @@ public class PoisonEvent: MatchEvent
         }
         else
         {
-            opposingCard.IncreaseStatusValue(Status.POISONED_ID, 1);
+            opposingCard.IncreaseStatusValue(Status.POISONED_ID, playableCard.GetPowerValue(Power.POISON_ID));
         }
         this.DamagedPlayableCardId = opposingCard.Id;
     }
