@@ -276,6 +276,14 @@ namespace Super_Cartes_Infinies.Tests.Combat
         [TestMethod]
         public void RandomPainSpellTest()
         {
+
+            Mock<IRandomNumberService> randomNumberServiceMock = new Mock<IRandomNumberService>();
+
+            randomNumberServiceMock.SetupSequence(x => x.GetRandomNumber(It.IsAny<int>(), It.IsAny<int>()))
+                .Returns(4)
+                .Returns(2)
+                .Returns(1);
+
             Power randomPainPower = new Power
             {
                 PowerId = Power.RANDOM_PAIN_ID
@@ -302,6 +310,17 @@ namespace Super_Cartes_Infinies.Tests.Combat
 
             Assert.IsTrue(_currentPlayerData.Graveyard.Contains(_playableCardA));
             Assert.AreNotEqual(startingHealthB, _playableCardB.Health);
+
+            for (int i = 0; i < _opposingPlayerData.BattleField.Count; i++)
+            {
+                if (i == randomNumberServiceMock.Object.GetRandomNumber(1, _opposingPlayerData.BattleField.Count))
+                {
+                    randomNumberServiceMock.Verify(randomNumberMethod =>
+                        randomNumberMethod.GetRandomNumber(It.IsAny<int>(), It.IsAny<int>()), Times.AtLeast(1));
+                    Assert.AreEqual(10 - _playableCardA.Attack, _opposingPlayerData.BattleField[i].Health);
+                    Assert.AreEqual(_playableCardB, _opposingPlayerData.BattleField[i]);
+                }
+            }
 
         }
     }

@@ -28,12 +28,6 @@ namespace Super_Cartes_Infinies.Models
 
         public bool IsMatchCompleted { get; set; } = false;
 
-
-        // Ici on garde simplement un copie des UserIds et non une véritable référence vers les IdentityUser
-        // C'est simplement pour réduire la complexité du modèle de données EntitfyFramework
-        // Lorsque les relations deviennent plus complexes, on doit éventuellement utilisé Fluent API.
-        // https://learn.microsoft.com/en-us/ef/ef6/modeling/code-first/fluent/types-and-properties
-        // Nous allons couvrir ce sujet plus tard dans la session
         public string? WinnerUserId { get; set; }
         public string UserAId { get; set; }
         public string UserBId { get; set; }

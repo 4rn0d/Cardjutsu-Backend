@@ -1,5 +1,6 @@
 ﻿using Super_Cartes_Infinies.Data;
 using Super_Cartes_Infinies.Models;
+using Super_Cartes_Infinies.Services;
 
 namespace Super_Cartes_Infinies.Combat
 {
@@ -12,6 +13,9 @@ namespace Super_Cartes_Infinies.Combat
          public PlayCardEvent(MatchPlayerData currentPlayerData, MatchPlayerData opposingPlayerData, int playableCardId)
         {
             this.Events = new List<MatchEvent> { };
+            Match match = new Match();
+            match.RandomNumberService = new RandomNumberService();
+
             PlayableCard playedcard = currentPlayerData.Hand.Where(c => c.Id == playableCardId).FirstOrDefault();
 
             if (currentPlayerData.Mana - playedcard.Card.Cost >= 0)
@@ -35,6 +39,11 @@ namespace Super_Cartes_Infinies.Combat
                         this.Events.Add(new EarthquakeEvent(currentPlayerData, opposingPlayerData, playedcard));
                     }
 
+                    if (playedcard.HasPower(Power.RANDOM_PAIN_ID))
+                    {
+                        PlayableCard randomCard = opposingPlayerData.BattleField[match.RandomNumberService.GetRandomNumber(opposingPlayerData.BattleField.Count, 0)];
+                        this.Events.Add(new RandomPainEvent(currentPlayerData, randomCard, playedcard));
+                    }
                 }
             }
             else

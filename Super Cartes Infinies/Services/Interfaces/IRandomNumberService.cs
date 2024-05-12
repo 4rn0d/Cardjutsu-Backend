@@ -2,5 +2,5 @@
 
 public interface IRandomNumberService
 {
-    int GetRandomNumber(int min, int max);
+    int GetRandomNumber(int nbValue, int offset);
 }
