@@ -67,8 +67,8 @@ namespace Super_Cartes_Infinies.Tests.Combat
             {
                 Id = 2,
                 Name = "Dying Card",
-                Attack = 1,
-                Health = 0,
+                Attack = 0,
+                Health = 1,
             };
 
             PlayableCard dyingPlayableCard = new PlayableCard(dyingCard);
@@ -86,9 +86,9 @@ namespace Super_Cartes_Infinies.Tests.Combat
 
             var playerEndTurnEvent = new PlayerEndTurnEvent(_match, _currentPlayerData, _opposingPlayerData, NB_MANA_PER_TURN);
 
-            Assert.AreEqual(cardABaseAttack, _playableCardA.Health);
+            Assert.AreEqual(cardABaseAttack, _playableCardA.Health + _playableCardB.Attack);
             Assert.AreEqual(cardABaseHealth, _playableCardA.Attack);
-            Assert.AreEqual(cardBBaseAttack, _playableCardB.Health);
+            Assert.AreEqual(cardBBaseAttack, _playableCardB.Health + _playableCardA.Attack);
             Assert.AreEqual(cardBBaseHealth, _playableCardB.Attack);
             Assert.IsTrue(_opposingPlayerData.Graveyard.Contains(dyingPlayableCard));
         }

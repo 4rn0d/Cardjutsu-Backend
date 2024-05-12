@@ -85,6 +85,18 @@ namespace Super_Cartes_Infinies.Combat
                 hasEnemyCardSameIndex = opposingPlayerData.BattleField[indexCardCurrentPlayer] != null;
             }
 
+            if (activatedCard.HasPower(Power.CHAOS_ID))
+            {
+
+                for (int i = 0; i < currentPlayerData.BattleField.Count; i++)
+                {
+                    this.Events.Add(new ChaosEvent(currentPlayerData, currentPlayerData.BattleField[i]));
+                }
+                for (int i = 0; i < opposingPlayerData.BattleField!.Count; i++)
+                {
+                    this.Events.Add(new ChaosEvent(opposingPlayerData, opposingPlayerData.BattleField[i]));
+                }
+            }
 
             if (activatedCard.HasPower(Power.BOOST_ATTACK_ID)) //if current card has boost attack
             {
