@@ -230,7 +230,7 @@ namespace Super_Cartes_Infinies.Tests.Combat
 
             int startingHealth = _opposingPlayerData.Health;
 
-            var PlayCardEvent = new PlayCardEvent(_currentPlayerData, _opposingPlayerData, _playableCardA.Id);
+            var playCardEvent = new PlayCardEvent(_currentPlayerData, _opposingPlayerData, _playableCardA.Id);
 
             Assert.IsTrue(_currentPlayerData.Graveyard.Contains(_playableCardA));
             Assert.AreEqual( startingHealth - cardPower.Value, _opposingPlayerData.Health);
@@ -252,9 +252,11 @@ namespace Super_Cartes_Infinies.Tests.Combat
                 Card = _cardA
             };
 
+            _cardA.IsSpell = true;
+
             _cardA.CardPowers = new List<CardPower> { cardPower };
 
-            _currentPlayerData.BattleField.Add(_playableCardA);
+            _currentPlayerData.Hand.Add(_playableCardA);
             _currentPlayerData.BattleField.Add(_playableCardB);
             _opposingPlayerData.BattleField.Add(_playableCardC);
 
@@ -262,7 +264,7 @@ namespace Super_Cartes_Infinies.Tests.Combat
             int startingHealthB = _playableCardB.Health;
             int startingHealthC = _playableCardC.Health;
 
-            var playerEndTurnEvent = new PlayerEndTurnEvent(_match, _currentPlayerData, _opposingPlayerData, NB_MANA_PER_TURN);
+            var playerEndTurnEvent = new PlayCardEvent(_currentPlayerData, _opposingPlayerData, _playableCardA.Id);
 
             Assert.IsTrue(_currentPlayerData.Graveyard.Contains(_playableCardA));
             Assert.AreEqual(startingHealthA - cardPower.Value, _playableCardA.Health);
@@ -286,18 +288,20 @@ namespace Super_Cartes_Infinies.Tests.Combat
                 Card = _cardA
             };
 
+            _cardA.IsSpell = true;
+
             _cardA.CardPowers = new List<CardPower> { cardPower };
 
-            _currentPlayerData.BattleField.Add(_playableCardA);
+            _currentPlayerData.Hand.Add(_playableCardA);
             _opposingPlayerData.BattleField.Add(_playableCardB);
             _opposingPlayerData.BattleField.Add(_playableCardC);
 
             int startingHealthB = _playableCardB.Health;
 
-            var playerEndTurnEvent = new PlayerEndTurnEvent(_match, _currentPlayerData, _opposingPlayerData, NB_MANA_PER_TURN);
+            var playerEndTurnEvent = new PlayCardEvent(_currentPlayerData, _opposingPlayerData, _playableCardA.Id);
 
             Assert.IsTrue(_currentPlayerData.Graveyard.Contains(_playableCardA));
-            Assert.AreNotEqual<int>(startingHealthB, _playableCardB.Health);
+            Assert.AreNotEqual(startingHealthB, _playableCardB.Health);
 
         }
     }

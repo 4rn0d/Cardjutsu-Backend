@@ -6,8 +6,6 @@ namespace Super_Cartes_Infinies.Combat
     public class PlayCardEvent : MatchEvent
     {
 
-        // TODO: Ajouter tout ce qui manque
-
         public int PlayableCardId { get; set; }
         public int PlayerId { get; set; }
         public int Mana {get; set;}
@@ -31,6 +29,12 @@ namespace Super_Cartes_Infinies.Combat
                     {
                         this.Events.Add(new LightningStrikeEvent(currentPlayerData, opposingPlayerData, playedcard));
                     }
+
+                    if (playedcard.HasPower(Power.EARTHQUAKE_ID))
+                    {
+                        this.Events.Add(new EarthquakeEvent(currentPlayerData, opposingPlayerData, playedcard));
+                    }
+
                 }
             }
             else
