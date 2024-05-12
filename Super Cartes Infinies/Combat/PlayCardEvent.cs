@@ -13,6 +13,7 @@ namespace Super_Cartes_Infinies.Combat
         public int Mana {get; set;}
          public PlayCardEvent(MatchPlayerData currentPlayerData, MatchPlayerData opposingPlayerData, int playableCardId)
         {
+            this.Events = new List<MatchEvent> { };
             PlayableCard playedcard = currentPlayerData.Hand.Where(c => c.Id == playableCardId).FirstOrDefault();
 
             if (currentPlayerData.Mana - playedcard.Card.Cost >= 0)
@@ -23,6 +24,14 @@ namespace Super_Cartes_Infinies.Combat
                 PlayerId = currentPlayerData.PlayerId;
                 PlayableCardId = playedcard.Id;
                 Mana = currentPlayerData.Mana;
+
+                if (playedcard.Card.IsSpell)
+                {
+                    if (playedcard.HasPower(Power.LIGHTNING_STRIKE_ID))
+                    {
+                        this.Events.Add(new LightningStrikeEvent(currentPlayerData, opposingPlayerData, playedcard));
+                    }
+                }
             }
             else
             {

@@ -225,12 +225,12 @@ namespace Super_Cartes_Infinies.Tests.Combat
 
             _cardA.CardPowers = new List<CardPower> { cardPower };
 
-            _currentPlayerData.BattleField.Add(_playableCardA);
+            _currentPlayerData.Hand.Add(_playableCardA);
             _opposingPlayerData.BattleField.Add(_playableCardB);
 
             int startingHealth = _opposingPlayerData.Health;
 
-            var PlayCardEvent = new PlayCardEvent(_currentPlayerData, _opposingPlayerData, _cardA.Id);
+            var PlayCardEvent = new PlayCardEvent(_currentPlayerData, _opposingPlayerData, _playableCardA.Id);
 
             Assert.IsTrue(_currentPlayerData.Graveyard.Contains(_playableCardA));
             Assert.AreEqual( startingHealth - cardPower.Value, _opposingPlayerData.Health);
