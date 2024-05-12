@@ -1,5 +1,8 @@
 ﻿namespace Super_Cartes_Infinies.Services
 {
+
+
+
     public class UsersReadyForAMatch
     {
         public UsersReadyForAMatch(string userAId, string userBId, int deckAId, int deckBId, string playerConnectionId)
@@ -25,12 +28,15 @@
         private string? _playerConnectionId = null;
         private SemaphoreSlim _semaphore;
 
+
         public string WaitingUserId { get { return _waitingUserId; } }
 
         public WaitingUserService()
         {
             _semaphore = new SemaphoreSlim(1);
         }
+
+        
 
         public async Task<bool> StopWaitingUser(string userId)
         {
@@ -68,6 +74,7 @@
             }
             else
             {
+
                 var matchCreationResult = new UsersReadyForAMatch(_waitingUserId, userId, _waitingDeckId, deckId, _playerConnectionId!);
                 _waitingUserId = null;
                 _waitingDeckId = 0;
@@ -79,9 +86,18 @@
             }
 
 
+
+
         }
 
-        
+        //protected override Task ExecuteAsync(CancellationToken stoppingToken)
+        //{
+        //    while (!stoppingToken.IsCancellationRequested)
+        //    {
+        //        await Task.Delay(DELAY, stoppingToken);
+        //        await CreateELOAppropriateMatch(stoppingToken);
+        //    }
+        //}
     }
 }
 

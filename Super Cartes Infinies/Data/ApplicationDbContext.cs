@@ -30,7 +30,8 @@ public class ApplicationDbContext : IdentityDbContext
         builder.Entity<CardStart>().HasData(Seed.SeedCardStarts());
         
         builder.Entity<IdentityUser>().HasData(Seed.SeedUsers());
-        builder.Entity<IdentityRole>().HasData(Seed.SeedRoles());      
+        builder.Entity<IdentityRole>().HasData(Seed.SeedRoles()); 
+        
         
         builder.Entity<IdentityUserRole<string>>().HasData(Seed.SeedUserRoles());
 

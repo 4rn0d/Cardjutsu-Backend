@@ -65,6 +65,8 @@ namespace Super_Cartes_Infinies.Services
                     playerA = _playersService.GetPlayerFromUserId(pairOfUsers.UserAId);
                     playerB = _playersService.GetPlayerFromUserId(pairOfUsers.UserBId);
 
+
+
                     // Création d'un nouveau match
                     IEnumerable<Card> cards = _cardsService.GetAll();
                     match = new Match(playerA, playerB, cards);

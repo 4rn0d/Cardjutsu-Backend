@@ -43,8 +43,7 @@ builder.Services.AddControllersWithViews()
     .AddJsonOptions(options =>
     {
         options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
-    }); 
-
+    });
 
 
 
@@ -57,6 +56,8 @@ builder.Services.AddSingleton<WaitingUserService>();
 builder.Services.AddScoped<MatchesService>();
 builder.Services.AddScoped<StartingCardsService>();
 builder.Services.AddScoped<MatchConfigurationService>();
+
+//builder.Services.AddHostedService<WaitingUserService>(p => p.GetService<WaitingUserService>());
 
 
 builder.Services.AddEndpointsApiExplorer();
