@@ -14,8 +14,9 @@ namespace Super_Cartes_Infinies.Combat
 
             this.PlayerId = playerData.PlayerId;
             this.PlayableCardId = playableCard.Id;
+            int damage = playableCard.GetPowerValue(Power.THORNS_ID);
 
-            opposingCard.Health -= playableCard.GetPowerValue(Power.THORNS_ID);
+            playableCard.Health -= damage;
 
             this.Events.Add(new CardDamageEvent(playerData, opposingCard, playableCard));
         }
