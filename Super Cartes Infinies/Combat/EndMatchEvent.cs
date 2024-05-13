@@ -7,6 +7,8 @@ namespace Super_Cartes_Infinies.Combat
     public class EndMatchEvent : MatchEvent
     {
         public int WinningPlayerId { get; set; }
+        public int WinnerNewElo { get; set; }
+        public int LoserNewElo { get; set; }
 
         public EndMatchEvent(Match match, MatchPlayerData winningPlayerData, MatchPlayerData losingPlayerData)
         {
@@ -29,6 +31,8 @@ namespace Super_Cartes_Infinies.Combat
                 EloCalculator.CalculateELO(ref eloScoreA, ref eloScoreB, EloCalculator.GameOutcome.Win);
                 match.PlayerDataA.Player.EloScore = eloScoreA;
                 match.PlayerDataB.Player.EloScore = eloScoreB;
+                WinnerNewElo = eloScoreA;
+                LoserNewElo = eloScoreB;
             }
             else
             {
@@ -38,6 +42,8 @@ namespace Super_Cartes_Infinies.Combat
                 EloCalculator.CalculateELO(ref eloScoreA, ref eloScoreB, EloCalculator.GameOutcome.Loss);
                 match.PlayerDataA.Player.EloScore = eloScoreA;
                 match.PlayerDataB.Player.EloScore = eloScoreB;
+                WinnerNewElo = eloScoreB;
+                LoserNewElo = eloScoreA;
             }
 
 

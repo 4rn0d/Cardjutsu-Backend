@@ -69,7 +69,8 @@ namespace Super_Cartes_Infinies.Controllers
             var result = await _accountService.Login(login);
             if (result.Succeeded)
             {
-                return Ok();
+                Player player = _servicePlayer.GetPlayerFromUserName(login.Username);
+                return Ok(new { Elo = player.EloScore });
             }
 
             return NotFound(new { Error = "L'utilisateur est introuvable ou le mot de passe de concorde pas" });
