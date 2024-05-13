@@ -20,6 +20,15 @@ namespace Super_Cartes_Infinies.Combat
     [JsonDerivedType(typeof(PlayerStartTurnEvent), typeDiscriminator: "PlayerStartTurn")]
     [JsonDerivedType(typeof(StartMatchEvent), typeDiscriminator: "StartMatch")]
     [JsonDerivedType(typeof(SurrenderEvent), typeDiscriminator: "Surrender")]
+    [JsonDerivedType(typeof(BoostAttackEvent), typeDiscriminator: "BoostAttack")]
+    [JsonDerivedType(typeof(ChaosEvent), typeDiscriminator: "Chaos")]
+    [JsonDerivedType(typeof(EarthquakeEvent), typeDiscriminator: "Earthquake")]
+    [JsonDerivedType(typeof(LightningStrikeEvent), typeDiscriminator: "LightningStrike")]
+    [JsonDerivedType(typeof(PoisonEvent), typeDiscriminator: "Poison")]
+    [JsonDerivedType(typeof(RandomPainEvent), typeDiscriminator: "RandomPain")]
+    [JsonDerivedType(typeof(ResurrectEvent), typeDiscriminator: "Resurrect")]
+    [JsonDerivedType(typeof(StunEvent), typeDiscriminator: "Stun")]
+
     public abstract class MatchEvent
     {
         public MatchEvent()

@@ -34,6 +34,9 @@
             <th>
                 Powers
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsSpell)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -70,6 +73,9 @@
                         <p>@cardPower.Power.Name @cardPower.Value</p>
                     }
                 }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsSpell)
             </td>
             <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

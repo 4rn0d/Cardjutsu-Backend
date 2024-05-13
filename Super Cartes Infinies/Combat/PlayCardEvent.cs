@@ -16,7 +16,7 @@ namespace Super_Cartes_Infinies.Combat
             Match match = new Match();
             match.RandomNumberService = new RandomNumberService();
 
-            PlayableCard playedcard = currentPlayerData.Hand.Where(c => c.Id == playableCardId).FirstOrDefault();
+            PlayableCard playedcard = currentPlayerData.Hand.Where(c => c.Id == playableCardId).FirstOrDefault()!;
 
             if (currentPlayerData.Mana - playedcard.Card.Cost >= 0)
             {
