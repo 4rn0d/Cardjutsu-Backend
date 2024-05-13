@@ -10,6 +10,7 @@ namespace Super_Cartes_Infinies.Models
     {
 		public Match()
 		{
+			RandomNumberService = new RandomNumberService();
 		}
 
         // Pour créer un nouveau match pour 2 joueurs
