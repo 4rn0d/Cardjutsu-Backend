@@ -11,7 +11,7 @@ public class BoostAttackEvent : MatchEvent
     {
         this.PlayerId = playerData.PlayerId;
         this.PlayableCardId = playableCard.Id;
-        playableCard.Attack += boostAmount;
         this.BoostAmount = boostAmount;
+        playableCard.Attack += boostAmount;
     }
 }
