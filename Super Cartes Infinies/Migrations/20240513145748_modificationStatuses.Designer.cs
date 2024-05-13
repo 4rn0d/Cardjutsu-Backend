@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Super_Cartes_Infinies.Data;
 
@@ -11,9 +12,11 @@ using Super_Cartes_Infinies.Data;
 namespace Super_Cartes_Infinies.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240513145748_modificationStatuses")]
+    partial class modificationStatuses
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -169,37 +172,37 @@ namespace Super_Cartes_Infinies.Migrations
                         {
                             Id = "User1Id",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "4a7242ac-930e-424e-aa12-7732451f46d1",
+                            ConcurrencyStamp = "2619c45c-07a4-43f0-b9e1-8cb3ffbbb07c",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "83c43f4c-6592-432d-a613-7c93f5fd9037",
+                            SecurityStamp = "f95aab6d-d543-4cc8-bb95-802cfba19a76",
                             TwoFactorEnabled = false
                         },
                         new
                         {
                             Id = "User2Id",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c38b51ac-193d-4499-a810-c2687c839262",
+                            ConcurrencyStamp = "90635307-67ae-490f-b539-ca0c9111333b",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "0edfe38d-4834-431c-9fc1-580cf0973589",
+                            SecurityStamp = "6852de6f-284e-4afb-91fc-3ef11f8f7d93",
                             TwoFactorEnabled = false
                         },
                         new
                         {
                             Id = "11111111-1111-1111-1111-111111111111",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "06cf7cef-f27c-4b19-9218-125b1297d195",
+                            ConcurrencyStamp = "33258440-14d0-49f1-bcbd-15cbb4526a4d",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEGhzW3RYvZipMj90Ce5V1splMA9r/YF/4XGNcir+Om8cW36mJoFooi8MukLOQWE8Aw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEETwK3almORA+AyRxPDevNeLVofBXVcbUvR6WhMICNlBDfXPoPGcjnuALkNgV+sHgw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "312b585c-9bb2-424e-8d25-64d27d9aa3e2",
+                            SecurityStamp = "20095eba-33e1-47e4-8db8-330b425c7ba8",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         });
@@ -1115,12 +1118,15 @@ namespace Super_Cartes_Infinies.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Icon")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

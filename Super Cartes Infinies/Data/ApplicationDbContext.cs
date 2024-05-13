@@ -24,6 +24,7 @@ public class ApplicationDbContext : IdentityDbContext
         builder.Entity<Player>().HasData(Seed.SeedTestPlayers());
         builder.Entity<IdentityUser>().HasData(Seed.SeedTestUsers());
         builder.Entity<Power>().HasData(Seed.SeedPower());
+        builder.Entity<Status>().HasData(Seed.SeedTestStatus());
 
         builder.Entity<Config>().HasData(Seed.SeedConfigs());
         builder.Entity<CardStart>().HasData(Seed.SeedCardStarts());
@@ -70,5 +71,7 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet<CardStart> CardStart { get; set; } = default!;
 
     public DbSet<Power> Power { get; set; } = default!;
+
+    public DbSet<Status> Status { get; set; } = default!;
 }
 

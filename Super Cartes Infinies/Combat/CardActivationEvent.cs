@@ -62,9 +62,14 @@ namespace Super_Cartes_Infinies.Combat
 
         public void NormalFight(MatchPlayerData enemy, PlayableCard enemyCard, MatchPlayerData current, PlayableCard currentCard)
         {
-            
-            this.Events.Add(new CardDamageEvent(current, currentCard, enemyCard));
-            this.Events.Add(new CardDamageEvent(enemy, enemyCard, currentCard));
+            if (!enemyCard.HasStatus(Status.STUNNED_ID))
+            {
+                this.Events.Add(new CardDamageEvent(current, currentCard, enemyCard));
+            }
+            if (!currentCard.HasStatus(Status.STUNNED_ID))
+            {
+                this.Events.Add(new CardDamageEvent(enemy, enemyCard, currentCard));
+            }
         }
 
         
@@ -85,44 +90,46 @@ namespace Super_Cartes_Infinies.Combat
                 hasEnemyCardSameIndex = opposingPlayerData.BattleField[indexCardCurrentPlayer] != null;
             }
 
-            if (activatedCard.HasPower(Power.CHAOS_ID))
-            {
-
-                for (int i = 0; i < currentPlayerData.BattleField.Count; i++)
-                {
-                    this.Events.Add(new ChaosEvent(currentPlayerData, currentPlayerData.BattleField[i]));
-                }
-                for (int i = 0; i < opposingPlayerData.BattleField!.Count; i++)
-                {
-                    this.Events.Add(new ChaosEvent(opposingPlayerData, opposingPlayerData.BattleField[i]));
-                }
-            }
-
-            if (activatedCard.HasPower(Power.RESURRECT_ID))
-            {
-                this.Events.Add(new ResurrectEvent(currentPlayerData, activatedCard, match));
-            }
-
-            if (activatedCard.HasPower(Power.BOOST_ATTACK_ID)) //if current card has boost attack
-            {
-                foreach (var playableCard in currentPlayerData.BattleField)
-                {
-                    this.Events.Add(new BoostAttackEvent(currentPlayerData, playableCard, activatedCard.GetPowerValue(Power.BOOST_ATTACK_ID)));
-                }
-            }
-
-            if (activatedCard.HasPower(Power.HEAL_ID)) //if current card has healing
-            {
-                this.Events.Add(new HealEvent(currentPlayerData, activatedCard));
-            }
-
-            if (activatedCard.HasPower(Power.THIEF_ID))
-            {
-                this.Events.Add(new ThiefEvent(currentPlayerData, activatedCard, opposingPlayerData));
-            }
-
             if (!activatedCard.HasStatus(Status.STUNNED_ID))
             {
+                if (activatedCard.HasPower(Power.CHAOS_ID))
+                {
+
+                    for (int i = 0; i < currentPlayerData.BattleField.Count; i++)
+                    {
+                        this.Events.Add(new ChaosEvent(currentPlayerData, currentPlayerData.BattleField[i]));
+                    }
+
+                    for (int i = 0; i < opposingPlayerData.BattleField!.Count; i++)
+                    {
+                        this.Events.Add(new ChaosEvent(opposingPlayerData, opposingPlayerData.BattleField[i]));
+                    }
+                }
+
+                if (activatedCard.HasPower(Power.RESURRECT_ID))
+                {
+                    this.Events.Add(new ResurrectEvent(currentPlayerData, activatedCard, match));
+                }
+
+                if (activatedCard.HasPower(Power.BOOST_ATTACK_ID)) //if current card has boost attack
+                {
+                    foreach (var playableCard in currentPlayerData.BattleField)
+                    {
+                        this.Events.Add(new BoostAttackEvent(currentPlayerData, playableCard,
+                            activatedCard.GetPowerValue(Power.BOOST_ATTACK_ID)));
+                    }
+                }
+
+                if (activatedCard.HasPower(Power.HEAL_ID)) //if current card has healing
+                {
+                    this.Events.Add(new HealEvent(currentPlayerData, activatedCard));
+                }
+
+                if (activatedCard.HasPower(Power.THIEF_ID))
+                {
+                    this.Events.Add(new ThiefEvent(currentPlayerData, activatedCard, opposingPlayerData));
+                }
+
                 if (hasEnemyCardSameIndex) // there is enemy card
                 {
 
@@ -156,7 +163,6 @@ namespace Super_Cartes_Infinies.Combat
                     this.Events.Add(new PlayerDamageEvent(match, opposingPlayerData, activatedCard, currentPlayerData));
                 }
             }
-
         }
     }
 }

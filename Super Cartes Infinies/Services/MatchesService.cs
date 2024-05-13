@@ -156,8 +156,6 @@ namespace Super_Cartes_Infinies.Services
 
             var playerTurnEvent = new PlayerEndTurnEvent(match, currentPlayerData, opposingPlayerData, _matchConfigurationService.GetNbManaPerTurn());
 
-
-
             await db.SaveChangesAsync();
 
             return JsonSerializer.Serialize(playerTurnEvent as MatchEvent);

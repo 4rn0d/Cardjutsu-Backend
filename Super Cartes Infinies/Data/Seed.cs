@@ -488,6 +488,26 @@ namespace Super_Cartes_Infinies.Data
             };
         }
 
+        public static Status[] SeedTestStatus()
+        {
+            return new Status[]
+            {
+                new Status
+                {
+                    Id = 1,
+                    Name = "Stunned",
+                    Description = "La carte ne peut plus agir",
+                    Icon = ""
+                },
+                new Status
+                {
+                    Id = 2,
+                    Name = "Poisoned",
+                    Description = "La carte perd de la vie à chaque tour",
+                    Icon = ""
+                }
+            };
+        }
     }
 }
 
