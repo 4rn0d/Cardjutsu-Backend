@@ -5,22 +5,25 @@ namespace Super_Cartes_Infinies.Combat;
 public class EarthquakeEvent : MatchEvent
 {
     public int PlayerId { get; set; }
+    public int OpponentId { get; set; }
     public int PlayableCardId { get; set; }
+    public int Damage { get; set; }
 
     public EarthquakeEvent(MatchPlayerData currentPlayerData, MatchPlayerData opposingPlayerData, PlayableCard playableCard)
     {
         this.Events = new List<MatchEvent> { };
 
         this.PlayerId = currentPlayerData.PlayerId;
+        this.OpponentId = opposingPlayerData.PlayerId;
         this.PlayableCardId = playableCard.Id;
+        this.Damage = playableCard.GetPowerValue(Power.EARTHQUAKE_ID);
 
         for (int i = 0; i < currentPlayerData.BattleField.Count; i++)
         {
-            currentPlayerData.BattleField[i].Health -= playableCard.GetPowerValue(Power.EARTHQUAKE_ID);
+            currentPlayerData.BattleField[i].Health -= this.Damage;
             if (currentPlayerData.BattleField[i].Health <= 0)
             {
-                currentPlayerData.Graveyard.Add(currentPlayerData.BattleField[i]);
-                currentPlayerData.BattleField.RemoveAt(i);
+                this.Events.Add(new CardDeathEvent(currentPlayerData, currentPlayerData.BattleField[i]));
             }
         }
 
@@ -29,8 +32,7 @@ public class EarthquakeEvent : MatchEvent
             opposingPlayerData.BattleField[i].Health -= playableCard.GetPowerValue(Power.EARTHQUAKE_ID);
             if (opposingPlayerData.BattleField[i].Health <= 0)
             {
-                opposingPlayerData.Graveyard.Add(opposingPlayerData.BattleField[i]);
-                opposingPlayerData.BattleField.RemoveAt(i);
+                this.Events.Add(new CardDeathEvent(opposingPlayerData, opposingPlayerData.BattleField[i]));
             }
         }
 
