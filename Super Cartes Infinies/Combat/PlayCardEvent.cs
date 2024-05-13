@@ -42,7 +42,7 @@ namespace Super_Cartes_Infinies.Combat
                     if (playedcard.HasPower(Power.RANDOM_PAIN_ID))
                     {
                         PlayableCard randomCard = opposingPlayerData.BattleField[match.RandomNumberService.GetRandomNumber(opposingPlayerData.BattleField.Count, 0)];
-                        this.Events.Add(new RandomPainEvent(currentPlayerData, randomCard, playedcard));
+                        this.Events.Add(new RandomPainEvent(currentPlayerData,opposingPlayerData, randomCard, playedcard));
                     }
                 }
             }
