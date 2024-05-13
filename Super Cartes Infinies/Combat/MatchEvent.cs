@@ -28,6 +28,7 @@ namespace Super_Cartes_Infinies.Combat
     [JsonDerivedType(typeof(RandomPainEvent), typeDiscriminator: "RandomPain")]
     [JsonDerivedType(typeof(ResurrectEvent), typeDiscriminator: "Resurrect")]
     [JsonDerivedType(typeof(StunEvent), typeDiscriminator: "Stun")]
+    [JsonDerivedType(typeof(PoisonDamageEvent), typeDiscriminator: "PoisonDamage")]
 
     public abstract class MatchEvent
     {

@@ -29,6 +29,10 @@ public class StunEvent: MatchEvent
         else
         {
             opposingCard.DecreaseStatusValue(Status.STUNNED_ID, playableCard.GetPowerValue(Power.STUN_ID));
+            if (opposingCard.GetStatusValue(Status.STUNNED_ID) <= 0)
+            {
+                opposingCard.CardStatuses.Remove(opposingCard.CardStatuses.Find(x => x.Status.Id == Status.STUNNED_ID)!);
+            }
         }
         this.StunnedPlayableCardId = opposingCard.Id;
     }

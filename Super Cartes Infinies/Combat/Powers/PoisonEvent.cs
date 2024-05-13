@@ -9,8 +9,9 @@ public class PoisonEvent: MatchEvent
     public int DamagedPlayableCardId { get; set; }
     public int OpposingPlayableId { get; set; }
 
-    public PoisonEvent(MatchPlayerData playerData, PlayableCard playableCard, PlayableCard opposingCard)
+    public PoisonEvent(MatchPlayerData playerData, MatchPlayerData opponentData, PlayableCard playableCard, PlayableCard opposingCard, int poisonValue = 0)
     {
+        this.Events = new List<MatchEvent>();
         this.PlayerId = playerData.PlayerId;
         this.PlayableCardId = playableCard.Id;
         this.OpposingPlayableId = opposingCard.Id;
@@ -28,12 +29,14 @@ public class PoisonEvent: MatchEvent
 
             if (opposingCard.CardStatuses.Count != 0)
             {
-                opposingCard.Health -= playableCard.GetPowerValue(Power.POISON_ID);
+                int damage = playableCard.GetPowerValue(Power.POISON_ID);
+                this.Events.Add(new PoisonDamageEvent(opponentData, opposingCard, damage));
             }
         }
         else
         {
-            opposingCard.IncreaseStatusValue(Status.POISONED_ID, playableCard.GetPowerValue(Power.POISON_ID));
+            this.Events.Add(new PoisonDamageEvent(opponentData, opposingCard, poisonValue));
+            opposingCard.IncreaseStatusValue(Status.POISONED_ID, poisonValue);
         }
         this.DamagedPlayableCardId = opposingCard.Id;
     }

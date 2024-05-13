@@ -81,6 +81,7 @@ namespace Super_Cartes_Infinies.Combat
             this.PlayerId = currentPlayerData.PlayerId;
             this.PlayableCardId = activatedCard.Id;
 
+            int poisonDamage = 0;
             int indexCardCurrentPlayer = currentPlayerData.BattleField.IndexOf(activatedCard);
 
             bool hasEnemyCardSameIndex = false;
@@ -135,6 +136,8 @@ namespace Super_Cartes_Infinies.Combat
 
                     PlayableCard enemyCard = opposingPlayerData.BattleField[indexCardCurrentPlayer];
 
+                    poisonDamage = enemyCard.GetPowerValue(Power.POISON_ID);
+
                     bool enemyThorns = Thorns(opposingPlayerData, enemyCard, currentPlayerData, activatedCard);
                     bool currentFS = FirstStrike(opposingPlayerData, enemyCard, activatedCard, currentPlayerData);
 
@@ -145,12 +148,12 @@ namespace Super_Cartes_Infinies.Combat
 
                     if (activatedCard.HasPower(Power.POISON_ID))
                     {
-                        this.Events.Add(new PoisonEvent(currentPlayerData, activatedCard, enemyCard));
+                        this.Events.Add(new PoisonEvent(currentPlayerData, opposingPlayerData, activatedCard, enemyCard));
                     }
 
                     if (enemyCard.HasPower(Power.POISON_ID))
                     {
-                        this.Events.Add(new PoisonEvent(opposingPlayerData, enemyCard, activatedCard));
+                        this.Events.Add(new PoisonEvent(opposingPlayerData, currentPlayerData, enemyCard, activatedCard));
                     }
 
                     if (activatedCard.HasPower(Power.STUN_ID))
@@ -161,6 +164,11 @@ namespace Super_Cartes_Infinies.Combat
                 else
                 {
                     this.Events.Add(new PlayerDamageEvent(match, opposingPlayerData, activatedCard, currentPlayerData));
+
+                    if (activatedCard.HasStatus(Status.POISONED_ID))
+                    {
+                        this.Events.Add(new PoisonEvent(currentPlayerData, opposingPlayerData, activatedCard, activatedCard, poisonDamage));
+                    }
                 }
             }
         }
