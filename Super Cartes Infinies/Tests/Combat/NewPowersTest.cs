@@ -120,6 +120,7 @@ namespace Super_Cartes_Infinies.Tests.Combat
 
             _playableCardA.CardStatuses = new List<PlayableCardStatus>();
             _playableCardB.CardStatuses = new List<PlayableCardStatus>();
+            _playableCardC.CardStatuses = new List<PlayableCardStatus>();
 
             _currentPlayerData.BattleField.Add(_playableCardA);
             _currentPlayerData.Graveyard.Add(_playableCardB);
@@ -186,7 +187,7 @@ namespace Super_Cartes_Infinies.Tests.Combat
             var playerEndTurnEvent2 = new PlayerEndTurnEvent(_match, _opposingPlayerData, _currentPlayerData, NB_MANA_PER_TURN);
 
             Assert.IsTrue(_playableCardB.HasStatus(Status.POISONED_ID));
-            Assert.AreEqual(startingHealthB - cardPower.Value, _playableCardB.Health);
+            Assert.AreEqual(startingHealthB - cardPower.Value - cardPower.Value, _playableCardB.Health);
             Assert.AreEqual(cardPower.Value + cardPower.Value, _playableCardB.GetStatusValue(Status.POISONED_ID));
 
         }
