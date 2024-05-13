@@ -115,7 +115,7 @@ namespace Super_Cartes_Infinies.Combat
                 {
                     foreach (var playableCard in currentPlayerData.BattleField)
                     {
-                        this.Events.Add(new BoostAttackEvent(currentPlayerData, playableCard,
+                        this.Events.Insert(0, new BoostAttackEvent(currentPlayerData, playableCard,
                             activatedCard.GetPowerValue(Power.BOOST_ATTACK_ID)));
                     }
                 }
