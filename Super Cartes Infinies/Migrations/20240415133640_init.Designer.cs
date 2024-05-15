@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Super_Cartes_Infinies.Data;
@@ -11,8 +12,8 @@ using Super_Cartes_Infinies.Data;
 namespace Super_Cartes_Infinies.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240501194413_initSQLite")]
-    partial class initSQLite
+    [Migration("20240415133640_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -22,15 +23,18 @@ namespace Super_Cartes_Infinies.Migrations
                 .HasAnnotation("ProductVersion", "7.0.17")
                 .HasAnnotation("Proxies:ChangeTracking", false)
                 .HasAnnotation("Proxies:CheckEquality", false)
-                .HasAnnotation("Proxies:LazyLoading", true);
+                .HasAnnotation("Proxies:LazyLoading", true)
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("DeckOwnedCard", b =>
                 {
                     b.Property<int>("OwnedCardsId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int>("decksId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.HasKey("OwnedCardsId", "decksId");
 
@@ -42,25 +46,26 @@ namespace Super_Cartes_Infinies.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("NormalizedName")
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
-                        .HasDatabaseName("RoleNameIndex");
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
 
@@ -77,17 +82,19 @@ namespace Super_Cartes_Infinies.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RoleId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -99,54 +106,54 @@ namespace Super_Cartes_Infinies.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("AccessFailedCount")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bit");
 
                     b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bit");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("PasswordHash")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bit");
 
                     b.Property<string>("SecurityStamp")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bit");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
 
@@ -155,7 +162,8 @@ namespace Super_Cartes_Infinies.Migrations
 
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
-                        .HasDatabaseName("UserNameIndex");
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
 
@@ -164,37 +172,37 @@ namespace Super_Cartes_Infinies.Migrations
                         {
                             Id = "User1Id",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "3cf09a92-1b19-48f4-ad73-54e784a83782",
+                            ConcurrencyStamp = "82aae080-64a8-4610-bac9-d0905836a140",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "4d065859-a6a3-4444-8aa2-c214b6eb736a",
+                            SecurityStamp = "c65b536a-79c9-4236-a88a-711a77c273a4",
                             TwoFactorEnabled = false
                         },
                         new
                         {
                             Id = "User2Id",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9d547ed6-1b8f-43b9-9586-458cf9ce4388",
+                            ConcurrencyStamp = "4af3cbd5-1edf-4c04-8dac-cd0f5770b3aa",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "25e1136e-90e1-4aed-a402-f35f7adf2df9",
+                            SecurityStamp = "19ff5d36-995c-44e2-804c-f5b228858d27",
                             TwoFactorEnabled = false
                         },
                         new
                         {
                             Id = "11111111-1111-1111-1111-111111111111",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d5b30cc9-1829-4bc6-8342-5536226c22a3",
+                            ConcurrencyStamp = "9a9f7ade-b12b-48f1-85e4-5d3b5a730d5c",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEOK1YIUbOV7VYzmOM62hJP2RRZLowkSNzZY9Cq80SjIL0FLy1oEEQq2KzPV8ufJfww==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEOu/cV/ZtbrQu0wUuwMIE8EWb0WrWdSXBypnAuLfA2Ak7TvSwgeSMe8C3AT/pVuZ6Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "87e5be6e-3af4-49e9-87ea-f9dc2683859b",
+                            SecurityStamp = "45679162-f32b-4741-b919-bda922c185fd",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         });
@@ -204,17 +212,19 @@ namespace Super_Cartes_Infinies.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -227,18 +237,18 @@ namespace Super_Cartes_Infinies.Migrations
                 {
                     b.Property<string>("LoginProvider")
                         .HasMaxLength(128)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ProviderKey")
                         .HasMaxLength(128)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ProviderDisplayName")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("LoginProvider", "ProviderKey");
 
@@ -250,10 +260,10 @@ namespace Super_Cartes_Infinies.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("RoleId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("UserId", "RoleId");
 
@@ -272,18 +282,18 @@ namespace Super_Cartes_Infinies.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
                         .HasMaxLength(128)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Name")
                         .HasMaxLength(128)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Value")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
@@ -294,31 +304,33 @@ namespace Super_Cartes_Infinies.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("Attack")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<string>("Colour")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Cost")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int>("Health")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<string>("ImageUrl")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("PlayerId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -343,56 +355,56 @@ namespace Super_Cartes_Infinies.Migrations
                             Attack = 2,
                             Colour = "Green",
                             Cost = 3,
-                            Health = 4,
+                            Health = 3,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/b/b2/COFFEE_SHOP_card_image.png",
                             Name = "Coffee Shop"
                         },
                         new
                         {
                             Id = 3,
-                            Attack = 2,
+                            Attack = 8,
                             Colour = "Green",
-                            Cost = 1,
-                            Health = 1,
+                            Cost = 3,
+                            Health = 3,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/2/22/ASTRO_BARRIER_card_image.png",
                             Name = "Astro Barrier"
                         },
                         new
                         {
                             Id = 4,
-                            Attack = 7,
+                            Attack = 3,
                             Colour = "Orange",
-                            Cost = 4,
-                            Health = 6,
+                            Cost = 3,
+                            Health = 3,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/3/3d/HOT_CHOCOLATE_card_image.png",
                             Name = "Hot Chocolate"
                         },
                         new
                         {
                             Id = 5,
-                            Attack = 8,
+                            Attack = 4,
                             Colour = "Violet",
-                            Cost = 5,
-                            Health = 8,
+                            Cost = 3,
+                            Health = 3,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/d/d2/LANDING_PAD_card_image.png",
                             Name = "Landing Pad"
                         },
                         new
                         {
                             Id = 6,
-                            Attack = 4,
+                            Attack = 6,
                             Colour = "Violet",
                             Cost = 3,
-                            Health = 2,
+                            Health = 4,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/5/57/PIZZA_CHEF_card_image.png",
                             Name = "Pizza Chef"
                         },
                         new
                         {
                             Id = 7,
-                            Attack = 6,
+                            Attack = 2,
                             Colour = "Red",
-                            Cost = 4,
+                            Cost = 3,
                             Health = 3,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/b/b5/PAINT_BY_LETTERS_card_image.png",
                             Name = "Paint by Letters"
@@ -400,30 +412,30 @@ namespace Super_Cartes_Infinies.Migrations
                         new
                         {
                             Id = 8,
-                            Attack = 1,
+                            Attack = 7,
                             Colour = "Red",
-                            Cost = 2,
-                            Health = 9,
+                            Cost = 3,
+                            Health = 3,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/3/30/MINE_card_image.png",
                             Name = "Mine"
                         },
                         new
                         {
                             Id = 9,
-                            Attack = 4,
+                            Attack = 2,
                             Colour = "Yellow",
-                            Cost = 2,
-                            Health = 2,
+                            Cost = 1,
+                            Health = 1,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/a/a5/CONSTRUCTION_WORKER_card_image.png",
                             Name = "Construction Worker"
                         },
                         new
                         {
                             Id = 10,
-                            Attack = 6,
+                            Attack = 5,
                             Colour = "Yellow",
-                            Cost = 2,
-                            Health = 1,
+                            Cost = 3,
+                            Health = 3,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/1/13/JET_PACK_ADVENTURE_card_image.png",
                             Name = "Jetpack Adventure"
                         },
@@ -443,87 +455,87 @@ namespace Super_Cartes_Infinies.Migrations
                             Attack = 2,
                             Colour = "Green",
                             Cost = 3,
-                            Health = 4,
+                            Health = 3,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/7/72/HIKING_IN_THE_FOREST_card_image.png",
                             Name = "Hiking in the Forest"
                         },
                         new
                         {
                             Id = 13,
-                            Attack = 2,
+                            Attack = 5,
                             Colour = "Green",
-                            Cost = 1,
-                            Health = 1,
+                            Cost = 3,
+                            Health = 3,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/a/a6/RESCUE_SQUAD_card_image.png",
                             Name = "Rescue Squad"
                         },
                         new
                         {
                             Id = 14,
-                            Attack = 7,
+                            Attack = 3,
                             Colour = "Orange",
                             Cost = 4,
-                            Health = 6,
+                            Health = 3,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/b/b3/PET_SHOP_card_image.png",
                             Name = "Pet Shop"
                         },
                         new
                         {
                             Id = 15,
-                            Attack = 8,
+                            Attack = 4,
                             Colour = "Violet",
-                            Cost = 5,
-                            Health = 8,
+                            Cost = 3,
+                            Health = 3,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/c/c3/SKI_VILLAGE_card_image.png",
                             Name = "Ski Village"
                         },
                         new
                         {
                             Id = 16,
-                            Attack = 4,
+                            Attack = 8,
                             Colour = "Violet",
                             Cost = 3,
-                            Health = 2,
+                            Health = 3,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/f/f4/ICE_HOCKEY_card_image.png",
                             Name = "Ice Hockey"
                         },
                         new
                         {
                             Id = 17,
-                            Attack = 6,
+                            Attack = 2,
                             Colour = "Red",
-                            Cost = 4,
-                            Health = 3,
+                            Cost = 5,
+                            Health = 8,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/c/c1/SKI_HILL_card_image.png",
                             Name = "Ski Hill"
                         },
                         new
                         {
                             Id = 18,
-                            Attack = 1,
+                            Attack = 6,
                             Colour = "Red",
-                            Cost = 2,
-                            Health = 9,
+                            Cost = 3,
+                            Health = 3,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/f/f5/SNOWBALL_FIGHT_card_image.png",
                             Name = "Snowball Fight"
                         },
                         new
                         {
                             Id = 19,
-                            Attack = 4,
+                            Attack = 2,
                             Colour = "Yellow",
-                            Cost = 2,
-                            Health = 2,
+                            Cost = 3,
+                            Health = 3,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/1/13/SNOW_FORTS_card_image.png",
                             Name = "Snow Forts"
                         },
                         new
                         {
                             Id = 20,
-                            Attack = 6,
+                            Attack = 7,
                             Colour = "Yellow",
-                            Cost = 2,
-                            Health = 1,
+                            Cost = 3,
+                            Health = 2,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/9/97/SOCCER_card_image.png",
                             Name = "Soccer"
                         },
@@ -540,10 +552,10 @@ namespace Super_Cartes_Infinies.Migrations
                         new
                         {
                             Id = 22,
-                            Attack = 2,
+                            Attack = 5,
                             Colour = "Blue",
-                            Cost = 3,
-                            Health = 4,
+                            Cost = 4,
+                            Health = 3,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/1/1a/FOOTBALL_card_image.png",
                             Name = "Football"
                         },
@@ -552,28 +564,28 @@ namespace Super_Cartes_Infinies.Migrations
                             Id = 23,
                             Attack = 2,
                             Colour = "Green",
-                            Cost = 1,
-                            Health = 1,
+                            Cost = 2,
+                            Health = 9,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/f/f0/BASEBALL_card_image.png",
                             Name = "Baseball"
                         },
                         new
                         {
                             Id = 24,
-                            Attack = 7,
+                            Attack = 8,
                             Colour = "Green",
-                            Cost = 4,
-                            Health = 6,
+                            Cost = 3,
+                            Health = 3,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/5/52/EMERALD_PRINCESS_card_image.png",
                             Name = "Emerald Princess"
                         },
                         new
                         {
                             Id = 25,
-                            Attack = 8,
+                            Attack = 3,
                             Colour = "Orange",
-                            Cost = 5,
-                            Health = 8,
+                            Cost = 3,
+                            Health = 3,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/6/6b/BEAN_COUNTERS_card_image.png",
                             Name = "Bean Counters"
                         },
@@ -582,7 +594,7 @@ namespace Super_Cartes_Infinies.Migrations
                             Id = 26,
                             Attack = 4,
                             Colour = "Violet",
-                            Cost = 3,
+                            Cost = 2,
                             Health = 2,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/e/e8/MANHOLE_COVER_card_image.png",
                             Name = "Manhole Cover"
@@ -593,16 +605,18 @@ namespace Super_Cartes_Infinies.Migrations
                 {
                     b.Property<int>("CardPowerId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CardPowerId"));
 
                     b.Property<int>("CardId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int>("PowerId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int>("Value")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.HasKey("CardPowerId");
 
@@ -617,10 +631,12 @@ namespace Super_Cartes_Infinies.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("CardId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -680,19 +696,21 @@ namespace Super_Cartes_Infinies.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("ManaPerRound")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int>("NbCardsStart")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int>("NbCarteParDeck")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int>("NbDecks")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -713,20 +731,22 @@ namespace Super_Cartes_Infinies.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("DeckName")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsCurrentDeck")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bit");
 
                     b.Property<int>("PlayerId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int?>("PlayerId1")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -741,30 +761,32 @@ namespace Super_Cartes_Infinies.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("IsMatchCompleted")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bit");
 
                     b.Property<bool>("IsPlayerATurn")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bit");
 
                     b.Property<int>("PlayerDataAId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int>("PlayerDataBId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<string>("UserAId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserBId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("WinnerUserId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -779,16 +801,18 @@ namespace Super_Cartes_Infinies.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("Health")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int>("Mana")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int>("PlayerId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -801,13 +825,15 @@ namespace Super_Cartes_Infinies.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("CardId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int>("PlayerId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -822,31 +848,30 @@ namespace Super_Cartes_Infinies.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("Attack")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int>("CardId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int>("Health")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int?>("MatchPlayerDataId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int?>("MatchPlayerDataId1")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int?>("MatchPlayerDataId2")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int?>("MatchPlayerDataId3")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("OrdreId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -867,15 +892,17 @@ namespace Super_Cartes_Infinies.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("IdentityUserId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -902,22 +929,24 @@ namespace Super_Cartes_Infinies.Migrations
                 {
                     b.Property<int>("PowerId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PowerId"));
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("HasValue")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bit");
 
                     b.Property<string>("Icone")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("PowerId");
 
@@ -947,14 +976,6 @@ namespace Super_Cartes_Infinies.Migrations
                             HasValue = true,
                             Icone = "https://cdnb.artstation.com/p/assets/images/images/059/650/103/large/mackenzie-miller-healthpotion.jpg?1676863888",
                             Name = "Heal"
-                        },
-                        new
-                        {
-                            PowerId = 4,
-                            Description = "Vole le mana de l'adversaire",
-                            HasValue = false,
-                            Icone = "https://cdn-icons-png.flaticon.com/512/843/843332.png",
-                            Name = "Thief"
                         });
                 });
 

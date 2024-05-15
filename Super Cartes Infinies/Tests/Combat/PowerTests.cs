@@ -42,7 +42,7 @@ namespace Tests.Services
 
             Assert.AreEqual(_currentPlayerData.PlayerId, playerTurnEvent.PlayerId);
 
-            Assert.AreEqual(2, _playableCardA.Health);
+            Assert.AreEqual(3, _playableCardA.Health);
             Assert.AreEqual(0, _playableCardB.Health);
         }
 
@@ -89,7 +89,6 @@ namespace Tests.Services
                 Card = _cardB,
                 Value = 3
             };
-            _cardA.CardPowers = new List<CardPower> { cardPower };
             _cardB.CardPowers = new List<CardPower> { cardPower };
 
             _currentPlayerData.BattleField.Add(_playableCardA);
@@ -106,8 +105,9 @@ namespace Tests.Services
             Assert.IsTrue(_cardA.Health - cardPower.Value <= 0);
 
             Assert.AreEqual(_cardA.Health - cardPower.Value, _playableCardA.Health);
+            Assert.AreEqual(_cardB.Health, _playableCardB.Health);
 
-            // AssertCurrentPlayerCardDied();
+            AssertCurrentPlayerCardDied();
         }
 
         [TestMethod]

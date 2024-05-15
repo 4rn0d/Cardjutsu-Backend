@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Super_Cartes_Infinies.Data;
 
@@ -11,9 +12,11 @@ using Super_Cartes_Infinies.Data;
 namespace Super_Cartes_Infinies.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240415213421_coulours")]
+    partial class coulours
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,7 +40,7 @@ namespace Super_Cartes_Infinies.Migrations
 
                     b.HasIndex("decksId");
 
-                    b.ToTable("DeckOwnedCard", (string)null);
+                    b.ToTable("DeckOwnedCard");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -167,179 +170,41 @@ namespace Super_Cartes_Infinies.Migrations
                     b.HasData(
                         new
                         {
+                            Id = "User1Id",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "03682bb1-4bd9-4bb4-ac3a-9855ba15b7db",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "74e16b3a-94b5-4847-a610-4511d287e067",
+                            TwoFactorEnabled = false
+                        },
+                        new
+                        {
+                            Id = "User2Id",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "99355001-b107-4835-bfa9-353901f98a25",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "cfa1a9f6-2b24-4332-9205-4f0535745b11",
+                            TwoFactorEnabled = false
+                        },
+                        new
+                        {
                             Id = "11111111-1111-1111-1111-111111111111",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f1030293-e485-43b9-8bb4-846989501ca7",
+                            ConcurrencyStamp = "cd182fec-f5e9-465e-87e2-8c0237c1931d",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEDW5S+EhhJxJEz+0vM1tWKk+kRWHF/tmHh5XPao4/wL3Th/Fx2p2LfFPqz92M4rXDw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEKPlFHJoISqag0jS91ioBOGyesDvyqUeV73AOjUtfHThpHHnOUJz70xy3+ZbiJoUxw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "be8bf105-5f1f-42f0-9840-793e62f08590",
+                            SecurityStamp = "6271b21a-6931-4580-9a9b-2ca38a6cb2c2",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
-                        },
-                        new
-                        {
-                            Id = "11111111-1111-1111-1111-111111111112",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "0129a83c-99c8-4473-8764-b6928c10b6bc",
-                            Email = "player1@aol.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = true,
-                            NormalizedEmail = "PLAYER1@AOL.COM",
-                            NormalizedUserName = "PLAYER1@AOL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEMLhuGz7HN1CkXsrTgtMzymDOmEgkaD78puDTJxzgptCDZZXl0tVYasXqvJSDiKZNg==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "cb9afd24-8064-4ed7-a746-c2b4546c2e8a",
-                            TwoFactorEnabled = false,
-                            UserName = "player1@aol.com"
-                        },
-                        new
-                        {
-                            Id = "11111111-1111-1111-1111-111111111113",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "7562015f-cb24-468c-9b3a-2eb06b0f7c06",
-                            Email = "player2@aol.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = true,
-                            NormalizedEmail = "PLAYER2@AOL.COM",
-                            NormalizedUserName = "PLAYER2@AOL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAELDHJ4UTHjaiicBekpWC7I1eB84GH5DbSv4Wixpkc6aMzkbKR554giT9GoxUUKaVaw==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "1ff79973-4761-40ac-bb70-dec76f703e39",
-                            TwoFactorEnabled = false,
-                            UserName = "player2@aol.com"
-                        },
-                        new
-                        {
-                            Id = "11111111-1111-1111-1111-111111111114",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "d6133bd5-341d-49c1-aaf7-f4c0663244d9",
-                            Email = "player3@aol.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = true,
-                            NormalizedEmail = "PLAYER3@AOL.COM",
-                            NormalizedUserName = "PLAYER3@AOL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEM7xLNGU5S6y5XsM6Hjb+F7gv8sLEaW3+2VD/Fpev/d3RRezv6BX5hjVKZt0c8dCig==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "c6bb8e11-599e-4b19-b5f5-f4df0b26fa1d",
-                            TwoFactorEnabled = false,
-                            UserName = "player3@aol.com"
-                        },
-                        new
-                        {
-                            Id = "11111111-1111-1111-1111-111111111115",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "27a73def-ae73-46c4-97b8-39dafbf27f71",
-                            Email = "player4@aol.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = true,
-                            NormalizedEmail = "PLAYER4@AOL.COM",
-                            NormalizedUserName = "PLAYER4@AOL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEJCSStLWpFhBWxAqG+AkfiXNZ++UAqJzM4J7JMCraWwu3JQkveYG8OkrifPQmg1S/w==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "e6692af3-17a6-4709-a99b-36fbed7dd827",
-                            TwoFactorEnabled = false,
-                            UserName = "player4@aol.com"
-                        },
-                        new
-                        {
-                            Id = "11111111-1111-1111-1111-111111111116",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "b2c8377b-b65c-4c4a-a481-da867286e791",
-                            Email = "player5@aol.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = true,
-                            NormalizedEmail = "PLAYER5@AOL.COM",
-                            NormalizedUserName = "PLAYER5@AOL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEFjVclN/8wiELsLGpJfRYdeKdGRNJulPOwyN2q8zj52XK2+tAV+mw7hFBbWHPOEQ9Q==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "ec1680b5-e09a-49b1-8964-521f39fe38d8",
-                            TwoFactorEnabled = false,
-                            UserName = "player5@aol.com"
-                        },
-                        new
-                        {
-                            Id = "11111111-1111-1111-1111-111111111117",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "a9dcaeb3-0785-4ba0-ab26-2e3b1fab703c",
-                            Email = "player6@aol.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = true,
-                            NormalizedEmail = "PLAYER6@AOL.COM",
-                            NormalizedUserName = "PLAYER6@AOL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEGweN3P5YNS1qj30kxKIb5sX0GBwBgaocOZsDwi2bek9naKhDVBrrZ9xSrCLDpJcKg==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "8874f5e5-f338-4af3-9fe2-5961212588c1",
-                            TwoFactorEnabled = false,
-                            UserName = "player6@aol.com"
-                        },
-                        new
-                        {
-                            Id = "11111111-1111-1111-1111-111111111118",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "a6ad64d2-7991-45f3-ac9f-4c4b8126a994",
-                            Email = "player7@aol.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = true,
-                            NormalizedEmail = "PLAYER7@AOL.COM",
-                            NormalizedUserName = "PLAYER7@AOL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEA189l7IpUr6El08H0fLGaWUGu3M1wZLw3oxsvVk1xNF1rdZ4DSxDwpRkpCb/1YoEw==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "51a34b04-8f72-4e13-af47-587944b721c1",
-                            TwoFactorEnabled = false,
-                            UserName = "player7@aol.com"
-                        },
-                        new
-                        {
-                            Id = "11111111-1111-1111-1111-111111111119",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "b66eccb3-6627-4223-8700-d6e8e0e8e6ff",
-                            Email = "player8@aol.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = true,
-                            NormalizedEmail = "PLAYER8@AOL.COM",
-                            NormalizedUserName = "PLAYER8@AOL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEDLLQM5Dc+PCfj/Oz0hHifHAgcscadd9KE8hEtE/8/IGAmGjORG1E4nSZ+E5K34MuA==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "eb80812b-3568-447b-8e8e-c5ada80ebdf7",
-                            TwoFactorEnabled = false,
-                            UserName = "player8@aol.com"
-                        },
-                        new
-                        {
-                            Id = "11111111-1111-1111-1111-111111111120",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "01e7c638-f3b4-4e5f-91bb-903336a02b86",
-                            Email = "player9@aol.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = true,
-                            NormalizedEmail = "PLAYER9@AOL.COM",
-                            NormalizedUserName = "PLAYER9@AOL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEKoDa2F727UV47vcxA2h/M5Jm5JIh+i9n1lDwkS/ieYp88r7QxwCFWDnSPyk/4gNdQ==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "eb98a390-ce90-45d6-92ba-9ddf9b80f92f",
-                            TwoFactorEnabled = false,
-                            UserName = "player9@aol.com"
-                        },
-                        new
-                        {
-                            Id = "11111111-1111-1111-1111-111111111121",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "333ce92e-63b7-4b58-9d34-ecaf78c5862b",
-                            Email = "player10@aol.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = true,
-                            NormalizedEmail = "PLAYER10@AOL.COM",
-                            NormalizedUserName = "PLAYER10@AOL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAECobIyob+GULc/r7eLa4rw6d/iThrYiHSqyOMQGm4/1PPi+v51a4FbG50cLyucOqqw==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "d7aec882-0cc1-4a22-9f56-db2e96ed76e4",
-                            TwoFactorEnabled = false,
-                            UserName = "player10@aol.com"
                         });
                 });
 
@@ -471,7 +336,7 @@ namespace Super_Cartes_Infinies.Migrations
 
                     b.HasIndex("PlayerId");
 
-                    b.ToTable("Cards", (string)null);
+                    b.ToTable("Cards");
 
                     b.HasData(
                         new
@@ -490,56 +355,56 @@ namespace Super_Cartes_Infinies.Migrations
                             Attack = 2,
                             Colour = "Green",
                             Cost = 3,
-                            Health = 4,
+                            Health = 3,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/b/b2/COFFEE_SHOP_card_image.png",
                             Name = "Coffee Shop"
                         },
                         new
                         {
                             Id = 3,
-                            Attack = 2,
+                            Attack = 8,
                             Colour = "Green",
-                            Cost = 1,
-                            Health = 1,
+                            Cost = 3,
+                            Health = 3,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/2/22/ASTRO_BARRIER_card_image.png",
                             Name = "Astro Barrier"
                         },
                         new
                         {
                             Id = 4,
-                            Attack = 7,
+                            Attack = 3,
                             Colour = "Orange",
-                            Cost = 4,
-                            Health = 6,
+                            Cost = 3,
+                            Health = 3,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/3/3d/HOT_CHOCOLATE_card_image.png",
                             Name = "Hot Chocolate"
                         },
                         new
                         {
                             Id = 5,
-                            Attack = 8,
+                            Attack = 4,
                             Colour = "Violet",
-                            Cost = 5,
-                            Health = 8,
+                            Cost = 3,
+                            Health = 3,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/d/d2/LANDING_PAD_card_image.png",
                             Name = "Landing Pad"
                         },
                         new
                         {
                             Id = 6,
-                            Attack = 4,
+                            Attack = 6,
                             Colour = "Violet",
                             Cost = 3,
-                            Health = 2,
+                            Health = 4,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/5/57/PIZZA_CHEF_card_image.png",
                             Name = "Pizza Chef"
                         },
                         new
                         {
                             Id = 7,
-                            Attack = 6,
+                            Attack = 2,
                             Colour = "Red",
-                            Cost = 4,
+                            Cost = 3,
                             Health = 3,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/b/b5/PAINT_BY_LETTERS_card_image.png",
                             Name = "Paint by Letters"
@@ -547,30 +412,30 @@ namespace Super_Cartes_Infinies.Migrations
                         new
                         {
                             Id = 8,
-                            Attack = 1,
+                            Attack = 7,
                             Colour = "Red",
-                            Cost = 2,
-                            Health = 9,
+                            Cost = 3,
+                            Health = 3,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/3/30/MINE_card_image.png",
                             Name = "Mine"
                         },
                         new
                         {
                             Id = 9,
-                            Attack = 4,
+                            Attack = 2,
                             Colour = "Yellow",
-                            Cost = 2,
-                            Health = 2,
+                            Cost = 1,
+                            Health = 1,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/a/a5/CONSTRUCTION_WORKER_card_image.png",
                             Name = "Construction Worker"
                         },
                         new
                         {
                             Id = 10,
-                            Attack = 6,
+                            Attack = 5,
                             Colour = "Yellow",
-                            Cost = 2,
-                            Health = 1,
+                            Cost = 3,
+                            Health = 3,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/1/13/JET_PACK_ADVENTURE_card_image.png",
                             Name = "Jetpack Adventure"
                         },
@@ -590,87 +455,87 @@ namespace Super_Cartes_Infinies.Migrations
                             Attack = 2,
                             Colour = "Green",
                             Cost = 3,
-                            Health = 4,
+                            Health = 3,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/7/72/HIKING_IN_THE_FOREST_card_image.png",
                             Name = "Hiking in the Forest"
                         },
                         new
                         {
                             Id = 13,
-                            Attack = 2,
+                            Attack = 5,
                             Colour = "Green",
-                            Cost = 1,
-                            Health = 1,
+                            Cost = 3,
+                            Health = 3,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/a/a6/RESCUE_SQUAD_card_image.png",
                             Name = "Rescue Squad"
                         },
                         new
                         {
                             Id = 14,
-                            Attack = 7,
+                            Attack = 3,
                             Colour = "Orange",
                             Cost = 4,
-                            Health = 6,
+                            Health = 3,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/b/b3/PET_SHOP_card_image.png",
                             Name = "Pet Shop"
                         },
                         new
                         {
                             Id = 15,
-                            Attack = 8,
+                            Attack = 4,
                             Colour = "Violet",
-                            Cost = 5,
-                            Health = 8,
+                            Cost = 3,
+                            Health = 3,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/c/c3/SKI_VILLAGE_card_image.png",
                             Name = "Ski Village"
                         },
                         new
                         {
                             Id = 16,
-                            Attack = 4,
+                            Attack = 8,
                             Colour = "Violet",
                             Cost = 3,
-                            Health = 2,
+                            Health = 3,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/f/f4/ICE_HOCKEY_card_image.png",
                             Name = "Ice Hockey"
                         },
                         new
                         {
                             Id = 17,
-                            Attack = 6,
+                            Attack = 2,
                             Colour = "Red",
-                            Cost = 4,
-                            Health = 3,
+                            Cost = 5,
+                            Health = 8,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/c/c1/SKI_HILL_card_image.png",
                             Name = "Ski Hill"
                         },
                         new
                         {
                             Id = 18,
-                            Attack = 1,
+                            Attack = 6,
                             Colour = "Red",
-                            Cost = 2,
-                            Health = 9,
+                            Cost = 3,
+                            Health = 3,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/f/f5/SNOWBALL_FIGHT_card_image.png",
                             Name = "Snowball Fight"
                         },
                         new
                         {
                             Id = 19,
-                            Attack = 4,
+                            Attack = 2,
                             Colour = "Yellow",
-                            Cost = 2,
-                            Health = 2,
+                            Cost = 3,
+                            Health = 3,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/1/13/SNOW_FORTS_card_image.png",
                             Name = "Snow Forts"
                         },
                         new
                         {
                             Id = 20,
-                            Attack = 6,
+                            Attack = 7,
                             Colour = "Yellow",
-                            Cost = 2,
-                            Health = 1,
+                            Cost = 3,
+                            Health = 2,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/9/97/SOCCER_card_image.png",
                             Name = "Soccer"
                         },
@@ -687,10 +552,10 @@ namespace Super_Cartes_Infinies.Migrations
                         new
                         {
                             Id = 22,
-                            Attack = 2,
+                            Attack = 5,
                             Colour = "Blue",
-                            Cost = 3,
-                            Health = 4,
+                            Cost = 4,
+                            Health = 3,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/1/1a/FOOTBALL_card_image.png",
                             Name = "Football"
                         },
@@ -699,28 +564,28 @@ namespace Super_Cartes_Infinies.Migrations
                             Id = 23,
                             Attack = 2,
                             Colour = "Green",
-                            Cost = 1,
-                            Health = 1,
+                            Cost = 2,
+                            Health = 9,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/f/f0/BASEBALL_card_image.png",
                             Name = "Baseball"
                         },
                         new
                         {
                             Id = 24,
-                            Attack = 7,
+                            Attack = 8,
                             Colour = "Green",
-                            Cost = 4,
-                            Health = 6,
+                            Cost = 3,
+                            Health = 3,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/5/52/EMERALD_PRINCESS_card_image.png",
                             Name = "Emerald Princess"
                         },
                         new
                         {
                             Id = 25,
-                            Attack = 8,
+                            Attack = 3,
                             Colour = "Orange",
-                            Cost = 5,
-                            Health = 8,
+                            Cost = 3,
+                            Health = 3,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/6/6b/BEAN_COUNTERS_card_image.png",
                             Name = "Bean Counters"
                         },
@@ -729,7 +594,7 @@ namespace Super_Cartes_Infinies.Migrations
                             Id = 26,
                             Attack = 4,
                             Colour = "Violet",
-                            Cost = 3,
+                            Cost = 2,
                             Health = 2,
                             ImageUrl = "https://static.wikia.nocookie.net/clubpenguin/images/e/e8/MANHOLE_COVER_card_image.png",
                             Name = "Manhole Cover"
@@ -759,7 +624,7 @@ namespace Super_Cartes_Infinies.Migrations
 
                     b.HasIndex("PowerId");
 
-                    b.ToTable("CardPower", (string)null);
+                    b.ToTable("CardPower");
                 });
 
             modelBuilder.Entity("Super_Cartes_Infinies.Models.CardStart", b =>
@@ -777,7 +642,7 @@ namespace Super_Cartes_Infinies.Migrations
 
                     b.HasIndex("CardId");
 
-                    b.ToTable("CardStart", (string)null);
+                    b.ToTable("CardStart");
 
                     b.HasData(
                         new
@@ -849,7 +714,7 @@ namespace Super_Cartes_Infinies.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Config", (string)null);
+                    b.ToTable("Config");
 
                     b.HasData(
                         new
@@ -889,7 +754,7 @@ namespace Super_Cartes_Infinies.Migrations
 
                     b.HasIndex("PlayerId1");
 
-                    b.ToTable("Decks", (string)null);
+                    b.ToTable("Decks");
                 });
 
             modelBuilder.Entity("Super_Cartes_Infinies.Models.Match", b =>
@@ -929,7 +794,7 @@ namespace Super_Cartes_Infinies.Migrations
 
                     b.HasIndex("PlayerDataBId");
 
-                    b.ToTable("Matches", (string)null);
+                    b.ToTable("Matches");
                 });
 
             modelBuilder.Entity("Super_Cartes_Infinies.Models.MatchPlayerData", b =>
@@ -953,7 +818,7 @@ namespace Super_Cartes_Infinies.Migrations
 
                     b.HasIndex("PlayerId");
 
-                    b.ToTable("MatchPlayersData", (string)null);
+                    b.ToTable("MatchPlayersData");
                 });
 
             modelBuilder.Entity("Super_Cartes_Infinies.Models.OwnedCard", b =>
@@ -976,7 +841,7 @@ namespace Super_Cartes_Infinies.Migrations
 
                     b.HasIndex("PlayerId");
 
-                    b.ToTable("OwnedCards", (string)null);
+                    b.ToTable("OwnedCards");
                 });
 
             modelBuilder.Entity("Super_Cartes_Infinies.Models.PlayableCard", b =>
@@ -1008,9 +873,6 @@ namespace Super_Cartes_Infinies.Migrations
                     b.Property<int?>("MatchPlayerDataId3")
                         .HasColumnType("int");
 
-                    b.Property<int>("OrdreId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CardId");
@@ -1023,7 +885,7 @@ namespace Super_Cartes_Infinies.Migrations
 
                     b.HasIndex("MatchPlayerDataId3");
 
-                    b.ToTable("PlayableCard", (string)null);
+                    b.ToTable("PlayableCard");
                 });
 
             modelBuilder.Entity("Super_Cartes_Infinies.Models.Player", b =>
@@ -1033,9 +895,6 @@ namespace Super_Cartes_Infinies.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("EloScore")
-                        .HasColumnType("int");
 
                     b.Property<string>("IdentityUserId")
                         .IsRequired()
@@ -1049,78 +908,20 @@ namespace Super_Cartes_Infinies.Migrations
 
                     b.HasIndex("IdentityUserId");
 
-                    b.ToTable("Players", (string)null);
+                    b.ToTable("Players");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
-                            EloScore = 2000,
-                            IdentityUserId = "11111111-1111-1111-1111-111111111112",
-                            Name = "Pro player"
+                            IdentityUserId = "User1Id",
+                            Name = "Test player 1"
                         },
                         new
                         {
                             Id = 2,
-                            EloScore = 750,
-                            IdentityUserId = "11111111-1111-1111-1111-111111111113",
-                            Name = "iWhiff"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            EloScore = 1970,
-                            IdentityUserId = "11111111-1111-1111-1111-111111111114",
-                            Name = "GertrudeTTV"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            EloScore = 600,
-                            IdentityUserId = "11111111-1111-1111-1111-111111111115",
-                            Name = "Noob"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            EloScore = 1000,
-                            IdentityUserId = "11111111-1111-1111-1111-111111111116",
-                            Name = "moomz"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            EloScore = 800,
-                            IdentityUserId = "11111111-1111-1111-1111-111111111117",
-                            Name = "pipo"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            EloScore = 1070,
-                            IdentityUserId = "11111111-1111-1111-1111-111111111118",
-                            Name = "GLT"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            EloScore = 1400,
-                            IdentityUserId = "11111111-1111-1111-1111-111111111119",
-                            Name = "Wooo"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            EloScore = 1500,
-                            IdentityUserId = "11111111-1111-1111-1111-111111111120",
-                            Name = "Hibou"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            EloScore = 1630,
-                            IdentityUserId = "11111111-1111-1111-1111-111111111121",
-                            Name = "P10"
+                            IdentityUserId = "User2Id",
+                            Name = "Test player 2"
                         });
                 });
 
@@ -1149,7 +950,7 @@ namespace Super_Cartes_Infinies.Migrations
 
                     b.HasKey("PowerId");
 
-                    b.ToTable("Power", (string)null);
+                    b.ToTable("Power");
 
                     b.HasData(
                         new

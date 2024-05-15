@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Super_Cartes_Infinies.Migrations;
 
 namespace Super_Cartes_Infinies.Models
 {
