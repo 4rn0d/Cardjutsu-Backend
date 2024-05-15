@@ -2,7 +2,6 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Super_Cartes_Infinies.Data;
 
@@ -20,49 +19,45 @@ namespace Super_Cartes_Infinies.Migrations
                 .HasAnnotation("ProductVersion", "7.0.17")
                 .HasAnnotation("Proxies:ChangeTracking", false)
                 .HasAnnotation("Proxies:CheckEquality", false)
-                .HasAnnotation("Proxies:LazyLoading", true)
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
-
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+                .HasAnnotation("Proxies:LazyLoading", true);
 
             modelBuilder.Entity("DeckOwnedCard", b =>
                 {
                     b.Property<int>("OwnedCardsId")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("decksId")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("OwnedCardsId", "decksId");
 
                     b.HasIndex("decksId");
 
-                    b.ToTable("DeckOwnedCard", (string)null);
+                    b.ToTable("DeckOwnedCard");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("NormalizedName")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
-                        .HasDatabaseName("RoleNameIndex")
-                        .HasFilter("[NormalizedName] IS NOT NULL");
+                        .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles", (string)null);
 
@@ -79,19 +74,17 @@ namespace Super_Cartes_Infinies.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("RoleId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -103,54 +96,54 @@ namespace Super_Cartes_Infinies.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("TEXT");
 
                     b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
+                        .HasColumnType("INTEGER");
 
                     b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -159,187 +152,48 @@ namespace Super_Cartes_Infinies.Migrations
 
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
-                        .HasDatabaseName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+                        .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
 
                     b.HasData(
                         new
                         {
+                            Id = "User1Id",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "3cf09a92-1b19-48f4-ad73-54e784a83782",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "4d065859-a6a3-4444-8aa2-c214b6eb736a",
+                            TwoFactorEnabled = false
+                        },
+                        new
+                        {
+                            Id = "User2Id",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "9d547ed6-1b8f-43b9-9586-458cf9ce4388",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "25e1136e-90e1-4aed-a402-f35f7adf2df9",
+                            TwoFactorEnabled = false
+                        },
+                        new
+                        {
                             Id = "11111111-1111-1111-1111-111111111111",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f1030293-e485-43b9-8bb4-846989501ca7",
+                            ConcurrencyStamp = "d5b30cc9-1829-4bc6-8342-5536226c22a3",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEDW5S+EhhJxJEz+0vM1tWKk+kRWHF/tmHh5XPao4/wL3Th/Fx2p2LfFPqz92M4rXDw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEOK1YIUbOV7VYzmOM62hJP2RRZLowkSNzZY9Cq80SjIL0FLy1oEEQq2KzPV8ufJfww==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "be8bf105-5f1f-42f0-9840-793e62f08590",
+                            SecurityStamp = "87e5be6e-3af4-49e9-87ea-f9dc2683859b",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
-                        },
-                        new
-                        {
-                            Id = "11111111-1111-1111-1111-111111111112",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "0129a83c-99c8-4473-8764-b6928c10b6bc",
-                            Email = "player1@aol.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = true,
-                            NormalizedEmail = "PLAYER1@AOL.COM",
-                            NormalizedUserName = "PLAYER1@AOL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEMLhuGz7HN1CkXsrTgtMzymDOmEgkaD78puDTJxzgptCDZZXl0tVYasXqvJSDiKZNg==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "cb9afd24-8064-4ed7-a746-c2b4546c2e8a",
-                            TwoFactorEnabled = false,
-                            UserName = "player1@aol.com"
-                        },
-                        new
-                        {
-                            Id = "11111111-1111-1111-1111-111111111113",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "7562015f-cb24-468c-9b3a-2eb06b0f7c06",
-                            Email = "player2@aol.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = true,
-                            NormalizedEmail = "PLAYER2@AOL.COM",
-                            NormalizedUserName = "PLAYER2@AOL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAELDHJ4UTHjaiicBekpWC7I1eB84GH5DbSv4Wixpkc6aMzkbKR554giT9GoxUUKaVaw==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "1ff79973-4761-40ac-bb70-dec76f703e39",
-                            TwoFactorEnabled = false,
-                            UserName = "player2@aol.com"
-                        },
-                        new
-                        {
-                            Id = "11111111-1111-1111-1111-111111111114",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "d6133bd5-341d-49c1-aaf7-f4c0663244d9",
-                            Email = "player3@aol.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = true,
-                            NormalizedEmail = "PLAYER3@AOL.COM",
-                            NormalizedUserName = "PLAYER3@AOL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEM7xLNGU5S6y5XsM6Hjb+F7gv8sLEaW3+2VD/Fpev/d3RRezv6BX5hjVKZt0c8dCig==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "c6bb8e11-599e-4b19-b5f5-f4df0b26fa1d",
-                            TwoFactorEnabled = false,
-                            UserName = "player3@aol.com"
-                        },
-                        new
-                        {
-                            Id = "11111111-1111-1111-1111-111111111115",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "27a73def-ae73-46c4-97b8-39dafbf27f71",
-                            Email = "player4@aol.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = true,
-                            NormalizedEmail = "PLAYER4@AOL.COM",
-                            NormalizedUserName = "PLAYER4@AOL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEJCSStLWpFhBWxAqG+AkfiXNZ++UAqJzM4J7JMCraWwu3JQkveYG8OkrifPQmg1S/w==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "e6692af3-17a6-4709-a99b-36fbed7dd827",
-                            TwoFactorEnabled = false,
-                            UserName = "player4@aol.com"
-                        },
-                        new
-                        {
-                            Id = "11111111-1111-1111-1111-111111111116",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "b2c8377b-b65c-4c4a-a481-da867286e791",
-                            Email = "player5@aol.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = true,
-                            NormalizedEmail = "PLAYER5@AOL.COM",
-                            NormalizedUserName = "PLAYER5@AOL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEFjVclN/8wiELsLGpJfRYdeKdGRNJulPOwyN2q8zj52XK2+tAV+mw7hFBbWHPOEQ9Q==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "ec1680b5-e09a-49b1-8964-521f39fe38d8",
-                            TwoFactorEnabled = false,
-                            UserName = "player5@aol.com"
-                        },
-                        new
-                        {
-                            Id = "11111111-1111-1111-1111-111111111117",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "a9dcaeb3-0785-4ba0-ab26-2e3b1fab703c",
-                            Email = "player6@aol.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = true,
-                            NormalizedEmail = "PLAYER6@AOL.COM",
-                            NormalizedUserName = "PLAYER6@AOL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEGweN3P5YNS1qj30kxKIb5sX0GBwBgaocOZsDwi2bek9naKhDVBrrZ9xSrCLDpJcKg==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "8874f5e5-f338-4af3-9fe2-5961212588c1",
-                            TwoFactorEnabled = false,
-                            UserName = "player6@aol.com"
-                        },
-                        new
-                        {
-                            Id = "11111111-1111-1111-1111-111111111118",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "a6ad64d2-7991-45f3-ac9f-4c4b8126a994",
-                            Email = "player7@aol.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = true,
-                            NormalizedEmail = "PLAYER7@AOL.COM",
-                            NormalizedUserName = "PLAYER7@AOL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEA189l7IpUr6El08H0fLGaWUGu3M1wZLw3oxsvVk1xNF1rdZ4DSxDwpRkpCb/1YoEw==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "51a34b04-8f72-4e13-af47-587944b721c1",
-                            TwoFactorEnabled = false,
-                            UserName = "player7@aol.com"
-                        },
-                        new
-                        {
-                            Id = "11111111-1111-1111-1111-111111111119",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "b66eccb3-6627-4223-8700-d6e8e0e8e6ff",
-                            Email = "player8@aol.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = true,
-                            NormalizedEmail = "PLAYER8@AOL.COM",
-                            NormalizedUserName = "PLAYER8@AOL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEDLLQM5Dc+PCfj/Oz0hHifHAgcscadd9KE8hEtE/8/IGAmGjORG1E4nSZ+E5K34MuA==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "eb80812b-3568-447b-8e8e-c5ada80ebdf7",
-                            TwoFactorEnabled = false,
-                            UserName = "player8@aol.com"
-                        },
-                        new
-                        {
-                            Id = "11111111-1111-1111-1111-111111111120",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "01e7c638-f3b4-4e5f-91bb-903336a02b86",
-                            Email = "player9@aol.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = true,
-                            NormalizedEmail = "PLAYER9@AOL.COM",
-                            NormalizedUserName = "PLAYER9@AOL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEKoDa2F727UV47vcxA2h/M5Jm5JIh+i9n1lDwkS/ieYp88r7QxwCFWDnSPyk/4gNdQ==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "eb98a390-ce90-45d6-92ba-9ddf9b80f92f",
-                            TwoFactorEnabled = false,
-                            UserName = "player9@aol.com"
-                        },
-                        new
-                        {
-                            Id = "11111111-1111-1111-1111-111111111121",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "333ce92e-63b7-4b58-9d34-ecaf78c5862b",
-                            Email = "player10@aol.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = true,
-                            NormalizedEmail = "PLAYER10@AOL.COM",
-                            NormalizedUserName = "PLAYER10@AOL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAECobIyob+GULc/r7eLa4rw6d/iThrYiHSqyOMQGm4/1PPi+v51a4FbG50cLyucOqqw==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "d7aec882-0cc1-4a22-9f56-db2e96ed76e4",
-                            TwoFactorEnabled = false,
-                            UserName = "player10@aol.com"
                         });
                 });
 
@@ -347,19 +201,17 @@ namespace Super_Cartes_Infinies.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -372,18 +224,18 @@ namespace Super_Cartes_Infinies.Migrations
                 {
                     b.Property<string>("LoginProvider")
                         .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ProviderKey")
                         .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ProviderDisplayName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("LoginProvider", "ProviderKey");
 
@@ -395,10 +247,10 @@ namespace Super_Cartes_Infinies.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("RoleId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("UserId", "RoleId");
 
@@ -417,18 +269,18 @@ namespace Super_Cartes_Infinies.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("LoginProvider")
                         .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
                         .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Value")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
@@ -439,39 +291,37 @@ namespace Super_Cartes_Infinies.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("Attack")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Colour")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("Cost")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("Health")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("ImageUrl")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<int?>("PlayerId")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
                     b.HasIndex("PlayerId");
 
-                    b.ToTable("Cards", (string)null);
+                    b.ToTable("Cards");
 
                     b.HasData(
                         new
@@ -740,18 +590,16 @@ namespace Super_Cartes_Infinies.Migrations
                 {
                     b.Property<int>("CardPowerId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CardPowerId"));
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("CardId")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("PowerId")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("Value")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("CardPowerId");
 
@@ -759,25 +607,23 @@ namespace Super_Cartes_Infinies.Migrations
 
                     b.HasIndex("PowerId");
 
-                    b.ToTable("CardPower", (string)null);
+                    b.ToTable("CardPower");
                 });
 
             modelBuilder.Entity("Super_Cartes_Infinies.Models.CardStart", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("CardId")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CardId");
 
-                    b.ToTable("CardStart", (string)null);
+                    b.ToTable("CardStart");
 
                     b.HasData(
                         new
@@ -831,25 +677,23 @@ namespace Super_Cartes_Infinies.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("ManaPerRound")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("NbCardsStart")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("NbCarteParDeck")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("NbDecks")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Config", (string)null);
+                    b.ToTable("Config");
 
                     b.HasData(
                         new
@@ -866,22 +710,20 @@ namespace Super_Cartes_Infinies.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("DeckName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<bool>("IsCurrentDeck")
-                        .HasColumnType("bit");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("PlayerId")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int?>("PlayerId1")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
@@ -889,39 +731,37 @@ namespace Super_Cartes_Infinies.Migrations
 
                     b.HasIndex("PlayerId1");
 
-                    b.ToTable("Decks", (string)null);
+                    b.ToTable("Decks");
                 });
 
             modelBuilder.Entity("Super_Cartes_Infinies.Models.Match", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("INTEGER");
 
                     b.Property<bool>("IsMatchCompleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("INTEGER");
 
                     b.Property<bool>("IsPlayerATurn")
-                        .HasColumnType("bit");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("PlayerDataAId")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("PlayerDataBId")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("UserAId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("UserBId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("WinnerUserId")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -929,46 +769,42 @@ namespace Super_Cartes_Infinies.Migrations
 
                     b.HasIndex("PlayerDataBId");
 
-                    b.ToTable("Matches", (string)null);
+                    b.ToTable("Matches");
                 });
 
             modelBuilder.Entity("Super_Cartes_Infinies.Models.MatchPlayerData", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("Health")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("Mana")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("PlayerId")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
                     b.HasIndex("PlayerId");
 
-                    b.ToTable("MatchPlayersData", (string)null);
+                    b.ToTable("MatchPlayersData");
                 });
 
             modelBuilder.Entity("Super_Cartes_Infinies.Models.OwnedCard", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("CardId")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("PlayerId")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
@@ -976,40 +812,38 @@ namespace Super_Cartes_Infinies.Migrations
 
                     b.HasIndex("PlayerId");
 
-                    b.ToTable("OwnedCards", (string)null);
+                    b.ToTable("OwnedCards");
                 });
 
             modelBuilder.Entity("Super_Cartes_Infinies.Models.PlayableCard", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("Attack")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("CardId")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("Health")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int?>("MatchPlayerDataId")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int?>("MatchPlayerDataId1")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int?>("MatchPlayerDataId2")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int?>("MatchPlayerDataId3")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("OrdreId")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
@@ -1023,104 +857,41 @@ namespace Super_Cartes_Infinies.Migrations
 
                     b.HasIndex("MatchPlayerDataId3");
 
-                    b.ToTable("PlayableCard", (string)null);
+                    b.ToTable("PlayableCard");
                 });
 
             modelBuilder.Entity("Super_Cartes_Infinies.Models.Player", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("EloScore")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("IdentityUserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
                     b.HasIndex("IdentityUserId");
 
-                    b.ToTable("Players", (string)null);
+                    b.ToTable("Players");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
-                            EloScore = 2000,
-                            IdentityUserId = "11111111-1111-1111-1111-111111111112",
-                            Name = "Pro player"
+                            IdentityUserId = "User1Id",
+                            Name = "Test player 1"
                         },
                         new
                         {
                             Id = 2,
-                            EloScore = 750,
-                            IdentityUserId = "11111111-1111-1111-1111-111111111113",
-                            Name = "iWhiff"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            EloScore = 1970,
-                            IdentityUserId = "11111111-1111-1111-1111-111111111114",
-                            Name = "GertrudeTTV"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            EloScore = 600,
-                            IdentityUserId = "11111111-1111-1111-1111-111111111115",
-                            Name = "Noob"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            EloScore = 1000,
-                            IdentityUserId = "11111111-1111-1111-1111-111111111116",
-                            Name = "moomz"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            EloScore = 800,
-                            IdentityUserId = "11111111-1111-1111-1111-111111111117",
-                            Name = "pipo"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            EloScore = 1070,
-                            IdentityUserId = "11111111-1111-1111-1111-111111111118",
-                            Name = "GLT"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            EloScore = 1400,
-                            IdentityUserId = "11111111-1111-1111-1111-111111111119",
-                            Name = "Wooo"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            EloScore = 1500,
-                            IdentityUserId = "11111111-1111-1111-1111-111111111120",
-                            Name = "Hibou"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            EloScore = 1630,
-                            IdentityUserId = "11111111-1111-1111-1111-111111111121",
-                            Name = "P10"
+                            IdentityUserId = "User2Id",
+                            Name = "Test player 2"
                         });
                 });
 
@@ -1128,28 +899,26 @@ namespace Super_Cartes_Infinies.Migrations
                 {
                     b.Property<int>("PowerId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PowerId"));
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<bool>("HasValue")
-                        .HasColumnType("bit");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Icone")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("PowerId");
 
-                    b.ToTable("Power", (string)null);
+                    b.ToTable("Power");
 
                     b.HasData(
                         new

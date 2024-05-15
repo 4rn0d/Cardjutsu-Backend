@@ -20,7 +20,7 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
-    options.UseSqlServer(connectionString);
+    options.UseSqlite(connectionString);
     options.UseLazyLoadingProxies();
 
 });
@@ -97,6 +97,7 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.Cookie.HttpOnly = false;
+    options.Cookie.SameSite = SameSiteMode.None;
 });
 
 //fin cookie
