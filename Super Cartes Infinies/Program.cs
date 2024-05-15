@@ -52,13 +52,14 @@ builder.Services.AddScoped<PlayersService>();
 builder.Services.AddScoped<AccountService>();
 builder.Services.AddScoped<CardsService>();
 builder.Services.AddScoped<DecksService>();
-builder.Services.AddSingleton<WaitingUserService>();
 builder.Services.AddScoped<MatchesService>();
 builder.Services.AddScoped<StartingCardsService>();
 builder.Services.AddScoped<MatchConfigurationService>();
+builder.Services.AddSingleton<WaitingUserService>();
+builder.Services.AddSingleton<PairingService>();
 
-//builder.Services.AddHostedService<WaitingUserService>(p => p.GetService<WaitingUserService>());
 
+builder.Services.AddHostedService<PairingService>(p => p.GetService<PairingService>());
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

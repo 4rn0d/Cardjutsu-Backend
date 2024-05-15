@@ -45,33 +45,37 @@ public class MatchHub : Hub
 
     public async Task JoinMatch()
     {
+        Player player = await _context.Players.FirstOrDefaultAsync(p=>p.IdentityUser.Id == CurentUser.Id);
 
-        JoiningMatchData joiningMatchData = await _matchesService.JoinMatch(CurentUser.Id, 0, Context.ConnectionId, null);
+        //Player veux join un match --> ajoute dans la liste dattente
+        await _waitingUserService.AddPlayerToWaitingList(CurentUser.Id, Context.ConnectionId, player.Decks.First().Id, player.EloScore);
 
-        if (joiningMatchData != null)
-        {
-            string matchGroup = CreateGroup(joiningMatchData.Match.Id);
-            await Groups.AddToGroupAsync(Context.ConnectionId, matchGroup);
-            if (joiningMatchData.OtherPlayerConnectionId != null)
-            {
-                await Groups.AddToGroupAsync(joiningMatchData.OtherPlayerConnectionId, matchGroup);
-            }
+        //JoiningMatchData joiningMatchData = await _matchesService.JoinMatch(CurentUser.Id, 0, Context.ConnectionId, null);
 
-            // TODO
-            await Clients.Group(matchGroup).SendAsync("GetMatchData", joiningMatchData);
+        //if (joiningMatchData != null)
+        //{
+        //    string matchGroup = CreateGroup(joiningMatchData.Match.Id);
+        //    await Groups.AddToGroupAsync(Context.ConnectionId, matchGroup);
+        //    if (joiningMatchData.OtherPlayerConnectionId != null)
+        //    {
+        //        await Groups.AddToGroupAsync(joiningMatchData.OtherPlayerConnectionId, matchGroup);
+        //    }
 
-            if (!joiningMatchData.IsStarted)
-            {
-                // TODO
-                var startMatchEvent = await _matchesService.StartMatch(CurentUser.Id, joiningMatchData.Match);
-                await Clients.Group(matchGroup).SendAsync("StartMatch", startMatchEvent);
-            }
-            await Clients.Caller.SendAsync("IsWaiting", false);
-        }
-        else
-        {
-            await Clients.Caller.SendAsync("IsWaiting", true);
-        }
+        //    // TODO
+        //    await Clients.Group(matchGroup).SendAsync("GetMatchData", joiningMatchData);
+
+        //    if (!joiningMatchData.IsStarted)
+        //    {
+        //        // TODO
+        //        var startMatchEvent = await _matchesService.StartMatch(CurentUser.Id, joiningMatchData.Match);
+        //        await Clients.Group(matchGroup).SendAsync("StartMatch", startMatchEvent);
+        //    }
+        //    await Clients.Caller.SendAsync("IsWaiting", false);
+        //}
+        //else
+        //{
+        //    await Clients.Caller.SendAsync("IsWaiting", true);
+        //}
 
 
 

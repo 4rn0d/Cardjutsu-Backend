@@ -12,6 +12,7 @@ namespace Super_Cartes_Infinies.Services
         private PlayersService _playersService;
         private CardsService _cardsService;
         private MatchConfigurationService _matchConfigurationService;
+        private PairingService _pairingService;
 
         public MatchesService(ApplicationDbContext context, WaitingUserService waitingUserService, PlayersService playersService, CardsService cardsService, MatchConfigurationService matchConfigurationService) : base(context)
         {
@@ -19,6 +20,15 @@ namespace Super_Cartes_Infinies.Services
             _playersService = playersService;
             _cardsService = cardsService;
             _matchConfigurationService = matchConfigurationService;
+        }
+
+
+        public async Task StartMatch(UsersReadyForAMatch pair)
+        {
+            await JoinMatch(pair.UserAId, pair.DeckAId, pair.PlayerConnectionId, null);
+            await JoinMatch(pair.UserBId, pair.DeckBId, pair.PlayerConnectionId, null);
+
+            // TODO Completer l'action de start un match
         }
 
         // Cette fonction est assez flexible car elle peut simplement être appeler lorsqu'un user veut jouer un match
@@ -55,25 +65,23 @@ namespace Super_Cartes_Infinies.Services
             }
             // Si on veut rejoindre un match en particulier, on ne se met pas en file
             else if(specificMatchId == null)
-
-
             {
-                UsersReadyForAMatch? pairOfUsers = await _waitingUserService.LookForWaitingUser(userId, deckId, connectionId);
+                
 
-                if (pairOfUsers != null)
-                {
-                    playerA = _playersService.GetPlayerFromUserId(pairOfUsers.UserAId);
-                    playerB = _playersService.GetPlayerFromUserId(pairOfUsers.UserBId);
+                //if (pairOfUsers != null)
+                //{
+                //    playerA = _playersService.GetPlayerFromUserId(pairOfUsers.UserAId);
+                //    playerB = _playersService.GetPlayerFromUserId(pairOfUsers.UserBId);
 
 
 
-                    // Création d'un nouveau match
-                    IEnumerable<Card> cards = _cardsService.GetAll();
-                    match = new Match(playerA, playerB, cards);
-                    otherPlayerConnectionId = pairOfUsers.PlayerConnectionId;
+                //    // Création d'un nouveau match
+                //    IEnumerable<Card> cards = _cardsService.GetAll();
+                //    match = new Match(playerA, playerB, cards);
+                //    otherPlayerConnectionId = pairOfUsers.PlayerConnectionId;
 
-                    Update(match);
-                }
+                //    Update(match);
+                //}
             }
 
             if (match != null)
@@ -238,6 +246,5 @@ namespace Super_Cartes_Infinies.Services
             return JsonSerializer.Serialize(playCardEvent as MatchEvent);
         }
     }
-
 }
 

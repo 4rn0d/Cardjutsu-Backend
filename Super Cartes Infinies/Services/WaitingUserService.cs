@@ -1,8 +1,7 @@
-﻿namespace Super_Cartes_Infinies.Services
+﻿using System.Drawing;
+
+namespace Super_Cartes_Infinies.Services
 {
-
-
-
     public class UsersReadyForAMatch
     {
         public UsersReadyForAMatch(string userAId, string userBId, int deckAId, int deckBId, string playerConnectionId)
@@ -25,8 +24,9 @@
     {
         private string? _waitingUserId = null;
         private int _waitingDeckId = 0;
-        private string? _playerConnectionId = null;
+        public string? _playerConnectionId = null;
         private SemaphoreSlim _semaphore;
+        public List<PlayerInfo> _listPlayerInfos;
 
 
         public string WaitingUserId { get { return _waitingUserId; } }
@@ -34,9 +34,8 @@
         public WaitingUserService()
         {
             _semaphore = new SemaphoreSlim(1);
+            _listPlayerInfos = new List<PlayerInfo>();
         }
-
-        
 
         public async Task<bool> StopWaitingUser(string userId)
         {
@@ -53,51 +52,20 @@
             return stoppedWaiting;
         }
 
-        // Retourne null si il n'y a pas déjà un user qui attend pour jouer
-        // Si non, on retourne la paire de Users
-        public async Task<UsersReadyForAMatch?> LookForWaitingUser(string userId, int deckId, string? connectionId)
+        public async Task AddPlayerToWaitingList(string userId, string? connectionId, int deckId, int elo)
         {
-            // Si c'est encore le même player qui attendait déjà, on retourne null
-            if (_waitingUserId == userId)
-                return null;
 
-            await _semaphore.WaitAsync();
-
-            // Aucun match en attente
-            if (_waitingUserId == null)
+            PlayerInfo playerInfo = new PlayerInfo
             {
-                _waitingUserId = userId;
-                _waitingDeckId = deckId;
-                _playerConnectionId = connectionId;
-                _semaphore.Release();
-                return null;
-            }
-            else
-            {
+                userID = userId,
+                ELO = elo,
+                HeureJoin = DateTime.Now,
+                deckID = deckId,
+            };
 
-                var matchCreationResult = new UsersReadyForAMatch(_waitingUserId, userId, _waitingDeckId, deckId, _playerConnectionId!);
-                _waitingUserId = null;
-                _waitingDeckId = 0;
-                _playerConnectionId = null;
-                _semaphore.Release();
-                return matchCreationResult;
-
-
-            }
-
-
-
-
+            _listPlayerInfos.Add(playerInfo);
         }
 
-        //protected override Task ExecuteAsync(CancellationToken stoppingToken)
-        //{
-        //    while (!stoppingToken.IsCancellationRequested)
-        //    {
-        //        await Task.Delay(DELAY, stoppingToken);
-        //        await CreateELOAppropriateMatch(stoppingToken);
-        //    }
-        //}
     }
 }
 
