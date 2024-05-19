@@ -12,6 +12,7 @@
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
   <ItemGroup>
+    <None Remove="wwwroot" />
     <None Remove="Models\ViewModels\" />
     <None Remove="Services\" />
     <None Remove="Areas\Admin\" />
